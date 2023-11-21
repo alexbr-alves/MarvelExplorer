@@ -58,5 +58,6 @@
     <string name="data_and_time">%s - %s</string>
     <string name="search_event">Pesquise um evento</string>
 
+    <string name="item_transaction">item transaction</string>
 
 </resources>

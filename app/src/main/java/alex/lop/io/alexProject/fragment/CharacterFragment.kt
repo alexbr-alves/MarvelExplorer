@@ -1,6 +1,7 @@
 package alex.lop.io.alexProject.fragment
 
 
+import alex.lop.io.alexProject.R
 import alex.lop.io.alexProject.adapters.CharacterAdapter
 import alex.lop.io.alexProject.databinding.FragmentCharacterBinding
 import alex.lop.io.alexProject.viewModel.CharacterViewModel
@@ -9,10 +10,10 @@ import alex.lop.io.alexProject.util.setGone
 import alex.lop.io.alexProject.util.setInvisible
 import alex.lop.io.alexProject.util.setVisible
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
