@@ -7,6 +7,7 @@ import alex.lop.io.alexProject.data.model.comic.ComicModel
 import alex.lop.io.alexProject.databinding.FragmentDetailsComicBinding
 import alex.lop.io.alexProject.fragment.BaseFragment
 import alex.lop.io.alexProject.util.Converts
+import alex.lop.io.alexProject.util.limitDescription
 import alex.lop.io.alexProject.util.loadImage
 import alex.lop.io.alexProject.viewModel.detailsComics.ComicDetailsViewModel
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,13 +42,27 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         favoriteModel = converts.comicToFavorite(comicModel)
         viewModel.searchFavorite(favoriteModel.id)
         onLoadComic(comicModel)
-        setupViewPager()
+        handleViewPager()
         descriptionComic()
+        handleTabLayout()
     }
 
-    private fun setupViewPager() {
-        handleClickViewpager()
-        handleViewPager()
+    private fun handleTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab : TabLayout.Tab) {
+                val selectedTabPosition = tab.position
+                binding.viewPagerComic.setCurrentItem(selectedTabPosition, true)
+            }
+
+            override fun onTabUnselected(tab : TabLayout.Tab) {}
+            override fun onTabReselected(tab : TabLayout.Tab) {}
+
+        })
+        binding.viewPagerComic.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayout.getTabAt(position)?.select()
+            }
+        })
     }
 
     private fun handleViewPager() {
@@ -60,7 +76,6 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
             override fun onPageSelected(position : Int) {
                 super.onPageSelected(position)
                 viewPager2?.offscreenPageLimit = 1
-                updateButtonColors(position)
             }
         })
     }
@@ -69,35 +84,13 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
             val color = if (it) R.drawable.favorite_red else R.drawable.favorite
             binding.imageFavorite.setImageResource(color)
-            textName.text = comic.title
+            textName.text = comic.title.limitDescription(30)
             loadImage(
                 imageComic, comic.thumbnailModel.path, comic.thumbnailModel.extension
             )
         }
     }
 
-    private fun updateButtonColors(position : Int) = binding.run {
-        val textViews = arrayOf(binding.textAbout, binding.textCharacter, binding.textEvent)
-        val activeColor = ContextCompat.getColor(requireContext(), R.color.red)
-        val inactiveColor = ContextCompat.getColor(requireContext(), R.color.white)
-
-        textViews.forEachIndexed { index, textView ->
-            textView.setTextColor(if (index == position) activeColor else inactiveColor)
-        }
-    }
-
-    private fun handleClickViewpager() = binding.run {
-        textAbout.setOnClickListener {
-            viewPagerComic.currentItem = 0
-        }
-        textCharacter.setOnClickListener {
-            viewPagerComic.currentItem = 1
-        }
-        textEvent.setOnClickListener {
-            viewPagerComic.currentItem = 2
-        }
-        updateButtonColors(viewPagerComic.currentItem)
-    }
 
     private fun descriptionComic() = binding.run {
         imageFavorite.setOnClickListener {

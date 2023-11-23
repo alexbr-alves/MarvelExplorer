@@ -33,8 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:padding="7dp"
                 android:fontFamily="@font/marvel"
                 android:text="@string/tx_item_name"
                 android:textColor="@color/white"
@@ -42,72 +41,57 @@
                 app:layout_constraintTop_toBottomOf="@id/image_comic"
                 app:layout_constraintStart_toStartOf="@id/image_comic" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:elevation="1dp"
+                app:tabIndicatorFullWidth="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_name"
+                app:tabBackground="@color/gray_500"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorGravity="bottom"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/white">
 
-          <LinearLayout
-              android:id="@+id/layout_buttons"
-              android:layout_width="wrap_content"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/text_name"
-              android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_about" />
 
-              <com.google.android.material.textview.MaterialTextView
-                  android:id="@+id/text_about"
-                  style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginStart="12dp"
-                  android:layout_marginTop="24dp"
-                  android:paddingVertical="5dp"
-                  android:paddingHorizontal="2dp"
-                  android:text="@string/title_about"
-                  android:textAlignment="inherit"
-                  android:textColor="@color/red"
-                  android:textSize="14sp"
-                  app:layout_constraintStart_toStartOf="@+id/image_comic"
-                  app:layout_constraintTop_toBottomOf="@+id/image_comic" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_fragment_characters" />
 
-              <com.google.android.material.textview.MaterialTextView
-                  android:id="@+id/text_character"
-                  style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginStart="12dp"
-                  android:layout_marginTop="24dp"
-                  android:paddingVertical="5dp"
-                  android:paddingHorizontal="2dp"
-                  android:text="@string/title_fragment_characters"
-                  android:textAlignment="inherit"
-                  android:textColor="@color/white"
-                  android:textSize="14sp"
-                  app:layout_constraintStart_toStartOf="@+id/image_comic"
-                  app:layout_constraintTop_toBottomOf="@+id/image_comic" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_fragment_event" />
 
-              <com.google.android.material.textview.MaterialTextView
-                  android:id="@+id/text_event"
-                  style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginStart="12dp"
-                  android:layout_marginTop="24dp"
-                  android:paddingVertical="5dp"
-                  android:paddingHorizontal="2dp"
-                  android:text="@string/title_fragment_event"
-                  android:textAlignment="inherit"
-                  android:textColor="@color/white"
-                  android:textSize="14sp"
-                  app:layout_constraintStart_toEndOf="@+id/text_character"
-                  app:layout_constraintTop_toBottomOf="@+id/image_comic" />
-          </LinearLayout>
+            </com.google.android.material.tabs.TabLayout>
 
             <ImageView
                 android:id="@+id/image_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/favorite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/viewPagerComic"
                 android:contentDescription="@string/app_name" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                android:background="@color/gray"
+                android:layout_marginTop="4dp"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerComic"
@@ -117,7 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/layout_buttons" />
+                app:layout_constraintTop_toBottomOf="@+id/view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,14 +39,26 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         eventModel = args.eventModel
         favoriteModel = converts.eventToFavorite(eventModel)
         viewModel.searchFavorite(favoriteModel.id)
-        setupViewPager()
+        handleViewPager()
         onLoadEvent(eventModel)
         descriptionEvent()
+        handleTabLayout()
     }
 
-    private fun setupViewPager() {
-        handleClickViewpager()
-        handleViewPager()
+    private fun handleTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab : TabLayout.Tab) {
+                val selectedTabPosition = tab.position
+                binding.viewPagerEvent.setCurrentItem(selectedTabPosition, true)
+            }
+            override fun onTabUnselected(tab : TabLayout.Tab) {}
+            override fun onTabReselected(tab : TabLayout.Tab) {}
+        })
+        binding.viewPagerEvent.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayout.getTabAt(position)?.select()
+            }
+        })
     }
 
     private fun onLoadEvent(comic : EventModel) = with(binding) {
@@ -85,36 +98,8 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
             override fun onPageSelected(position : Int) {
                 super.onPageSelected(position)
                 viewPagerEvent?.offscreenPageLimit = 1
-                updateButtonColors(position)
             }
         })
-    }
-
-    private fun updateButtonColors(position : Int) = binding.run {
-        val textViews =
-            arrayOf(binding.textAbout, binding.textCharacter, binding.textComic, binding.textSeries)
-        val activeColor = ContextCompat.getColor(requireContext(), R.color.red)
-        val inactiveColor = ContextCompat.getColor(requireContext(), R.color.white)
-
-        textViews.forEachIndexed { index, textView ->
-            textView.setTextColor(if (index == position) activeColor else inactiveColor)
-        }
-    }
-
-    private fun handleClickViewpager() = binding.run {
-        textAbout.setOnClickListener {
-            viewPagerEvent.currentItem = 0
-        }
-        textCharacter.setOnClickListener {
-            viewPagerEvent.currentItem = 1
-        }
-        textComic.setOnClickListener {
-            viewPagerEvent.currentItem = 2
-        }
-        textSeries.setOnClickListener {
-            viewPagerEvent.currentItem = 3
-        }
-        updateButtonColors(viewPagerEvent.currentItem)
     }
 
 }

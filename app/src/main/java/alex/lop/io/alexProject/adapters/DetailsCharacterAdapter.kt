@@ -13,14 +13,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class DetailsCharacterAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, val id: Int, val description: String) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CharacterDescriptionFragment(description)
             1 -> CharacterComicsFragment(id)
             2 -> CharacterEventsFragment(id)
-            3 -> CharacterSeriesFragment(id)
             else -> CharacterComicsFragment(id)
         }
     }

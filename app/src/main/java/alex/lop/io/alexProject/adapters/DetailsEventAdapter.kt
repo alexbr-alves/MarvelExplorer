@@ -12,14 +12,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class DetailsEventAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, val id: Int, val description: String) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> EventDescriptionFragment(description)
             1 -> EventCharactersFragment(id)
             2 -> EventComicsFragment(id)
-            3 -> EventSeriesFragment(id)
             else -> EventDescriptionFragment(description)
         }
     }

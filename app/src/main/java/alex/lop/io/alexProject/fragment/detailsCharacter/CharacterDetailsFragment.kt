@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,12 +43,24 @@ class CharacterDetailsFragment :
         descriptionCharacter()
         onLoadCharacter(characterModel)
         viewModel.searchFavorite(favoriteModel.id)
-        setupViewPager()
+        handleViewPager()
+        handleTabLayout()
     }
 
-    private fun setupViewPager() {
-        handleClickViewpager()
-        handleViewPager()
+    private fun handleTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab : TabLayout.Tab) {
+                val selectedTabPosition = tab.position
+                binding.viewPager2.setCurrentItem(selectedTabPosition, true)
+            }
+            override fun onTabUnselected(tab : TabLayout.Tab) {}
+            override fun onTabReselected(tab : TabLayout.Tab) {}
+        })
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayout.getTabAt(position)?.select()
+            }
+        })
     }
 
     private fun handleViewPager() {
@@ -65,37 +78,11 @@ class CharacterDetailsFragment :
             override fun onPageSelected(position : Int) {
                 super.onPageSelected(position)
                 viewPager2?.offscreenPageLimit = 1
-                updateButtonColors(position)
             }
         })
     }
 
-    private fun updateButtonColors(position : Int) {
-        val textViews =
-            arrayOf(binding.textAbout, binding.textComic, binding.textEvent, binding.textSeries)
 
-        val activeColor = ContextCompat.getColor(requireContext(), R.color.red)
-        val inactiveColor = ContextCompat.getColor(requireContext(), R.color.white)
-        textViews.forEachIndexed { index, textView ->
-            textView.setTextColor(if (index == position) activeColor else inactiveColor)
-        }
-    }
-
-    private fun handleClickViewpager() = binding.run {
-        textAbout.setOnClickListener {
-            viewPager2.currentItem = 0
-        }
-        textComic.setOnClickListener {
-            viewPager2.currentItem = 1
-        }
-        textEvent.setOnClickListener {
-            viewPager2.currentItem = 2
-        }
-        textSeries.setOnClickListener {
-            viewPager2.currentItem = 3
-        }
-        updateButtonColors(viewPager2.currentItem)
-    }
 
     private fun descriptionCharacter() = binding.run {
         imageFavorite.setOnClickListener {

@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/gray_500">
 
-    <View
-        android:id="@+id/end_view"
-        android:transitionName="shared_element_container"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
         android:layout_width="match_parent"
@@ -27,6 +21,7 @@
             <ImageView
                 android:id="@+id/imgCharacterDetails"
                 android:layout_width="wrap_content"
+                android:transitionName="characterImageTransition"
                 android:layout_height="400dp"
                 android:contentDescription="@string/app_name"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
+                android:paddingVertical="5dp"
                 android:fontFamily="@font/marvel"
                 android:text="@string/tx_item_name"
                 android:textColor="@color/white"
@@ -52,92 +45,57 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imgCharacterDetails" />
 
-            <LinearLayout
-                android:id="@+id/layout_buttons"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="7dp"
+                android:elevation="1dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNameCharacterDetails">
+                app:layout_constraintTop_toBottomOf="@id/tvNameCharacterDetails"
+                app:tabBackground="@color/gray_500"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorGravity="bottom"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/white">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_about"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:paddingHorizontal="2dp"
-                    android:paddingVertical="5dp"
-                    android:text="@string/title_about"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/image_comic"
-                    app:layout_constraintTop_toBottomOf="@+id/image_comic" />
+                    android:text="@string/title_about" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_comic"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/comics"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/imgCharacterDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
+                    android:text="@string/title_fragment_comic" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_event"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/title_fragment_event"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/text_comic"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
+                    android:text="@string/title_fragment_event" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_series"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/title_fragment_series"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/text_event"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
-            </LinearLayout>
+            </com.google.android.material.tabs.TabLayout>
 
             <ImageView
                 android:id="@+id/image_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/favorite"
                 app:layout_constraintBottom_toTopOf="@id/viewPager2"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                android:background="@color/gray"
+                android:layout_marginTop="4dp"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager2"
@@ -146,7 +104,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_buttons"
+                app:layout_constraintTop_toBottomOf="@+id/view"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

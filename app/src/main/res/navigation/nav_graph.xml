@@ -15,10 +15,18 @@
             app:argType="alex.lop.io.alexProject.data.model.character.CharacterModel" />
         <action
             android:id="@+id/action_detailsCharacterFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_detailsCharacterFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/favoriteCharacterFragment"
@@ -27,13 +35,25 @@
         android:label="FavoriteCharacterFragment" >
         <action
             android:id="@+id/action_favoriteCharacterFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_favoriteCharacterFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_favoriteCharacterFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/CharacterFragment"
@@ -42,7 +62,11 @@
         android:label="ListCharacterFragment" >
         <action
             android:id="@+id/action_listCharacterFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
 
     </fragment>
     <fragment
@@ -52,13 +76,16 @@
         android:label="SearchCharacterFragment" >
         <action
             android:id="@+id/action_searchCharacterFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_timelineFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_timelineFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -76,13 +103,25 @@
             app:destination="@id/eventFragment" />
         <action
             android:id="@+id/action_homeFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/comicsFragment"
@@ -91,7 +130,11 @@
         android:label="ComicsFragment" >
         <action
             android:id="@+id/action_comicsFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -100,7 +143,11 @@
         android:label="EventFragment" >
         <action
             android:id="@+id/action_eventFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_details_comic"
@@ -112,10 +159,18 @@
             app:argType="alex.lop.io.alexProject.data.model.comic.ComicModel" />
         <action
             android:id="@+id/action_detailsComicFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_detailsComicFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment" />
+            app:destination="@id/detailsEventFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/detailsEventFragment"
@@ -127,9 +182,17 @@
             app:argType="alex.lop.io.alexProject.data.model.event.EventModel" />
         <action
             android:id="@+id/action_detailsEventFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment" />
+            app:destination="@id/detailsCharacterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_detailsEventFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment" />
+            app:destination="@id/detailsComicFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
 </navigation>
