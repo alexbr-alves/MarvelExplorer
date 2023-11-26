@@ -23,7 +23,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="400dp"
                 android:contentDescription="@string/app_name"
-                android:transitionName="characterImageTransition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -100,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/white"
-                    android:minHeight="500dp"
+                    android:minHeight="300dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
