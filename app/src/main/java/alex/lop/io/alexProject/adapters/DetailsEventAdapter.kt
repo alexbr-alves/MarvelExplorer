@@ -3,7 +3,6 @@ package alex.lop.io.alexProject.adapters
 import alex.lop.io.alexProject.fragment.detailsEvent.EventCharactersFragment
 import alex.lop.io.alexProject.fragment.detailsEvent.EventComicsFragment
 import alex.lop.io.alexProject.fragment.detailsEvent.EventDescriptionFragment
-import alex.lop.io.alexProject.fragment.detailsEvent.EventSeriesFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle

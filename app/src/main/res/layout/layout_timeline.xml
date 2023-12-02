@@ -64,7 +64,7 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/marvel"
             android:text="@string/tx_item_name"
-            android:textColor="@color/red_marvel"
+            android:textColor="@color/lavender_indigo"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/name"

@@ -42,6 +42,13 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         onLoadEvent(eventModel)
         descriptionEvent()
         handleTabLayout()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        binding.iconBackAlone.imageBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun handleTabLayout() {

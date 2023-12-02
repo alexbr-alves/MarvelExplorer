@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_500">
+    android:background="@color/black_raisin">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
@@ -33,23 +33,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:padding="7dp"
-                android:fontFamily="@font/marvel"
+                android:paddingVertical="5dp"
+                android:fontFamily="@font/poppins_thin"
                 android:text="@string/tx_item_name"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/image_event"
                 app:layout_constraintStart_toStartOf="@id/image_event" />
 
+            <include
+                android:id="@+id/icon_back_alone"
+                layout="@layout/icon_back_alone" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="7dp"
                 android:elevation="1dp"
+                app:layout_constraintBottom_toTopOf="@id/viewPagerEvent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_name"
-                app:tabBackground="@color/gray_500"
+                app:tabBackground="@color/black_raisin"
                 app:tabIndicatorColor="@color/white"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorGravity="bottom"
