@@ -72,7 +72,7 @@ class TimelineFragment :
                     binding.progressbarSearch.setInvisible()
                     result.data?.let { item ->
                         if (item.isNotEmpty()) {
-                            timelineAdapter?.timelineList = item.toList()
+                            timelineAdapter.timelineList = item.toList()
                         }
                     }
                 }

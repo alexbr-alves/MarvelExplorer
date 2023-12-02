@@ -38,7 +38,7 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
                     oldItem.description == newItem.description &&
                     oldItem.title == newItem.title &&
                     oldItem.name == newItem.name &&
-                    oldItem.modified == newItem.modified &&
+                    //oldItem.modified == newItem.modified &&
                     oldItem.thumbnailModel.path == newItem.thumbnailModel.path &&
                     oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension
         }
@@ -85,11 +85,11 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
                 TimelineType.EVENT -> type.text =
                     context.getString(R.string.title_fragment_event)
             }
-            textData.text = context.getString(
+            /*textData.text = context.getString(
                 R.string.data_and_time,
                 desiredTimeFormat.format(timeline.modified),
                 desireDataFormat.format(timeline.modified)
-            )
+            )*/
 
             if (timeline.description.isNullOrEmpty()) {
                 description.setGone()

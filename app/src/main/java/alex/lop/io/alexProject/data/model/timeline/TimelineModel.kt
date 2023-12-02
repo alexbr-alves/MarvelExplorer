@@ -14,8 +14,8 @@ data class TimelineModel(
     val name : String,
     @SerializedName("description")
     val description : String,
-    @SerializedName("modified")
-    val modified : Date,
+    //@SerializedName("modified")
+    //var modified : Date?,
     var type : TimelineType,
     @SerializedName("thumbnail")
     val thumbnailModel : ThumbnailModel

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/marvel"
-            android:text="17/11/2023"
+            android:text=" "
             android:textColor="@color/gray"
             android:textSize="12sp"
             android:textStyle="italic"

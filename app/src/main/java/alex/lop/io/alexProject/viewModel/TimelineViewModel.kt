@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,8 +42,6 @@ class TimelineViewModel @Inject constructor(
             val comicList = handleResponse(repository.getComicTimeline())
             val eventList = handleResponse(repository.getEventTimeline())
             val characterList = handleResponse(repository.getCharacterTimeline())
-
-
             val combinedList = mutableListOf<TimelineModel>()
 
             comicList.data?.let {
@@ -54,7 +55,6 @@ class TimelineViewModel @Inject constructor(
                 eventList.data?.let {
                     it.data.result.map { it.type = TimelineType.EVENT }
                 }
-
 
                 eventList.data?.let { data ->
                     combinedList.addAll(
@@ -74,7 +74,7 @@ class TimelineViewModel @Inject constructor(
                 }
             }
 
-            combinedList.sortByDescending { it.modified }
+            //combinedList.sortByDescending { it.modified }
 
             _listItems.value = ResourceState.Success(combinedList)
         } catch (t : Throwable) {
