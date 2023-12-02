@@ -5,6 +5,9 @@ import alexProject.databinding.LayoutCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.setGone
+import alexProject.util.setInvisible
+import alexProject.util.setVisible
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -29,7 +32,9 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
                     oldItem.title == newItem.title &&
                     oldItem.description == newItem.description &&
                     oldItem.thumbnailModel.path == newItem.thumbnailModel.path &&
-                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension
+                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension &&
+                    oldItem.characters.available == newItem.characters.available &&
+                    oldItem.events.available == newItem.events.available
         }
 
     }
@@ -63,7 +68,20 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     override fun onBindViewHolder(holder : ComicsViewHolder, position : Int) {
         val comic = comicList[position]
         holder.binding.apply {
-            textName.text = comic.title.limitDescription(20)
+            textName.text = comic.title.limitDescription(15)
+            textComic.setGone()
+            imageComic.setGone()
+            if (comic.characters.available > 0) {
+                textPeople.setVisible()
+                imagePeople.setVisible()
+                textPeople.text = comic.characters.available.toString()
+            } else if (comic.events.available > 0) {
+                textEvent.setVisible()
+                imageEvent.setVisible()
+                textEvent.text = comic.events.available.toString()
+            } else {
+                relativeCounts.setInvisible()
+            }
             loadImage(
                 image,
                 comic.thumbnailModel.path,

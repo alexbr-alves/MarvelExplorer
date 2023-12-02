@@ -42,14 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:fontFamily="@font/poppins_thin"
+                android:fontFamily="@font/marvel"
                 android:letterSpacing="0.04"
                 android:lineHeight="21sp"
                 android:text="@string/tx_item_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
                 android:textFontWeight="700"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <RelativeLayout

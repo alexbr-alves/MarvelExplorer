@@ -49,6 +49,12 @@ class Converts {
             ThumbnailModel(
                 favoriteModel.thumbnailModel.path,
                 favoriteModel.thumbnailModel.extension
+            ),
+            SizeItens(
+                available = 0
+            ),
+            SizeItens(
+                available = 0
             )
         )
     }
@@ -117,6 +123,12 @@ class Converts {
             ThumbnailModel(
                 timelineModel.thumbnailModel.path,
                 timelineModel.thumbnailModel.extension
+            ),
+            SizeItens(
+                available = 0
+            ),
+            SizeItens(
+                available = 0
             )
         )
     }

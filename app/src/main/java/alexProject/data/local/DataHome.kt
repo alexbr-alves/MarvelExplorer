@@ -93,6 +93,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/1/20/65526118d589e",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -103,6 +109,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/c/03/651c62f787332",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -113,6 +125,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/6/10/651c62d5035ce",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -123,6 +141,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/6/90/651c629a96d2b",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -133,6 +157,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/9/30/651c627f73aba",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
     val EVENT1 = EventModel(
