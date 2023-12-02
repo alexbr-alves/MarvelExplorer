@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -58,7 +59,7 @@ class ComicCharactersFragment(private val comicId : Int) :
     private fun setupRecyclerView() = with(binding) {
         rvComics.apply {
             adapter = characterDetailsAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
