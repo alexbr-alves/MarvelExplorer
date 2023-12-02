@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/detailsCharacterFragment"
         tools:layout="@layout/fragment_details_character"
-        android:name="alex.lop.io.alexProject.fragment.detailsCharacter.CharacterDetailsFragment"
+        android:name="alexProject.fragment.detailsCharacter.CharacterDetailsFragment"
         android:label="DetailsCharacterFragment" >
         <argument
             android:name="character"
-            app:argType="alex.lop.io.alexProject.data.model.character.CharacterModel" />
+            app:argType="alexProject.data.model.character.CharacterModel" />
         <action
             android:id="@+id/action_detailsCharacterFragment_to_detailsComicFragment"
             app:destination="@id/detailsComicFragment"
@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/favoriteCharacterFragment"
         tools:layout="@layout/fragment_favorite_character"
-        android:name="alex.lop.io.alexProject.fragment.FavoriteFragment"
+        android:name="alexProject.fragment.FavoriteFragment"
         android:label="FavoriteCharacterFragment" >
         <action
             android:id="@+id/action_favoriteCharacterFragment_to_detailsCharacterFragment"
@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/CharacterFragment"
         tools:layout="@layout/fragment_character"
-        android:name="alex.lop.io.alexProject.fragment.CharacterFragment"
+        android:name="alexProject.fragment.CharacterFragment"
         android:label="ListCharacterFragment" >
         <action
             android:id="@+id/action_listCharacterFragment_to_detailsCharacterFragment"
@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/timelineFragment"
         tools:layout="@layout/fragment_timeline"
-        android:name="alex.lop.io.alexProject.fragment.TimelineFragment"
+        android:name="alexProject.fragment.TimelineFragment"
         android:label="SearchCharacterFragment" >
         <action
             android:id="@+id/action_searchCharacterFragment_to_detailsCharacterFragment"
@@ -90,7 +90,7 @@
     <fragment
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
-        android:name="alex.lop.io.alexProject.fragment.HomeFragment"
+        android:name="alexProject.fragment.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_ListCharacterFragment"
@@ -126,7 +126,7 @@
     <fragment
         android:id="@+id/comicsFragment"
         tools:layout="@layout/fragment_comic"
-        android:name="alex.lop.io.alexProject.fragment.ComicsFragment"
+        android:name="alexProject.fragment.ComicsFragment"
         android:label="ComicsFragment" >
         <action
             android:id="@+id/action_comicsFragment_to_detailsComicFragment"
@@ -139,7 +139,7 @@
     <fragment
         android:id="@+id/eventFragment"
         tools:layout="@layout/fragment_event"
-        android:name="alex.lop.io.alexProject.fragment.EventFragment"
+        android:name="alexProject.fragment.EventFragment"
         android:label="EventFragment" >
         <action
             android:id="@+id/action_eventFragment_to_detailsEventFragment"
@@ -152,11 +152,11 @@
     <fragment
         tools:layout="@layout/fragment_details_comic"
         android:id="@+id/detailsComicFragment"
-        android:name="alex.lop.io.alexProject.fragment.detailsComic.ComicDetailsFragment"
+        android:name="alexProject.fragment.detailsComic.ComicDetailsFragment"
         android:label="DetailsComicFragment" >
         <argument
             android:name="Comic"
-            app:argType="alex.lop.io.alexProject.data.model.comic.ComicModel" />
+            app:argType="alexProject.data.model.comic.ComicModel" />
         <action
             android:id="@+id/action_detailsComicFragment_to_detailsCharacterFragment"
             app:destination="@id/detailsCharacterFragment"
@@ -175,11 +175,11 @@
     <fragment
         android:id="@+id/detailsEventFragment"
         tools:layout="@layout/fragment_details_event"
-        android:name="alex.lop.io.alexProject.fragment.detailsEvent.EventDetailsFragment"
+        android:name="alexProject.fragment.detailsEvent.EventDetailsFragment"
         android:label="DetailsEventFragment" >
         <argument
             android:name="eventModel"
-            app:argType="alex.lop.io.alexProject.data.model.event.EventModel" />
+            app:argType="alexProject.data.model.event.EventModel" />
         <action
             android:id="@+id/action_detailsEventFragment_to_detailsCharacterFragment"
             app:destination="@id/detailsCharacterFragment"
