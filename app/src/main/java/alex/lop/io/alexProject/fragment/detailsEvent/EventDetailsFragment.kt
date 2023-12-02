@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -63,7 +62,7 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
 
     private fun onLoadEvent(comic : EventModel) = with(binding) {
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
-            val color = if (it) R.drawable.favorite_red else R.drawable.favorite
+            val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
             binding.imageFavorite.setImageResource(color)
             textName.text = comic.title
             loadImage(
@@ -81,7 +80,7 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
                     binding.imageFavorite.setImageResource(R.drawable.favorite)
                 } else {
                     viewModel.insert(favoriteModel)
-                    binding.imageFavorite.setImageResource(R.drawable.favorite_red)
+                    binding.imageFavorite.setImageResource(R.drawable.favorite_complete)
                 }
             }
         }

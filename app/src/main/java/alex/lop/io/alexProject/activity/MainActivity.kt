@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var navHostFragment : NavHostFragment
 
+
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
+
+    }
+
+    fun onBackPress() {
+        onBackPressed()
     }
 
 
@@ -47,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun setupToolbar() {
+        val toolbarInclude : View = findViewById(R.id.toolbar)
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
@@ -77,10 +84,7 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_event)
                 )
 
-                R.id.detailsCharacterFragment -> setupToolbar(
-                    true,
-                    getString(R.string.title_fragment_detail)
-                )
+                R.id.detailsCharacterFragment -> toolbarInclude.setGone()
 
                 R.id.CharacterFragment -> setupToolbar(
                     true,

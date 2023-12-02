@@ -13,12 +13,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,6 +43,13 @@ class CharacterDetailsFragment :
         viewModel.searchFavorite(favoriteModel.id)
         handleViewPager()
         handleTabLayout()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        binding.iconBackAlone.imageBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun handleTabLayout() {
@@ -93,7 +98,7 @@ class CharacterDetailsFragment :
                     binding.imageFavorite.setImageResource(R.drawable.favorite)
                 } else {
                     viewModel.insert(favoriteModel)
-                    binding.imageFavorite.setImageResource(R.drawable.favorite_red)
+                    binding.imageFavorite.setImageResource(R.drawable.favorite_complete)
                 }
             }
         }
@@ -101,7 +106,7 @@ class CharacterDetailsFragment :
 
     private fun onLoadCharacter(characterModel : CharacterModel) = with(binding) {
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
-            val color = if (it) R.drawable.favorite_red else R.drawable.favorite
+            val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
             binding.imageFavorite.setImageResource(color)
             tvNameCharacterDetails.text = characterModel.name
             loadImage(
