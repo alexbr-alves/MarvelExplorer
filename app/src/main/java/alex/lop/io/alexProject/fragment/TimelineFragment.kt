@@ -1,14 +1,12 @@
 package alex.lop.io.alexProject.fragment
 
-import alex.lop.io.alexProject.R
-import alex.lop.io.alexProject.databinding.FragmentSearchCharacterBinding
 import alex.lop.io.alexProject.adapters.TimelineAdapter
 import alex.lop.io.alexProject.data.model.timeline.TimelineType
+import alex.lop.io.alexProject.databinding.FragmentTimelineBinding
 import alex.lop.io.alexProject.state.ResourceState
 import alex.lop.io.alexProject.util.Converts
 import alex.lop.io.alexProject.util.setInvisible
 import alex.lop.io.alexProject.util.setVisible
-import alex.lop.io.alexProject.util.toast
 import alex.lop.io.alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,9 +23,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
-    BaseFragment<FragmentSearchCharacterBinding, TimelineViewModel>() {
+    BaseFragment<FragmentTimelineBinding, TimelineViewModel>() {
     override val viewModel : TimelineViewModel by viewModels()
-    private val timelineAdapter by lazy { context?.let { TimelineAdapter(it) } }
+    private val timelineAdapter by lazy { TimelineAdapter() }
     private var converts = Converts()
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
@@ -106,6 +104,6 @@ class TimelineFragment :
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentSearchCharacterBinding =
-        FragmentSearchCharacterBinding.inflate(inflater, container, false)
+    ) : FragmentTimelineBinding =
+        FragmentTimelineBinding.inflate(inflater, container, false)
 }

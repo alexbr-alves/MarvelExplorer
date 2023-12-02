@@ -1,6 +1,6 @@
 package alex.lop.io.alexProject.fragment
 
-import alex.lop.io.alexProject.R
+
 import alex.lop.io.alexProject.databinding.FragmentFavoriteCharacterBinding
 import alex.lop.io.alexProject.adapters.FavoriteAdapter
 import alex.lop.io.alexProject.viewModel.FavoriteViewModel
@@ -9,7 +9,6 @@ import alex.lop.io.alexProject.util.Constants
 import alex.lop.io.alexProject.util.Converts
 import alex.lop.io.alexProject.util.setInvisible
 import alex.lop.io.alexProject.util.setVisible
-import alex.lop.io.alexProject.util.toast
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

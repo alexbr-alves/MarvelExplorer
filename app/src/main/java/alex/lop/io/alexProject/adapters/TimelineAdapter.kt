@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TimelineAdapter(val context : Context) :
-    RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
+class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
 
     inner class TimelineViewHolder(val binding : LayoutTimelineBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -67,6 +66,7 @@ class TimelineAdapter(val context : Context) :
     }
 
     override fun onBindViewHolder(holder : TimelineViewHolder, position : Int) {
+        val context = holder.itemView.context
         val timeline = timelineList[position]
         holder.binding.apply {
             if (timeline.title.isNullOrEmpty()) {

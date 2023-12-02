@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/timelineFragment"
-        tools:layout="@layout/fragment_search_character"
+        tools:layout="@layout/fragment_timeline"
         android:name="alex.lop.io.alexProject.fragment.TimelineFragment"
         android:label="SearchCharacterFragment" >
         <action
