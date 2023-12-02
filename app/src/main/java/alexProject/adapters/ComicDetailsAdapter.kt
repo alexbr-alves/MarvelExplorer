@@ -39,9 +39,7 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
 
     var comics : List<ComicModel>
         get() = differ.currentList
-        set(value) = differ.submitList(value.filter {
-            it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
-        })
+        set(value) = differ.submitList(value)
 
     override fun getItemCount() : Int {
         return comics.size

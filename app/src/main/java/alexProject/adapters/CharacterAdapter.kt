@@ -3,9 +3,13 @@ package alexProject.adapters
 
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.LayoutCardNameBinding
+import alexProject.fragment.CharacterFragment
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.setGone
+import alexProject.util.setInvisible
+import alexProject.util.setVisible
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -16,7 +20,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     inner class CharacterViewHolder(val binding : LayoutCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 
     private val differCallback = object : DiffUtil.ItemCallback<CharacterModel>() {
         override fun areItemsTheSame(oldItem : CharacterModel, newItem : CharacterModel) : Boolean {
@@ -31,7 +34,9 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
                     oldItem.name == newItem.name &&
                     oldItem.description == newItem.description &&
                     oldItem.thumbnailModel.path == newItem.thumbnailModel.path &&
-                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension
+                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension &&
+                    oldItem.comics.available == newItem.comics.available &&
+                    oldItem.events.available == newItem.events.available
         }
 
     }
@@ -54,6 +59,21 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     override fun onBindViewHolder(holder : CharacterViewHolder, position : Int) {
         val character = characters[position]
         holder.binding.apply {
+            textPeople.setGone()
+            imagePeople.setGone()
+
+            if (character.comics.available > 0) {
+                textComic.setVisible()
+                imageComic.setVisible()
+                textComic.text = character.comics.available.toString()
+            } else if (character.events.available > 0) {
+                textEvent.setVisible()
+                imageEvent.setVisible()
+                textEvent.text = character.events.available.toString()
+            } else {
+                relativeCounts.setInvisible()
+            }
+
             textName.text = character.name.limitDescription(15)
             loadImage(
                 image,
@@ -67,6 +87,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
             }
         }
     }
+
 
     private var onItemClickListener : ((CharacterModel) -> Unit)? = null
 

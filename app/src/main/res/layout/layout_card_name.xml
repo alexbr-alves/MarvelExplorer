@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    android:id="@+id/card"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
@@ -13,13 +12,13 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="1dp"
     app:cardMaxElevation="4dp"
-    app:strokeColor="@color/white"
+    app:strokeColor="@color/black_raisin"
     app:strokeWidth="1dp">
 
     <LinearLayout
-        android:background="@color/black_raisin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black_raisin"
         android:orientation="vertical">
 
         <ImageView
@@ -42,19 +41,78 @@
                 android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/poppins_thin"
+                android:letterSpacing="0.04"
+                android:lineHeight="21sp"
                 android:text="@string/tx_item_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_margin="5dp"
-                android:lineHeight="21sp"
                 android:textFontWeight="700"
-                android:letterSpacing="0.04"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
+            <RelativeLayout
+                android:id="@+id/relative_counts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:visibility="visible"
+                android:layout_gravity="end"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/text_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
 
+                <ImageView
+                    android:id="@+id/image_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/text_event"
+                    app:srcCompat="@drawable/event" />
+
+                <TextView
+                    android:id="@+id/text_comic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="4"
+                    android:layout_toStartOf="@id/image_event"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/image_comic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/text_comic"
+                    app:srcCompat="@drawable/book" />
+
+                <TextView
+                    android:id="@+id/text_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="5"
+                    android:layout_toStartOf="@id/image_comic"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/image_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/text_people"
+                    app:srcCompat="@drawable/people" />
+
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

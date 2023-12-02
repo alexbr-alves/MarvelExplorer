@@ -1,5 +1,6 @@
 package alexProject.data.model.character
 
+import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -17,7 +18,10 @@ data class CharacterModel(
     @SerializedName("description")
     val description : String,
     @SerializedName("thumbnail")
-    val thumbnailModel : ThumbnailModel
+    val thumbnailModel : ThumbnailModel,
+    @SerializedName("comics")
+    val comics : SizeItens,
+    @SerializedName("events")
+    val events : SizeItens,
 
-
-) : Serializable
+    ) : Serializable

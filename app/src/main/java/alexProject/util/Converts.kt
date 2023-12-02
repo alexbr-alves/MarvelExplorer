@@ -3,6 +3,7 @@ package alexProject.util
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.character.CharacterModel
+import alexProject.data.model.SizeItens
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
 import alexProject.data.model.timeline.TimelineModel
@@ -30,6 +31,12 @@ class Converts {
             ThumbnailModel(
                 favoriteModel.thumbnailModel.path,
                 favoriteModel.thumbnailModel.extension
+            ),
+            SizeItens(
+                available = 0
+            ),
+            SizeItens(
+                available = 0
             )
         )
     }
@@ -92,6 +99,12 @@ class Converts {
             ThumbnailModel(
                 timelineModel.thumbnailModel.path,
                 timelineModel.thumbnailModel.extension
+            ),
+            SizeItens(
+                available = 0
+            ),
+            SizeItens(
+                available = 0
             )
         )
     }

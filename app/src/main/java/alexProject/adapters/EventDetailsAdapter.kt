@@ -38,9 +38,7 @@ class EventDetailsAdapter : RecyclerView.Adapter<EventDetailsAdapter.EventViewHo
 
     var events : List<EventModel>
         get() = differ.currentList
-        set(value) = differ.submitList(value.filter {
-            it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
-        })
+        set(value) = differ.submitList(value)
 
     override fun getItemCount() : Int {
         return events.size

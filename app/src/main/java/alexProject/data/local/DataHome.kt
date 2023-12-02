@@ -2,6 +2,7 @@ package alexProject.data.local
 
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.character.CharacterModel
+import alexProject.data.model.SizeItens
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
 
@@ -13,6 +14,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -23,6 +30,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/f/30/50fecad1f395b",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -33,6 +46,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/9/c0/527bb7b37ff55",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
     val CHARACTER4 = CharacterModel(
@@ -42,6 +61,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/d/d0/5269657a74350",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 
@@ -52,6 +77,12 @@ object DataHome {
         thumbnailModel = ThumbnailModel(
             path = "http://i.annihil.us/u/prod/marvel/i/mg/6/60/5261a80a67e7d",
             extension = "jpg"
+        ),
+        SizeItens(
+            available = 0
+        ),
+        SizeItens(
+            available = 0
         )
     )
 

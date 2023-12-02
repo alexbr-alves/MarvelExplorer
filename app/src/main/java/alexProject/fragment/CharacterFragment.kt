@@ -124,18 +124,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         characterAdapter.setOnClickListener { characterModel ->
             val action = CharacterFragmentDirections
                 .actionListCharacterFragmentToDetailsCharacterFragment(characterModel)
-
-            val extras = FragmentNavigatorExtras(
-                binding.rvCharacters to "characterRecyclerView"
-            )
-
-            findNavController().navigate(action, extras)
+            findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             if (totalCharacters > (initialOffset + 100)) {
                 viewModel.fetch(offset = initialOffset + 100)
                 initialOffset += 100
-                binding.rvCharacters.smoothScrollToPosition(0)
+                binding.rvCharacterList.smoothScrollToPosition(0)
             } else {
                 binding.textSeeMore.setGone()
             }
@@ -144,7 +139,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun setupRecycleView() = with(binding) {
-        rvCharacters.apply {
+        rvCharacterList.apply {
             adapter = characterAdapter
             layoutManager = LinearLayoutManager(requireContext())
             layoutManager = GridLayoutManager(requireContext(), 2)
