@@ -67,11 +67,6 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
         val comic = comics[position]
         holder.binding.apply {
             textName.text = comic.title.limitDescription(20)
-            if (!comic.description.isNullOrEmpty()) {
-                textDescription.text = comic.description.limitDescription(40)
-            } else {
-                textDescription.setGone()
-            }
 
             loadImage(
                 image,

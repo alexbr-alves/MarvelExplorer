@@ -1,65 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
     android:layout_marginVertical="5dp"
-    android:layout_marginHorizontal="12dp"
-    app:cardMaxElevation="2dp"
-    android:backgroundTint="@color/gray"
-    app:strokeColor="@color/gray_500"
+    android:layout_marginHorizontal="5dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp"
+    app:cardMaxElevation="4dp"
+    app:strokeColor="@color/white"
     app:strokeWidth="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_constraint"
+    <LinearLayout
+        android:background="@color/black_raisin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintVertical_bias="0.0">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="170dp"
+            android:layout_height="120dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.Media"
+            app:srcCompat="@drawable/marvel_logo" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_name"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginHorizontal="10dp"
-            android:paddingBottom="5dp"
-            android:text="@string/tx_item_name"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@id/main_constraint"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image" />
+            android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/tx_item_name"
-            android:textColor="@color/white"
-            android:textStyle="italic"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@id/main_constraint"
-            app:layout_constraintTop_toBottomOf="@+id/text_name"
-            app:layout_constraintStart_toEndOf="@+id/image" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_thin"
+                android:text="@string/tx_item_name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:layout_margin="5dp"
+                android:lineHeight="21sp"
+                android:textFontWeight="700"
+                android:letterSpacing="0.04"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

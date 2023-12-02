@@ -60,11 +60,6 @@ class SeriesDetailsAdapter : RecyclerView.Adapter<SeriesDetailsAdapter.SeriesVie
         val serie = series[position]
         holder.binding.apply {
             textName.text = serie.title
-            if (!serie.description.isNullOrEmpty()) {
-                textDescription.text = serie.description.limitDescription(50)
-            } else {
-                textDescription.setGone()
-            }
 
             loadImage(
                 image,

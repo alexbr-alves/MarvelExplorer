@@ -61,11 +61,6 @@ class CharacterDetailsAdapter :
         val character = characters[position]
         holder.binding.apply {
             textName.text = character.name
-            if (character.description.isNullOrEmpty()) {
-                textDescription.setGone()
-            } else {
-                textDescription.text = character.description.limitDescription(50)
-            }
 
             loadImage(
                 image,

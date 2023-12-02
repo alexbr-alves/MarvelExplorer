@@ -60,11 +60,6 @@ class EventDetailsAdapter : RecyclerView.Adapter<EventDetailsAdapter.EventViewHo
         val event = events[position]
         holder.binding.apply {
             textName.text = event.title
-            if (event.description.isNullOrEmpty()) {
-                textDescription.setGone()
-            } else {
-                textDescription.text = event.description.limitDescription(50)
-            }
 
             loadImage(
                 image,

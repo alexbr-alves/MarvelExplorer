@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:background="@color/black_raisin"
     android:layout_marginTop="10dp">
 
@@ -23,7 +24,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEvents"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:nestedScrollingEnabled="false"
@@ -31,6 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/layout_mini_cards" />
 
     <ProgressBar
