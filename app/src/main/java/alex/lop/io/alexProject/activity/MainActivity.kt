@@ -30,12 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun onBackPress() {
-        onBackPressed()
-    }
-
-
-
     private fun setupToolbar(textVisible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
@@ -53,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun setupToolbar() {
-        val toolbarInclude : View = findViewById(R.id.toolbar)
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
@@ -84,24 +77,22 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_event)
                 )
 
-                R.id.detailsCharacterFragment -> toolbarInclude.setGone()
+                R.id.detailsCharacterFragment -> hideToolbar()
 
                 R.id.CharacterFragment -> setupToolbar(
                     true,
                     getString(R.string.title_fragment_characters)
                 )
+                R.id.detailsComicFragment -> hideToolbar()
 
-                R.id.detailsComicFragment -> setupToolbar(
-                    true,
-                    getString(R.string.title_fragment_detail)
-                )
-
-                R.id.detailsEventFragment -> setupToolbar(
-                    true,
-                    getString(R.string.title_fragment_event)
-                )
+                R.id.detailsEventFragment -> hideToolbar()
             }
         }
+    }
+
+    private fun hideToolbar() {
+        val toolbarInclude : View = findViewById(R.id.toolbar)
+        toolbarInclude.setGone()
     }
 
     private fun initViews(binding : ActivityMainBinding) {

@@ -41,9 +41,16 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         favoriteModel = converts.comicToFavorite(comicModel)
         viewModel.searchFavorite(favoriteModel.id)
         onLoadComic(comicModel)
+        setupUi()
+    }
+
+    private fun setupUi() {
         handleViewPager()
         descriptionComic()
         handleTabLayout()
+        binding.iconBackAlone.imageBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun handleTabLayout() {

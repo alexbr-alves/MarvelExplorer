@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_500">
+    android:background="@color/black_raisin">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
@@ -27,6 +27,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+            <include
+                android:id="@+id/icon_back_alone"
+                layout="@layout/icon_back_alone" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,10 +46,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="7dp"
+                    android:fontFamily="@font/poppins_thin"
+                    android:lineHeight="42dp"
+                    android:paddingVertical="5dp"
                     android:text="@string/tx_item_name"
-                    android:textColor="@color/red_marvel"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="MissingConstraints" />
@@ -59,12 +64,12 @@
                     app:layout_constraintBottom_toTopOf="@id/viewPagerComic"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_name"
-                    app:tabBackground="@color/white"
-                    app:tabIndicatorColor="@color/gray_500"
+                    app:tabBackground="@color/black_raisin"
+                    app:tabIndicatorColor="@color/white"
                     app:tabIndicatorFullWidth="false"
                     app:tabIndicatorGravity="bottom"
                     app:tabMode="scrollable"
-                    app:tabTextColor="@color/gray_500">
+                    app:tabTextColor="@color/white">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
@@ -97,8 +102,8 @@
                     android:id="@+id/viewPagerComic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/black_raisin"
                     android:minHeight="300dp"
-                    android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

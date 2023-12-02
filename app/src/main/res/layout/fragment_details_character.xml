@@ -26,6 +26,7 @@
                 app:layout_constraintStart_toStartOf="@id/imgCharacterDetails"
                 app:layout_constraintTop_toTopOf="@id/imgCharacterDetails"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
             <include
                 android:id="@+id/icon_back_alone"
                 layout="@layout/icon_back_alone" />
@@ -53,8 +54,7 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteY="12dp" />
+                    tools:ignore="MissingConstraints" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
