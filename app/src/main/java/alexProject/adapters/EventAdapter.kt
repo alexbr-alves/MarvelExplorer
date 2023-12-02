@@ -3,7 +3,11 @@ package alexProject.adapters
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.LayoutCardNameBinding
 import alexProject.util.Constants
+import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.setGone
+import alexProject.util.setInvisible
+import alexProject.util.setVisible
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -28,7 +32,9 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
                     oldItem.description == newItem.description &&
                     oldItem.title == newItem.title &&
                     oldItem.thumbnailModel.path == newItem.thumbnailModel.path &&
-                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension
+                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension &&
+                    oldItem.characters.available == newItem.characters.available &&
+                    oldItem.comics.available == newItem.comics.available
         }
 
     }
@@ -56,7 +62,12 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onBindViewHolder(holder : EventViewHolder, position : Int) {
         val event = eventList[position]
         holder.binding.apply {
-            textName.text = event.title
+            textEvent.setGone()
+            imageEvent.setGone()
+            textPeople.text = event.characters.available.toString()
+            textComic.text = event.comics.available.toString()
+
+            textName.text = event.title.limitDescription(15)
             loadImage(
                 image,
                 event.thumbnailModel.path,

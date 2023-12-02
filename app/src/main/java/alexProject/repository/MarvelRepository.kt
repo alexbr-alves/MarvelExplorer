@@ -16,7 +16,6 @@ class MarvelRepository @Inject constructor(
     //Character details
     suspend fun getComicsCharacter(characterId : Int) = api.getComicsCharacter(characterId)
     suspend fun getEventsCharacter(characterId : Int) = api.getEventsCharacter(characterId)
-    suspend fun getSeriesCharacter(characterId : Int) = api.getSeriesCharacter(characterId)
 
     //Comic details
     suspend fun getCharacterComics(comicId : Int) = api.getCharacterComics(comicId)
@@ -25,7 +24,6 @@ class MarvelRepository @Inject constructor(
     //Events details
     suspend fun getCharacterEvent(eventId : Int) = api.getCharacterEvent(eventId)
     suspend fun getComicEvent(eventId : Int) = api.getComicEvent(eventId)
-    suspend fun getSeriesEvent(eventId : Int) = api.getSeriesEvent(eventId)
 
     //Timeline
     suspend fun getCharacterTimeline() = api.getCharacterTimeline()

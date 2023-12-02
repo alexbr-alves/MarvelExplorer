@@ -49,11 +49,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
                 android:textFontWeight="700"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/relative_counts"
+            <LinearLayout
+                android:id="@+id/layout_metrics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -61,30 +61,18 @@
                 android:layout_gravity="end"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_event"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:layout_marginEnd="5dp"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-
                 <ImageView
-                    android:id="@+id/image_event"
+                    android:id="@+id/image_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/text_event"
-                    app:srcCompat="@drawable/event" />
+                    app:srcCompat="@drawable/people" />
 
                 <TextView
-                    android:id="@+id/text_comic"
+                    android:id="@+id/text_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="4"
-                    android:layout_toStartOf="@id/image_event"
+                    android:layout_marginEnd="5dp"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
@@ -92,27 +80,34 @@
                     android:id="@+id/image_comic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/text_comic"
                     app:srcCompat="@drawable/book" />
 
                 <TextView
-                    android:id="@+id/text_people"
+                    android:id="@+id/text_comic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="5"
-                    android:layout_toStartOf="@id/image_comic"
+                    android:text="0"
+                    android:layout_marginEnd="5dp"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
                 <ImageView
-                    android:id="@+id/image_people"
+                    android:id="@+id/image_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/text_people"
-                    app:srcCompat="@drawable/people" />
+                    app:srcCompat="@drawable/event" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/main_constraint"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -3,7 +3,6 @@ package alexProject.data.remote
 import alexProject.data.model.character.CharacterModelResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
-import alexProject.data.model.serie.SeriesModelResponse
 import alexProject.data.model.timeline.TimelineModelResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -50,14 +49,6 @@ interface ServiceApi {
         ) characterId : Int
     ) : Response<EventModelResponse>
 
-    @GET("characters/{characterId}/series")
-    suspend fun getSeriesCharacter(
-        @Path(
-            value = "characterId",
-            encoded = true
-        ) characterId : Int
-    ) : Response<SeriesModelResponse>
-
     //Comic details
 
     @GET("comics/{comicId}/characters")
@@ -93,14 +84,6 @@ interface ServiceApi {
             encoded = true
         ) eventId : Int
     ) : Response<ComicModelResponse>
-
-    @GET("events/{eventId}/series")
-    suspend fun getSeriesEvent(
-        @Path(
-            value = "eventId",
-            encoded = true
-        ) eventId : Int
-    ) : Response<SeriesModelResponse>
 
     // Timeline
     @GET("characters")

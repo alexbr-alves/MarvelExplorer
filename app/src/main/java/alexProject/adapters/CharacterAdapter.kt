@@ -10,11 +10,13 @@ import alexProject.util.loadImage
 import alexProject.util.setGone
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.util.logging.Handler
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
@@ -56,25 +58,16 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         )
     }
 
+
     override fun onBindViewHolder(holder : CharacterViewHolder, position : Int) {
         val character = characters[position]
         holder.binding.apply {
             textPeople.setGone()
             imagePeople.setGone()
+            textComic.text = character.comics.available.toString()
+            textEvent.text = character.events.available.toString()
 
-            if (character.comics.available > 0) {
-                textComic.setVisible()
-                imageComic.setVisible()
-                textComic.text = character.comics.available.toString()
-            } else if (character.events.available > 0) {
-                textEvent.setVisible()
-                imageEvent.setVisible()
-                textEvent.text = character.events.available.toString()
-            } else {
-                relativeCounts.setInvisible()
-            }
-
-            textName.text = character.name.limitDescription(15)
+            textName.text = character.name.limitDescription(20)
             loadImage(
                 image,
                 character.thumbnailModel.path,
@@ -87,7 +80,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
             }
         }
     }
-
 
     private var onItemClickListener : ((CharacterModel) -> Unit)? = null
 

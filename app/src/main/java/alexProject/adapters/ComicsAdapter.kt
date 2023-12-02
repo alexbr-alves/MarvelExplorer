@@ -41,7 +41,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var comicList: List<ComicModel>
+    var comicList : List<ComicModel>
         get() = differ.currentList
         set(value) = differ.submitList(value.filter {
             it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
@@ -71,17 +71,9 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
             textName.text = comic.title.limitDescription(15)
             textComic.setGone()
             imageComic.setGone()
-            if (comic.characters.available > 0) {
-                textPeople.setVisible()
-                imagePeople.setVisible()
-                textPeople.text = comic.characters.available.toString()
-            } else if (comic.events.available > 0) {
-                textEvent.setVisible()
-                imageEvent.setVisible()
-                textEvent.text = comic.events.available.toString()
-            } else {
-                relativeCounts.setInvisible()
-            }
+            textPeople.text = comic.characters.available.toString()
+            textEvent.text = comic.events.available.toString()
+
             loadImage(
                 image,
                 comic.thumbnailModel.path,
