@@ -67,7 +67,7 @@
         android:id="@+id/text_see_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_corner_red"
+        android:background="@drawable/bg_corner_see_more"
         android:fontFamily="@font/marvel"
         android:padding="10dp"
         android:text="@string/see_more"
