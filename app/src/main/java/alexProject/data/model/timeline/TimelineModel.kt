@@ -1,5 +1,6 @@
 package alexProject.data.model.timeline
 
+import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -17,7 +18,13 @@ data class TimelineModel(
     //var modified : Date?,
     var type : TimelineType,
     @SerializedName("thumbnail")
-    val thumbnailModel : ThumbnailModel
+    val thumbnailModel : ThumbnailModel,
+    @SerializedName("comics")
+    val comics : SizeItens,
+    @SerializedName("events")
+    val event : SizeItens,
+    @SerializedName("characters")
+    val character : SizeItens
 ) : Serializable
 
 enum class TimelineType {

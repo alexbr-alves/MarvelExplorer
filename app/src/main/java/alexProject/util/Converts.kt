@@ -121,10 +121,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                timelineModel.comics.available
             ),
             SizeItens(
-                available = 0
+                timelineModel.event.available
             )
         )
     }
@@ -139,10 +139,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                timelineModel.character.available
             ),
             SizeItens(
-                available = 0
+                timelineModel.event.available
             )
         )
     }
@@ -157,10 +157,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                timelineModel.character.available
             ),
             SizeItens(
-                available = 0
+                timelineModel.comics.available
             )
         )
     }
