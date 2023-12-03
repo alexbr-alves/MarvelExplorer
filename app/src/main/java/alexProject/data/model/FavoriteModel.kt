@@ -17,5 +17,9 @@ data class FavoriteModel(
     @SerializedName("type")
     val type : String,
     @SerializedName("thumbnail")
-    val thumbnailModel : ThumbnailModel
+    val thumbnailModel : ThumbnailModel,
+    @SerializedName("item1")
+    val item1 : Int,
+    @SerializedName("item2")
+    val item2 : Int
 ) : Serializable

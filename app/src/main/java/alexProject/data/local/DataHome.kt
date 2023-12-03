@@ -16,10 +16,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 4405
         ),
         SizeItens(
-            available = 0
+            available = 37
         )
     )
 
@@ -32,10 +32,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 616
         ),
         SizeItens(
-            available = 0
+            available = 16
         )
     )
 
@@ -48,7 +48,7 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 2721
         ),
         SizeItens(
             available = 0
@@ -63,10 +63,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 1878
         ),
         SizeItens(
-            available = 0
+            available = 27
         )
     )
 
@@ -79,10 +79,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 752
         ),
         SizeItens(
-            available = 0
+            available = 17
         )
     )
 
@@ -174,10 +174,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 101
         ),
         SizeItens(
-            available = 0
+            available = 140
         )
     )
 
@@ -191,10 +191,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 11
         ),
         SizeItens(
-            available = 0
+            available = 19
         )
     )
 
@@ -207,10 +207,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 25
         ),
         SizeItens(
-            available = 0
+            available = 18
         )
     )
     val EVENT4 = EventModel(
@@ -238,10 +238,10 @@ object DataHome {
             extension = "jpg"
         ),
         SizeItens(
-            available = 0
+            available = 15
         ),
         SizeItens(
-            available = 0
+            available = 20
         )
     )
 

@@ -51,11 +51,29 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         }
     }
 
+    private fun handleBadge(tab : TabLayout.Tab) {
+        val badge = tab.orCreateBadge
+        badge.isVisible = true
+        badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        when (tab.position) {
+            1 -> {
+                badge.number = eventModel.characters.available
+            }
+            2 -> {
+                badge.number = eventModel.comics.available
+            }
+            else -> {
+                badge.isVisible = false
+            }
+        }
+    }
+
     private fun handleTabLayout() {
         binding.tabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPagerEvent.setCurrentItem(selectedTabPosition, true)
+                handleBadge(tab)
             }
             override fun onTabUnselected(tab : TabLayout.Tab) {}
             override fun onTabReselected(tab : TabLayout.Tab) {}

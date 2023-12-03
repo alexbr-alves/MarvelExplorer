@@ -19,7 +19,11 @@ class Converts {
             thumbnailModel = ThumbnailModel(
                 path = characterModel.thumbnailModel.path,
                 extension = characterModel.thumbnailModel.extension
-            )
+            ),
+            item1 = characterModel.comics.available,
+
+            item2 = characterModel.events.available
+
         )
     }
 
@@ -33,10 +37,10 @@ class Converts {
                 favoriteModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item1
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item2
             )
         )
     }
@@ -51,10 +55,10 @@ class Converts {
                 favoriteModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item1
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item2
             )
         )
     }
@@ -69,10 +73,10 @@ class Converts {
                 favoriteModel.thumbnailModel.extension
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item1
             ),
             SizeItens(
-                available = 0
+                available = favoriteModel.item2
             )
         )
     }
@@ -86,7 +90,9 @@ class Converts {
             ThumbnailModel(
                 comicModel.thumbnailModel.path,
                 comicModel.thumbnailModel.extension
-            )
+            ),
+            comicModel.characters.available,
+            comicModel.events.available
         )
     }
 
@@ -99,7 +105,9 @@ class Converts {
             ThumbnailModel(
                 eventModel.thumbnailModel.path,
                 eventModel.thumbnailModel.extension
-            )
+            ),
+            eventModel.characters.available,
+            eventModel.comics.available
         )
     }
 

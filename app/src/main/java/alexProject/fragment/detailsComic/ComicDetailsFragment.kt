@@ -53,11 +53,29 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         }
     }
 
+    private fun handleBadge(tab : TabLayout.Tab) {
+        val badge = tab.orCreateBadge
+        badge.isVisible = true
+        badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        when (tab.position) {
+            1 -> {
+                badge.number = comicModel.characters.available
+            }
+            2 -> {
+                badge.number = comicModel.events.available
+            }
+            else -> {
+                badge.isVisible = false
+            }
+        }
+    }
+
     private fun handleTabLayout() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPagerComic.setCurrentItem(selectedTabPosition, true)
+                handleBadge(tab)
             }
 
             override fun onTabUnselected(tab : TabLayout.Tab) {}

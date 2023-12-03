@@ -1,6 +1,7 @@
 package alexProject.fragment.detailsCharacter
 
 import alexProject.R
+import alexProject.adapters.CharacterAdapter
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.FragmentDetailsCharacterBinding
 import alexProject.adapters.DetailsCharacterAdapter
@@ -28,6 +29,7 @@ class CharacterDetailsFragment :
     private var viewPager2 : ViewPager2? = null
     private lateinit var favoriteModel : FavoriteModel
     private var converts = Converts()
+    private val comicSize: Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater, container : ViewGroup?
@@ -52,11 +54,30 @@ class CharacterDetailsFragment :
         }
     }
 
+    private fun handleBadge(tab : TabLayout.Tab) {
+        val badge = tab.orCreateBadge
+        badge.isVisible = true
+        badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        when (tab.position) {
+            1 -> {
+                badge.number = characterModel.comics.available
+            }
+            2 -> {
+                badge.number = characterModel.events.available
+            }
+            else -> {
+                badge.isVisible = false
+            }
+        }
+    }
+
     private fun handleTabLayout() {
         binding.tabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPager2.setCurrentItem(selectedTabPosition, true)
+                handleBadge(tab)
+
             }
             override fun onTabUnselected(tab : TabLayout.Tab) {}
             override fun onTabReselected(tab : TabLayout.Tab) {}
@@ -86,8 +107,6 @@ class CharacterDetailsFragment :
             }
         })
     }
-
-
 
     private fun descriptionCharacter() = binding.run {
         imageFavorite.setOnClickListener {
