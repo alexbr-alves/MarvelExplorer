@@ -48,7 +48,9 @@ interface ServiceApi {
         @Path(
             value = "characterId",
             encoded = true
-        ) characterId : Int
+        ) characterId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
     //Comic details
@@ -58,7 +60,9 @@ interface ServiceApi {
         @Path(
             value = "comicId",
             encoded = true
-        ) comicId : Int
+        ) comicId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<CharacterModelResponse>
 
     @GET("comics/{comicId}/events")
@@ -66,7 +70,9 @@ interface ServiceApi {
         @Path(
             value = "comicId",
             encoded = true
-        ) comicId : Int
+        ) comicId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
     //Event details
@@ -76,7 +82,9 @@ interface ServiceApi {
         @Path(
             value = "eventId",
             encoded = true
-        ) eventId : Int
+        ) eventId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<CharacterModelResponse>
 
     @GET("events/{eventId}/comics")
@@ -84,7 +92,9 @@ interface ServiceApi {
         @Path(
             value = "eventId",
             encoded = true
-        ) eventId : Int
+        ) eventId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<ComicModelResponse>
 
     // Timeline

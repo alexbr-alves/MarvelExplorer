@@ -27,29 +27,32 @@ class ComicViewModel @Inject constructor(
 
     fun fetch(
         verify : String? = null,
-        characterId : Int? = null,
+        id : Int? = null,
         titleStartsWith : String? = null,
         limit : Int = 100,
         offset : Int? = 0
     ) = viewModelScope.launch {
-        safeFetch(verify, characterId, titleStartsWith, limit, offset)
+        safeFetch(verify, id, titleStartsWith, limit, offset)
     }
 
     private suspend fun safeFetch(
-        verify : String? = null, characterId : Int? = null,
+        verify : String? = null, id : Int? = null,
         titleStartsWith : String? = null,
         limit : Int = 100,
         offset : Int? = 0
     ) {
         try {
             _comicList.value = ResourceState.Loading()
-            val response : Response<ComicModelResponse>
-            if (verify == Constants.CHARACTER) {
-                response = repository.getComicsCharacter(characterId ?: 0)
-            } else if (verify == Constants.EVENT) {
-                response = repository.getComicEvent(characterId ?: 0)
-            } else {
-                response = repository.comics(titleStartsWith, limit, offset)
+            val response : Response<ComicModelResponse> = when (verify) {
+                Constants.CHARACTER -> {
+                    repository.getComicsCharacter(id ?: 0)
+                }
+                Constants.EVENT -> {
+                    repository.getComicEvent(id ?: 0)
+                }
+                else -> {
+                    repository.comics(titleStartsWith, limit, offset)
+                }
             }
 
             _comicList.value = handleResponse(response)

@@ -122,7 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun clickEvents() = with(binding) {
         layoutCharacter.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
         layoutComic.setOnClickListener {

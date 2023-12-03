@@ -5,6 +5,7 @@ import alexProject.adapters.CharacterAdapter
 import alexProject.databinding.FragmentCharacterBinding
 import alexProject.viewModel.CharacterViewModel
 import alexProject.state.ResourceState
+import alexProject.util.Constants
 import alexProject.util.setGone
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
@@ -20,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +34,7 @@ import timber.log.Timber
 class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>() {
     override val viewModel : CharacterViewModel by viewModels()
     private val characterAdapter by lazy { CharacterAdapter() }
+    private val args : CharacterFragmentArgs by navArgs()
     private var isSearchExpanded = false
     private var totalCharacters : Int = 0
     private var initialOffset : Int = 0
@@ -47,8 +50,16 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         setupRecycleView()
         clickAdapter()
         collectObserve()
-        searchInit()
         handleSearchAnimation()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        if (args.origem != Constants.VERIFIED) {
+            searchInit()
+        } else {
+            binding.searchIcon.setGone()
+        }
     }
 
     private fun handleSearchAnimation() = binding.run {
@@ -94,6 +105,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun collectObserve() = lifecycleScope.launch {
+        viewModel.fetch(args.origem, args.id)
         viewModel.list.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {

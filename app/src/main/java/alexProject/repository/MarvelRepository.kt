@@ -15,15 +15,15 @@ class MarvelRepository @Inject constructor(
 
     //Character details
     suspend fun getComicsCharacter(characterId : Int, limit: Int = 100, offset : Int? = 0) = api.getComicsCharacter(characterId, limit, offset)
-    suspend fun getEventsCharacter(characterId : Int) = api.getEventsCharacter(characterId)
+    suspend fun getEventsCharacter(characterId : Int, limit: Int = 100, offset : Int? = 0) = api.getEventsCharacter(characterId, limit, offset)
 
     //Comic details
-    suspend fun getCharacterComics(comicId : Int) = api.getCharacterComics(comicId)
-    suspend fun getEventComics(comicId : Int) = api.getEventComics(comicId)
+    suspend fun getCharacterComics(comicId : Int, limit: Int = 100, offset : Int? = 0) = api.getCharacterComics(comicId, limit, offset)
+    suspend fun getEventComics(comicId : Int, limit: Int = 100, offset : Int? = 0) = api.getEventComics(comicId, limit, offset)
 
     //Events details
-    suspend fun getCharacterEvent(eventId : Int) = api.getCharacterEvent(eventId)
-    suspend fun getComicEvent(eventId : Int) = api.getComicEvent(eventId)
+    suspend fun getCharacterEvent(eventId : Int, limit: Int = 100, offset : Int? = 0) = api.getCharacterEvent(eventId, limit, offset)
+    suspend fun getComicEvent(eventId : Int, limit: Int = 100, offset : Int? = 0) = api.getComicEvent(eventId, limit, offset)
 
     //Timeline
     suspend fun getCharacterTimeline() = api.getCharacterTimeline()

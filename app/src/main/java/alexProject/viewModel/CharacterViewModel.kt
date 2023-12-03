@@ -4,6 +4,7 @@ import alexProject.R
 import alexProject.data.model.character.CharacterModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
+import alexProject.util.Constants
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,23 +24,39 @@ class CharacterViewModel @Inject constructor(
         MutableStateFlow<ResourceState<CharacterModelResponse>>(ResourceState.Loading())
     val list : StateFlow<ResourceState<CharacterModelResponse>> = _list
 
-    init {
-        fetch()
-    }
 
-    fun fetch(nameStartsWith : String? = null, limit : Int = 100, offset : Int? = 0) =
+    fun fetch(
+        verify : String? = null,
+        id : Int? = null,
+        nameStartsWith : String? = null,
+        limit : Int = 100,
+        offset : Int? = 0
+    ) =
         viewModelScope.launch {
-            safeFetch(nameStartsWith, limit, offset)
+            safeFetch(verify, id, nameStartsWith, limit, offset)
         }
 
     private suspend fun safeFetch(
+        verify : String? = null,
+        id : Int? = null,
         nameStartsWith : String? = null,
         limit : Int = 100,
         offset : Int? = 0
     ) {
         _list.value = ResourceState.Loading()
         try {
-            val response = repository.characters(nameStartsWith, limit, offset)
+            val response: Response<CharacterModelResponse> = when(verify) {
+                Constants.COMIC -> {
+                    repository.getCharacterComics(id?:0)
+                }
+                Constants.EVENT -> {
+                    repository.getCharacterEvent(id?:0)
+                }
+                else -> {
+                    repository.characters(nameStartsWith, limit, offset)
+                }
+            }
+
             _list.value = handleResponse(response)
         } catch (t : Throwable) {
             when (t) {
