@@ -44,13 +44,15 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         setupUi()
     }
 
-    private fun setupUi() {
+    private fun setupUi() = binding.run{
         handleViewPager()
         descriptionComic()
         handleTabLayout()
-        binding.iconBackAlone.imageBack.setOnClickListener {
+        iconBackAlone.imageBack.setOnClickListener {
             activity?.onBackPressed()
         }
+        handleBadge(binding.tabLayout.getTabAt(1)!!)
+        handleBadge(binding.tabLayout.getTabAt(2)!!)
     }
 
     private fun handleBadge(tab : TabLayout.Tab) {
@@ -75,7 +77,6 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPagerComic.setCurrentItem(selectedTabPosition, true)
-                handleBadge(tab)
             }
 
             override fun onTabUnselected(tab : TabLayout.Tab) {}

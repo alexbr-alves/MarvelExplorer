@@ -48,10 +48,13 @@ class CharacterDetailsFragment :
         setupUI()
     }
 
-    private fun setupUI() {
-        binding.iconBackAlone.imageBack.setOnClickListener {
+    private fun setupUI() = binding.run {
+        iconBackAlone.imageBack.setOnClickListener {
             activity?.onBackPressed()
         }
+        handleBadge(binding.tabLayout.getTabAt(1)!!)
+        handleBadge(binding.tabLayout.getTabAt(2)!!)
+
     }
 
     private fun handleBadge(tab : TabLayout.Tab) {
@@ -76,8 +79,6 @@ class CharacterDetailsFragment :
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPager2.setCurrentItem(selectedTabPosition, true)
-                handleBadge(tab)
-
             }
             override fun onTabUnselected(tab : TabLayout.Tab) {}
             override fun onTabReselected(tab : TabLayout.Tab) {}
@@ -127,7 +128,7 @@ class CharacterDetailsFragment :
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
             val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
             binding.imageFavorite.setImageResource(color)
-            tvNameCharacterDetails.text = characterModel.name
+           handleTabLayout()
             loadImage(
                 imgCharacterDetails,
                 characterModel.thumbnailModel.path,

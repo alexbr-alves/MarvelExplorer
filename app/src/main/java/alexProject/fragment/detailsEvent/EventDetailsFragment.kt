@@ -45,10 +45,12 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         setupUI()
     }
 
-    private fun setupUI() {
+    private fun setupUI() = binding.run {
         binding.iconBackAlone.imageBack.setOnClickListener {
             activity?.onBackPressed()
         }
+        handleBadge(binding.tabLayout.getTabAt(1)!!)
+        handleBadge(binding.tabLayout.getTabAt(2)!!)
     }
 
     private fun handleBadge(tab : TabLayout.Tab) {
@@ -73,7 +75,6 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
             override fun onTabSelected(tab : TabLayout.Tab) {
                 val selectedTabPosition = tab.position
                 binding.viewPagerEvent.setCurrentItem(selectedTabPosition, true)
-                handleBadge(tab)
             }
             override fun onTabUnselected(tab : TabLayout.Tab) {}
             override fun onTabReselected(tab : TabLayout.Tab) {}
