@@ -126,7 +126,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(action)
         }
         layoutComic.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.NOT_VERIFIED, 0)
+            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
         layoutEvent.setOnClickListener {

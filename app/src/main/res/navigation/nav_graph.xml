@@ -141,7 +141,7 @@
         <argument
             android:name="origem"
             app:argType="string" />
-        <argument android:name="characterId"
+        <argument android:name="id"
             app:argType="integer" />
     </fragment>
     <fragment
@@ -202,5 +202,8 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_detailsEventFragment_to_comicsFragment"
+            app:destination="@id/comicsFragment" />
     </fragment>
 </navigation>

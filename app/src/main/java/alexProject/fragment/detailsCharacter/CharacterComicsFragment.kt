@@ -30,7 +30,7 @@ class CharacterComicsFragment(private val characterId : Int) :
 
     override val viewModel : CharacterComicsViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
-    private var totalItems: Int = 0
+    private var totalItems : Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater,
@@ -47,11 +47,18 @@ class CharacterComicsFragment(private val characterId : Int) :
 
     private fun clickAdapter() {
         comicDetailsAdapter.setOnClickListener { comicModel ->
-            val action = CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsComicFragment(comicModel)
+            val action =
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsComicFragment(
+                    comicModel
+                )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            val action = CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToComicsFragment(Constants.VERIFIED, characterId)
+            val action =
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToComicsFragment(
+                    Constants.CHARACTER,
+                    characterId
+                )
             findNavController().navigate(action)
         }
     }
@@ -76,7 +83,8 @@ class CharacterComicsFragment(private val characterId : Int) :
                         textSeeMore.setGone()
                     }
                 }
-            })        }
+            })
+        }
     }
 
     private fun collectObserver() = lifecycleScope.launch {

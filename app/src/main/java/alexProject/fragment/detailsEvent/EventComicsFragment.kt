@@ -4,7 +4,10 @@ package alexProject.fragment.detailsEvent
 import alexProject.adapters.ComicDetailsAdapter
 import alexProject.databinding.FragmentComicEventBinding
 import alexProject.fragment.BaseFragment
+import alexProject.fragment.detailsCharacter.CharacterDetailsFragmentDirections
 import alexProject.state.ResourceState
+import alexProject.util.Constants
+import alexProject.util.setGone
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.detailEvent.EventComicsViewModel
@@ -16,6 +19,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -27,6 +32,7 @@ class EventComicsFragment(private val comicId : Int) :
 
     override val viewModel : EventComicsViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
+    private var totalItems : Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater,
@@ -44,7 +50,18 @@ class EventComicsFragment(private val comicId : Int) :
 
     private fun clickAdapter() {
         comicDetailsAdapter.setOnClickListener { comicModel ->
-            val action = EventDetailsFragmentDirections.actionDetailsEventFragmentToDetailsComicFragment(comicModel)
+            val action =
+                EventDetailsFragmentDirections.actionDetailsEventFragmentToDetailsComicFragment(
+                    comicModel
+                )
+            findNavController().navigate(action)
+        }
+        binding.textSeeMore.setOnClickListener {
+            val action =
+                EventDetailsFragmentDirections.actionDetailsEventFragmentToComicsFragment(
+                    Constants.EVENT,
+                    comicId
+                )
             findNavController().navigate(action)
         }
     }
@@ -53,6 +70,22 @@ class EventComicsFragment(private val comicId : Int) :
         rvComics.apply {
             adapter = comicDetailsAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 30) {
+                        textSeeMore.setVisible()
+                    } else {
+                        textSeeMore.setGone()
+                    }
+                }
+            })
         }
     }
 
@@ -66,6 +99,7 @@ class EventComicsFragment(private val comicId : Int) :
                             binding.textEmpty.setVisible()
                         } else {
                             comicDetailsAdapter.comics = values.data.result.toList()
+                            totalItems = values.data.total
                         }
                     }
                 }

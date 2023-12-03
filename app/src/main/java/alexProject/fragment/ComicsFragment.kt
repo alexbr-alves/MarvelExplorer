@@ -105,7 +105,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetch(args.origem, args.characterId)
+        viewModel.fetch(args.origem, args.id)
         viewModel.comicList.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
@@ -167,7 +167,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + intervalOffset)) {
-                viewModel.fetch(args.origem, args.characterId, offset = initialOffset + intervalOffset)
+                viewModel.fetch(args.origem, args.id, offset = initialOffset + intervalOffset)
                 initialOffset += intervalOffset
                 binding.rvComicList.smoothScrollToPosition(0)
             } else {
