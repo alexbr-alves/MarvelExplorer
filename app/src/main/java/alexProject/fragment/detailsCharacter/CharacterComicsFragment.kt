@@ -52,6 +52,7 @@ class CharacterComicsFragment(private val characterId : Int) :
         rvComics.apply {
             adapter = comicDetailsAdapter
             layoutManager = GridLayoutManager(context, 2)
+
         }
     }
 
