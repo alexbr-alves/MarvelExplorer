@@ -3,6 +3,7 @@ package alexProject.fragment
 import alexProject.adapters.ComicsAdapter
 import alexProject.databinding.FragmentComicBinding
 import alexProject.state.ResourceState
+import alexProject.util.Constants
 import alexProject.util.setGone
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
@@ -11,6 +12,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,8 +33,10 @@ import timber.log.Timber
 class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     override val viewModel : ComicViewModel by viewModels()
     private val comicsAdapter by lazy { ComicsAdapter() }
+    private val args : ComicsFragmentArgs by navArgs()
     private var isSearchExpanded = false
-    private var totalCharacters : Int = 0
+    private val intervalOffset: Int = 100
+    private var totalItems : Int = 0
     private var initialOffset : Int = 0
 
     override fun getViewBinding(
@@ -45,8 +50,16 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         setupRecycleView()
         collectObserver()
         clickAdapter()
-        searchInit()
         handleSearchAnimation()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        if (args.origem != Constants.VERIFIED) {
+            searchInit()
+        } else {
+            binding.searchIcon.setGone()
+        }
     }
 
     private fun handleSearchAnimation() = binding.run {
@@ -92,6 +105,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     }
 
     private fun collectObserver() = lifecycleScope.launch {
+        viewModel.fetch(args.origem, args.characterId)
         viewModel.comicList.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
@@ -99,7 +113,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     resource.data?.let { values ->
                         if (values.data.result.isNotEmpty()) {
                             comicsAdapter.comicList = values.data.result.toList()
-                            totalCharacters = values.data.total
+                            totalItems = values.data.total
                         }
                     }
                 }
@@ -135,7 +149,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + intervalOffset) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -152,9 +166,9 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalCharacters > (initialOffset + 100)) {
-                viewModel.fetch(offset = initialOffset + 100)
-                initialOffset += 100
+            if (totalItems > (initialOffset + intervalOffset)) {
+                viewModel.fetch(args.origem, args.characterId, offset = initialOffset + intervalOffset)
+                initialOffset += intervalOffset
                 binding.rvComicList.smoothScrollToPosition(0)
             } else {
                 binding.textSeeMore.setGone()

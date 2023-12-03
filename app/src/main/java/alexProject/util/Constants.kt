@@ -17,4 +17,7 @@ object Constants {
     const val COMIC = "Comic"
     const val EVENT = "Event"
 
+    const val VERIFIED = "verified"
+    const val NOT_VERIFIED = "not_verified"
+
 }

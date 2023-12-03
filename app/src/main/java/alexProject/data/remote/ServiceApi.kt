@@ -38,7 +38,9 @@ interface ServiceApi {
         @Path(
             value = "characterId",
             encoded = true
-        ) characterId : Int
+        ) characterId : Int,
+        @Query("limit") limit : Int = 100,
+        @Query("offset") offset : Int? = 0
     ) : Response<ComicModelResponse>
 
     @GET("characters/{characterId}/events")

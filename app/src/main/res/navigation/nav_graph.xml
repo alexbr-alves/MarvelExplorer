@@ -27,6 +27,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_detailsCharacterFragment_to_comicsFragment"
+            app:destination="@id/comicsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteCharacterFragment"
@@ -135,6 +138,11 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="origem"
+            app:argType="string" />
+        <argument android:name="characterId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"

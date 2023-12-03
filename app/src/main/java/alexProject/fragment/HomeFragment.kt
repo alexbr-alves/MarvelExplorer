@@ -2,6 +2,7 @@ package alexProject.fragment
 
 import alexProject.data.local.DataHome
 import alexProject.databinding.FragmentHomeBinding
+import alexProject.util.Constants
 import alexProject.util.loadImage
 import alexProject.viewModel.HomeViewModel
 import android.os.Bundle
@@ -125,7 +126,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(action)
         }
         layoutComic.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.NOT_VERIFIED, 0)
             findNavController().navigate(action)
         }
         layoutEvent.setOnClickListener {

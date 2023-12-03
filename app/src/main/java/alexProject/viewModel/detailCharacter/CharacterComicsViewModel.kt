@@ -29,7 +29,7 @@ class CharacterComicsViewModel @Inject constructor(
     private suspend fun safeFetchComic(characterId : Int) {
         _comicList.value = ResourceState.Loading()
         try {
-            val response = repository.getComicsCharacter(characterId)
+            val response = repository.getComicsCharacter(characterId, 30, 0)
             _comicList.value = handleComicResponse(response)
         } catch (t : Throwable) {
             when (t) {
