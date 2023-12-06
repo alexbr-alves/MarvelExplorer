@@ -55,7 +55,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun setupUI() {
-        if (args.origem == Constants.VERIFIED) {
+        if (args.origem == Constants.HOME) {
             binding.searchIcon.setVisible()
         } else {
             binding.searchIcon.setGone()
@@ -140,7 +140,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + 100)) {
-                viewModel.fetch(args.origem, args.id, offset = initialOffset + 100)
+                viewModel.fetch(args.origem, args.id, offset = initialOffset)
                 initialOffset += 100
                 binding.rvCharacterList.smoothScrollToPosition(0)
             } else {

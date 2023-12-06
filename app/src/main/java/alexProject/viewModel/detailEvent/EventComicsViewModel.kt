@@ -29,7 +29,7 @@ class EventComicsViewModel @Inject constructor(
     private suspend fun safeFetchComic(eventId : Int) {
         _list.value = ResourceState.Loading()
         try {
-            val response = repository.getComicEvent(eventId)
+            val response = repository.getComicEvent(eventId, 10, 0)
             _list.value = handleComicResponse(response)
         } catch (t : Throwable) {
             when (t) {

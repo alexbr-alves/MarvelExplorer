@@ -167,7 +167,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + 100)) {
-                viewModel.fetch(args.origem, args.id, offset = initialOffset + 100)
+                viewModel.fetch( args.origem, args.id, offset = initialOffset)
                 initialOffset += 100
                 binding.rvComicList.smoothScrollToPosition(0)
             } else {

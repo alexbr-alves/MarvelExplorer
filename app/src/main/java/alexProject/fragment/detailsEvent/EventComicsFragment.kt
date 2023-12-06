@@ -12,6 +12,7 @@ import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.detailEvent.EventComicsViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,6 @@ class EventComicsFragment(private val comicId : Int) :
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetch(comicId)
         setupRecyclerView()
         collectObserver()
         clickAdapter()
@@ -79,7 +79,7 @@ class EventComicsFragment(private val comicId : Int) :
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 30) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 10) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -90,6 +90,7 @@ class EventComicsFragment(private val comicId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
+        viewModel.fetch(comicId)
         viewModel.list.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
@@ -100,6 +101,7 @@ class EventComicsFragment(private val comicId : Int) :
                         } else {
                             comicDetailsAdapter.comics = values.data.result.toList()
                             totalItems = values.data.total
+                            Log.i("brito", "totalItems: $totalItems")
                         }
                     }
                 }

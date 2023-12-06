@@ -44,7 +44,7 @@ class EventViewModel @Inject constructor(
         try {
             _eventList.value = ResourceState.Loading()
             val response : Response<EventModelResponse> = when (verify) {
-                Constants.CHARACTER -> {
+                Constants.EVENT -> {
                     repository.getEventsCharacter(id ?: 0, limit, offset)
                 }
                 Constants.COMIC -> {

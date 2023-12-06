@@ -30,7 +30,7 @@ class EventCharactersViewModel @Inject constructor(
     private suspend fun safeFetch(eventId : Int) {
         _list.value = ResourceState.Loading()
         try {
-            val response = repository.getCharacterEvent(eventId, 30, 0)
+            val response = repository.getCharacterEvent(eventId, 10, 0)
             _list.value = handleResponse(response)
         } catch (t : Throwable) {
             when (t) {

@@ -109,7 +109,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + 100)) {
-                viewModel.fetch(args.verity, args.id, offset = initialOffset + 100)
+                viewModel.fetch(verify = args.verity, id = args.id, offset = initialOffset)
                 initialOffset += 100
                 binding.rvEventList.smoothScrollToPosition(0)
             } else {
@@ -127,7 +127,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                     resource.data?.let { values ->
                         if (values.data.result.isNotEmpty()) {
                             eventAdapter.eventList = values.data.result.toList()
-                            totalItems = values.data.result.size
+                            totalItems = values.data.total
                         }
                     }
                 }

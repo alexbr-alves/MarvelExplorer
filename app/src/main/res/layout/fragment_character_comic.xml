@@ -34,8 +34,23 @@
         app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/layout_mini_cards">
-
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/text_see_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_corner_see_more"
+        android:fontFamily="@font/marvel"
+        android:padding="10dp"
+        android:text="@string/view_all"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvComics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBarDetail"

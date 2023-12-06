@@ -197,6 +197,12 @@
         <action
             android:id="@+id/action_detailsComicFragment_to_CharacterFragment"
             app:destination="@id/CharacterFragment" />
+        <action
+            android:id="@+id/action_detailsComicFragment_to_CharacterFragment2"
+            app:destination="@id/CharacterFragment" />
+        <action
+            android:id="@+id/action_detailsComicFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsEventFragment"
