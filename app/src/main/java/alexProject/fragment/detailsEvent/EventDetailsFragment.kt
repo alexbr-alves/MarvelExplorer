@@ -57,6 +57,7 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         val badge = tab.orCreateBadge
         badge.isVisible = true
         badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
                 badge.number = eventModel.characters.available

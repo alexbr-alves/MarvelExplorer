@@ -59,6 +59,7 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         val badge = tab.orCreateBadge
         badge.isVisible = true
         badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
                 badge.number = comicModel.characters.available

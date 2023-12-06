@@ -140,8 +140,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + 100)) {
-                viewModel.fetch(args.origem, args.id, offset = initialOffset)
                 initialOffset += 100
+                viewModel.fetch(args.origem, args.id, offset = initialOffset)
                 binding.rvCharacterList.smoothScrollToPosition(0)
             } else {
                 binding.textSeeMore.setGone()

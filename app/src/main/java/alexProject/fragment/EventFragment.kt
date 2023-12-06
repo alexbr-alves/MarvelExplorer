@@ -109,8 +109,8 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         }
         binding.textSeeMore.setOnClickListener {
             if (totalItems > (initialOffset + 100)) {
-                viewModel.fetch(verify = args.verity, id = args.id, offset = initialOffset)
                 initialOffset += 100
+                viewModel.fetch(verify = args.verity, id = args.id, offset = initialOffset)
                 binding.rvEventList.smoothScrollToPosition(0)
             } else {
                 binding.textSeeMore.setGone()

@@ -61,6 +61,7 @@ class CharacterDetailsFragment :
         val badge = tab.orCreateBadge
         badge.isVisible = true
         badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
+        badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
                 badge.number = characterModel.comics.available
@@ -127,7 +128,8 @@ class CharacterDetailsFragment :
     private fun onLoadCharacter(characterModel : CharacterModel) = with(binding) {
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
             val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-            binding.imageFavorite.setImageResource(color)
+            tvNameCharacterDetails.text = characterModel.name
+            imageFavorite.setImageResource(color)
            handleTabLayout()
             loadImage(
                 imgCharacterDetails,
