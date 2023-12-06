@@ -130,7 +130,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(action)
         }
         layoutEvent.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToEventFragment2()
+            val action = HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
             findNavController().navigate(action)
         }
         imageCharacter1.setOnClickListener {

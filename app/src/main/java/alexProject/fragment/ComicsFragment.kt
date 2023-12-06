@@ -35,7 +35,6 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     private val comicsAdapter by lazy { ComicsAdapter() }
     private val args : ComicsFragmentArgs by navArgs()
     private var isSearchExpanded = false
-    private val intervalOffset: Int = 100
     private var totalItems : Int = 0
     private var initialOffset : Int = 0
 
@@ -50,13 +49,14 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         setupRecycleView()
         collectObserver()
         clickAdapter()
+        searchInit()
         handleSearchAnimation()
         setupUI()
     }
 
     private fun setupUI() {
-        if (args.origem != Constants.VERIFIED) {
-            searchInit()
+        if (args.origem == Constants.HOME) {
+           binding.searchIcon.setVisible()
         } else {
             binding.searchIcon.setGone()
         }
@@ -105,7 +105,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetch(args.origem, args.id)
+        viewModel.fetch(args.origem, args.id, offset = initialOffset)
         viewModel.comicList.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
@@ -149,7 +149,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + intervalOffset) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -166,14 +166,13 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + intervalOffset)) {
-                viewModel.fetch(args.origem, args.id, offset = initialOffset + intervalOffset)
-                initialOffset += intervalOffset
+            if (totalItems > (initialOffset + 100)) {
+                viewModel.fetch(args.origem, args.id, offset = initialOffset + 100)
+                initialOffset += 100
                 binding.rvComicList.smoothScrollToPosition(0)
             } else {
                 binding.textSeeMore.setGone()
             }
-
         }
     }
 
@@ -206,6 +205,6 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     }
 
     private fun updateComicList(query : String? = null) {
-        viewModel.fetch(query)
+        viewModel.fetch(titleStartsWith = query, offset = initialOffset)
     }
 }

@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_detailsCharacterFragment_to_comicsFragment"
             app:destination="@id/comicsFragment" />
+        <action
+            android:id="@+id/action_detailsCharacterFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteCharacterFragment"
@@ -162,6 +165,12 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="verity"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_details_comic"

@@ -35,8 +35,8 @@
         app:spanCount="2"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/layout_mini_cards">
-
     </androidx.recyclerview.widget.RecyclerView>
+
     <TextView
         android:id="@+id/text_see_more"
         android:layout_width="wrap_content"
@@ -52,8 +52,6 @@
         app:layout_constraintBottom_toBottomOf="@id/rvComics"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
     <ProgressBar
         android:id="@+id/progressBarDetail"

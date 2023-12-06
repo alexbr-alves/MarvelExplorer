@@ -65,6 +65,22 @@
                 app:spanCount="2"
                 tools:listitem="@layout/layout_card_name" />
 
+            <TextView
+                android:id="@+id/text_see_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/lavender_indigo"
+                android:fontFamily="@font/marvel"
+                android:padding="7dp"
+                android:text="@string/view_more"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/rvComicList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"

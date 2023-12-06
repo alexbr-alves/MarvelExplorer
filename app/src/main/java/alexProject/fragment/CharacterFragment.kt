@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -36,7 +35,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     private val characterAdapter by lazy { CharacterAdapter() }
     private val args : CharacterFragmentArgs by navArgs()
     private var isSearchExpanded = false
-    private var totalCharacters : Int = 0
+    private var totalItems : Int = 0
     private var initialOffset : Int = 0
 
     override fun getViewBinding(
@@ -51,12 +50,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         clickAdapter()
         collectObserve()
         handleSearchAnimation()
+        searchInit()
         setupUI()
     }
 
     private fun setupUI() {
-        if (args.origem != Constants.VERIFIED) {
-            searchInit()
+        if (args.origem == Constants.VERIFIED) {
+            binding.searchIcon.setVisible()
         } else {
             binding.searchIcon.setGone()
         }
@@ -105,14 +105,14 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.fetch(args.origem, args.id)
+        viewModel.fetch(args.origem, args.id, offset = initialOffset)
         viewModel.list.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
                     resource.data?.let { values ->
                         binding.progressCircular.setInvisible()
                         characterAdapter.characters = values.data.results.toList()
-                        totalCharacters = values.data.total
+                        totalItems = values.data.total
                     }
                 }
 
@@ -139,8 +139,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalCharacters > (initialOffset + 100)) {
-                viewModel.fetch(offset = initialOffset + 100)
+            if (totalItems > (initialOffset + 100)) {
+                viewModel.fetch(args.origem, args.id, offset = initialOffset + 100)
                 initialOffset += 100
                 binding.rvCharacterList.smoothScrollToPosition(0)
             } else {
@@ -164,7 +164,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -203,7 +203,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun updateCharacterList(query : String? = null) {
-        viewModel.fetch(query)
+        viewModel.fetch(nameStartsWith = query, offset = initialOffset)
     }
 
 }

@@ -3,6 +3,8 @@ package alexProject.fragment
 import alexProject.adapters.EventAdapter
 import alexProject.databinding.FragmentEventBinding
 import alexProject.state.ResourceState
+import alexProject.util.Constants
+import alexProject.util.setGone
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.EventViewModel
@@ -17,7 +19,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -27,7 +32,10 @@ import timber.log.Timber
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     override val viewModel : EventViewModel by viewModels()
     private val eventAdapter by lazy { EventAdapter() }
+    private val args : EventFragmentArgs by navArgs()
     private var isSearchExpanded = false
+    private var totalItems : Int = 0
+    private var initialOffset : Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater,
@@ -42,6 +50,15 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         clickAdapter()
         searchInit()
         handleSearchAnimation()
+        setupUI()
+    }
+
+    private fun setupUI() {
+        if (args.verity == Constants.VERIFIED) {
+          binding.searchIcon.setVisible()
+        } else {
+            binding.searchIcon.setGone()
+        }
     }
 
     private fun handleSearchAnimation() = binding.run {
@@ -90,9 +107,19 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                 .actionEventFragmentToDetailsEventFragment(it)
             findNavController().navigate(action)
         }
+        binding.textSeeMore.setOnClickListener {
+            if (totalItems > (initialOffset + 100)) {
+                viewModel.fetch(args.verity, args.id, offset = initialOffset + 100)
+                initialOffset += 100
+                binding.rvEventList.smoothScrollToPosition(0)
+            } else {
+                binding.textSeeMore.setGone()
+            }
+        }
     }
 
     private fun collectObserver() = lifecycleScope.launch {
+        viewModel.fetch(args.verity, args.id, offset = initialOffset)
         viewModel.eventList.collect { resource ->
             when (resource) {
                 is ResourceState.Success -> {
@@ -100,6 +127,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                     resource.data?.let { values ->
                         if (values.data.result.isNotEmpty()) {
                             eventAdapter.eventList = values.data.result.toList()
+                            totalItems = values.data.result.size
                         }
                     }
                 }
@@ -124,6 +152,23 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         rvEventList.apply {
             adapter = eventAdapter
             layoutManager = GridLayoutManager(context, 2)
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                        textSeeMore.setVisible()
+                    } else {
+                        textSeeMore.setGone()
+                    }
+                }
+            })
         }
     }
 
@@ -156,6 +201,6 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     }
 
     private fun updateEventList(query : String? = null) {
-        viewModel.fetch(query)
+        viewModel.fetch(titleStartsWith = query, offset = initialOffset)
     }
 }

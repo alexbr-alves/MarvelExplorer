@@ -4,6 +4,7 @@ import alexProject.R
 import alexProject.data.model.event.EventModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
+import alexProject.util.Constants
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,17 +24,36 @@ class EventViewModel @Inject constructor(
         MutableStateFlow<ResourceState<EventModelResponse>>(ResourceState.Loading())
     val eventList : StateFlow<ResourceState<EventModelResponse>> = _eventList
 
-    init {
-        fetch()
+    fun fetch(
+        verify : String? = null,
+        id : Int? = null,
+        titleStartsWith : String? = null,
+        limit : Int = 100,
+        offset : Int
+    ) = viewModelScope.launch {
+        safeFetch(verify, id, titleStartsWith, limit, offset)
     }
 
-    fun fetch(nameStartsWith : String? = null) = viewModelScope.launch {
-        safeFetch(nameStartsWith)
-    }
-
-    private suspend fun safeFetch(nameStartsWith : String? = null) {
+    private suspend fun safeFetch(
+        verify : String? = null,
+        id : Int? = null,
+        titleStartsWith : String? = null,
+        limit : Int = 100,
+        offset : Int
+    ) {
         try {
-            val response = repository.events(nameStartsWith)
+            _eventList.value = ResourceState.Loading()
+            val response : Response<EventModelResponse> = when (verify) {
+                Constants.CHARACTER -> {
+                    repository.getEventsCharacter(id ?: 0, limit, offset)
+                }
+                Constants.COMIC -> {
+                    repository.getEventComics(id ?: 0, limit, offset)
+                }
+                else -> {
+                    repository.events(titleStartsWith, limit, offset)
+                }
+            }
             _eventList.value = handleResponse(response)
         } catch (t : Throwable) {
             when (t) {
