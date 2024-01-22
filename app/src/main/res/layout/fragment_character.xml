@@ -5,8 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@color/gray_500"
+    android:background="@color/black_eerie"
     android:orientation="horizontal">
+
+    <View
+        android:id="@+id/start_view"
+        android:transitionName="shared_element_container"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/searchIcon"
@@ -43,7 +50,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCharacters"
+        android:id="@+id/rvCharacterList"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -60,15 +67,15 @@
         android:id="@+id/text_see_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/red_marvel"
+        android:background="@drawable/bg_corner_see_more"
         android:fontFamily="@font/marvel"
-        android:padding="7dp"
-        android:text="@string/see_more"
+        android:padding="10dp"
+        android:text="@string/view_more"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginBottom="10dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/rvCharacters"
+        app:layout_constraintBottom_toBottomOf="@id/rvCharacterList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -76,7 +83,7 @@
         android:id="@+id/progressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/red"
+        android:indeterminateTint="@color/lavender_indigo"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

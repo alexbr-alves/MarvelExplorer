@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red_marvel"
-    android:backgroundTint="@color/gray_500"
-    tools:context=".fragment.detailsComic.ComicDescriptionFragment">
+    android:background="@color/black_raisin"
+    tools:context="alexProject.fragment.detailsComic.ComicDescriptionFragment">
 
     <TextView
         android:id="@+id/text_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/gray_500"
-        android:paddingBottom="20dp"
+        android:paddingHorizontal="12dp"
+        android:background="@color/black_raisin"
+        android:fontFamily="@font/marvel"
+        android:paddingVertical="20dp"
         android:text="@string/text_description_empty"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

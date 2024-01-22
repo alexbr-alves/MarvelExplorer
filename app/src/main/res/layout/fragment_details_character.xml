@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_500">
+    android:background="@color/black_raisin">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
@@ -23,125 +23,93 @@
                 android:layout_width="wrap_content"
                 android:layout_height="400dp"
                 android:contentDescription="@string/app_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/imgCharacterDetails"
+                app:layout_constraintTop_toTopOf="@id/imgCharacterDetails"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvNameCharacterDetails"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/marvel"
-                android:text="@string/tx_item_name"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/image_favorite"
-                app:layout_constraintHorizontal_bias="0.01"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgCharacterDetails" />
+            <include
+                android:id="@+id/icon_back_alone"
+                layout="@layout/icon_back_alone" />
 
-            <LinearLayout
-                android:id="@+id/layout_buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNameCharacterDetails">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_about"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:paddingHorizontal="2dp"
-                    android:paddingVertical="5dp"
-                    android:text="@string/title_about"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/image_comic"
-                    app:layout_constraintTop_toBottomOf="@+id/image_comic" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_comic"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/comics"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/imgCharacterDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_event"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/title_fragment_event"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/text_comic"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_series"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/marvel"
-                    android:padding="5dp"
-                    android:text="@string/title_fragment_series"
-                    android:textAlignment="inherit"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/text_event"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCharacterDetails" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/image_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/favorite"
-                app:layout_constraintBottom_toTopOf="@id/viewPager2"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager2"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/bg_corner"
+                android:paddingTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_buttons"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@id/imgCharacterDetails">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNameCharacterDetails"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/poppins_thin"
+                    android:lineHeight="42dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/tx_item_name"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="7dp"
+                    android:elevation="1dp"
+                    app:layout_constraintBottom_toTopOf="@id/viewPager2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNameCharacterDetails"
+                    app:tabBackground="@color/black_raisin"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorGravity="bottom"
+                    app:tabMode="scrollable"
+                    app:tabTextColor="@color/white">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_about" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_fragment_comic" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_fragment_event" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <ImageView
+                    android:id="@+id/image_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/favorite"
+                    app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/black_raisin"
+                    android:minHeight="300dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
