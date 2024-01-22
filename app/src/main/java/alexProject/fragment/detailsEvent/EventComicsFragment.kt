@@ -101,7 +101,6 @@ class EventComicsFragment(private val comicId : Int) :
                         } else {
                             comicDetailsAdapter.comics = values.data.result.toList()
                             totalItems = values.data.total
-                            Log.i("brito", "totalItems: $totalItems")
                         }
                     }
                 }

@@ -3,11 +3,11 @@ package alexProject.di
 import alexProject.data.local.MarvelDatabase
 import alexProject.data.remote.ServiceApi
 import alexProject.util.Constants.APIKEY
-import alexProject.util.Constants.BASE_URL
+import alexProject.util.KeyMarvel.BASE_URL
 import alexProject.util.Constants.DATABASE_NAME
 import alexProject.util.Constants.HASH
-import alexProject.util.Constants.PRIVATE_KEY
-import alexProject.util.Constants.PUBLIC_KEY
+import alexProject.util.KeyMarvel.PRIVATE_KEY
+import alexProject.util.KeyMarvel.PUBLIC_KEY
 import alexProject.util.Constants.TS
 import android.content.Context
 import androidx.room.Room
