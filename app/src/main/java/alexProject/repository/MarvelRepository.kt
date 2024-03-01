@@ -11,7 +11,7 @@ class MarvelRepository @Inject constructor(
 ) {
     suspend fun characters(nameStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.characters(nameStartsWith, limit,  offset)
     suspend fun comics(titleStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.comics(titleStartsWith, limit, offset)
-    suspend fun events(nameStartsWith : String? = null, limit : Int = 100, offset : Int? = 0) = api.events(nameStartsWith, limit, offset)
+    suspend fun events() = api.events()
 
     //Character details
     suspend fun getComicsCharacter(characterId : Int, limit: Int = 100, offset : Int? = 0) = api.getComicsCharacter(characterId, limit, offset)

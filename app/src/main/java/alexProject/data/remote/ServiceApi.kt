@@ -27,9 +27,6 @@ interface ServiceApi {
 
     @GET("events")
     suspend fun events(
-        @Query("nameStartsWith") nameStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
     //Character details
