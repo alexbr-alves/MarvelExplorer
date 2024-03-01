@@ -99,19 +99,19 @@ interface ServiceApi {
     @GET("characters")
     suspend fun getCharacterTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
     @GET("comics")
     suspend fun getComicTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
     @GET("events")
     suspend fun getEventTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
 }

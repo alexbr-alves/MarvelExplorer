@@ -25,7 +25,6 @@ class TimelineViewModel @Inject constructor(
         MutableStateFlow<ResourceState<Collection<TimelineModel>>>(ResourceState.Loading())
     val listItems : StateFlow<ResourceState<Collection<TimelineModel>>> = _listItems
 
-
     init {
         fetch()
     }
@@ -71,7 +70,7 @@ class TimelineViewModel @Inject constructor(
                 }
             }
 
-            //combinedList.sortByDescending { it.modified }
+            combinedList.sortByDescending { it.modified }
 
             _listItems.value = ResourceState.Success(combinedList)
         } catch (t : Throwable) {
@@ -93,4 +92,5 @@ class TimelineViewModel @Inject constructor(
         }
         return ResourceState.Error(response.message())
     }
+
 }
