@@ -31,13 +31,12 @@ class EventViewModel @Inject constructor(
         limit : Int = 100,
         offset : Int
     ) = viewModelScope.launch {
-        safeFetch(verify, id, titleStartsWith, limit, offset)
+        safeFetch(verify, id, limit, offset)
     }
 
     private suspend fun safeFetch(
         verify : String? = null,
         id : Int? = null,
-        titleStartsWith : String? = null,
         limit : Int = 100,
         offset : Int
     ) {
@@ -51,7 +50,7 @@ class EventViewModel @Inject constructor(
                     repository.getEventComics(id ?: 0, limit, offset)
                 }
                 else -> {
-                    repository.events(titleStartsWith, limit, offset)
+                    repository.events()
                 }
             }
             _eventList.value = handleResponse(response)

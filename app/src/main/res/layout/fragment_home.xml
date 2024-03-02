@@ -39,7 +39,6 @@
             android:src="@drawable/double_arrow_right_24" />
     </LinearLayout>
 
-
     <HorizontalScrollView
         android:id="@+id/scrollview_characters"
         android:layout_width="match_parent"
@@ -59,8 +58,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="5dp"
@@ -78,8 +77,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/cardView1"
                 app:cardCornerRadius="75dp">
@@ -96,8 +95,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/cardView2"
                 app:cardCornerRadius="75dp">
@@ -114,8 +113,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/cardView3"
                 app:cardCornerRadius="75dp">
@@ -132,8 +131,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/cardView4"
                 app:cardCornerRadius="75dp">
@@ -161,7 +160,7 @@
         android:paddingVertical="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollview_characters"
+        app:layout_constraintBottom_toTopOf="@id/scrollview_comic"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
@@ -195,7 +194,8 @@
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_comic">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -204,8 +204,8 @@
 
             <ImageView
                 android:id="@+id/image_comic1"
-                android:layout_width="120dp"
-                android:layout_height="220dp"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginEnd="5dp"
                 android:background="@color/white"
@@ -216,8 +216,8 @@
 
             <ImageView
                 android:id="@+id/image_comic2"
-                android:layout_width="120dp"
-                android:layout_height="220dp"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_comic1"
                 android:background="@color/white"
@@ -228,8 +228,8 @@
 
             <ImageView
                 android:id="@+id/image_comic3"
-                android:layout_width="120dp"
-                android:layout_height="220dp"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_comic2"
                 android:background="@color/white"
@@ -240,8 +240,8 @@
 
             <ImageView
                 android:id="@+id/image_comic4"
-                android:layout_width="120dp"
-                android:layout_height="220dp"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_comic3"
                 android:background="@color/white"
@@ -252,8 +252,8 @@
 
             <ImageView
                 android:id="@+id/image_comic5"
-                android:layout_width="120dp"
-                android:layout_height="220dp"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_comic4"
                 android:background="@color/white"
@@ -273,9 +273,9 @@
         android:background="@color/gray_700"
         android:orientation="horizontal"
         android:paddingVertical="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollview_event"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollview_comic"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
@@ -306,10 +306,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_event">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -318,8 +319,8 @@
 
             <ImageView
                 android:id="@+id/image_event1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginEnd="5dp"
                 android:background="@color/white"
@@ -329,8 +330,8 @@
 
             <ImageView
                 android:id="@+id/image_event2"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_event1"
                 android:background="@color/white"
@@ -340,8 +341,8 @@
 
             <ImageView
                 android:id="@+id/image_event3"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_event2"
                 android:background="@color/white"
@@ -351,8 +352,8 @@
 
             <ImageView
                 android:id="@+id/image_event4"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_event3"
                 android:background="@color/white"
@@ -362,8 +363,8 @@
 
             <ImageView
                 android:id="@+id/image_event5"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@id/image_event4"
                 android:background="@color/white"

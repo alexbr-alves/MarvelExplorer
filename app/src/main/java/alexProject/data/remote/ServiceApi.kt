@@ -27,9 +27,6 @@ interface ServiceApi {
 
     @GET("events")
     suspend fun events(
-        @Query("nameStartsWith") nameStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
     //Character details
@@ -102,19 +99,19 @@ interface ServiceApi {
     @GET("characters")
     suspend fun getCharacterTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
     @GET("comics")
     suspend fun getComicTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
     @GET("events")
     suspend fun getEventTimeline(
         @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 50
+        @Query("limit") limit : Int = 20
     ) : Response<TimelineModelResponse>
 
 }
