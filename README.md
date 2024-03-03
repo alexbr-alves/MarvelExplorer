@@ -4,9 +4,9 @@
 
 <br>
 
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/60194c18-380a-40b3-9541-f8fde67706a0" width="300"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/0d9bc50b-cf82-40e9-94d0-4203f9071bf2" width="300"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/d0cf833b-8743-4c4d-91a8-295ea7d4bae7" width="300"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/60194c18-380a-40b3-9541-f8fde67706a0" width="250"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/0d9bc50b-cf82-40e9-94d0-4203f9071bf2" width="250"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/d0cf833b-8743-4c4d-91a8-295ea7d4bae7" width="250"/>
 
 <br>
 
@@ -52,6 +52,6 @@
 
 ## 📷 Mais imagens
 
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/39cb76b3-2c05-49f9-8f2a-d68546878b13" width="300"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/b05bd448-4f5c-4f30-8fee-ebb8e2d960e7" width="300"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/eafda058-405e-46be-8879-dda2fc3fc733" width="300"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/39cb76b3-2c05-49f9-8f2a-d68546878b13" width="250"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/b05bd448-4f5c-4f30-8fee-ebb8e2d960e7" width="250"/>
+<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/eafda058-405e-46be-8879-dda2fc3fc733" width="250"/>
