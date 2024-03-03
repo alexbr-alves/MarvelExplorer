@@ -10,7 +10,7 @@
 
 <br>
 
-## 🚀 Começando
+## 🚀 Intro
 
 * Exploração de Personagens: Os usuários podem explorar uma extensa galeria de personagens da Marvel, incluindo heróis, vilões e anti-heróis. Cada personagem vem com uma biografia detalhada, estatísticas de poder e uma lista de histórias em quadrinhos em que aparecem.
 
