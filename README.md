@@ -1,4 +1,4 @@
-# Aplicativo Marvel Comics
+# Aplicativo MarvelExplorer
 
 ### Marvel Explorer é o aplicativo Android para todos os fãs do universo Marvel. Com uma interface intuitiva e recursos poderosos, permite aos usuários explorar o vasto mundo dos super-heróis da Marvel de uma maneira envolvente e informativa.
 
@@ -29,13 +29,19 @@
 ### 📋 O que usei!
 
 * Framework: Android
+* Framework Version:  [ Jellyfish | 2023.3.1 Canary 12 (Preview Release)](https://developer.android.com/studio/preview?_gl=1*d01t76*_up*MQ..&gclid=CjwKCAiA3JCvBhA8EiwA4kujZipwbeiyH0o3C5bHRhDQsgY2_TTLx-dcu0MpfaGqGGGmOl-ntK2UDRoCeA0QAvD_BwE&gclsrc=aw.ds)
 * Linguagem: Kotlin
 * Arquitetura: MVVM
 * Device: Emulador PIXEL 8 Pro API 30
 * Database: SQLite (DAO)
 * Injeção de dependência: Hilt
 
-### 🔧 Informações
+### 🔧 Intalação
+
+* Deve criar uma conta no [Portal da Marvel](https://developer.marvel.com/)
+* Deve inserir suas chaves que foi gerada no portal da marvel no arquivo `Util/Keymarvel.kt`
+
+### ℹ Informações
 
 * A HOME foi construida localmente para economizar requisição, já que o portal da Marvel tem um limite diario de requests.
 * O FEED foi construido buscando os 60 itens mais recentes que é registrado como modificação pela Marvel. Comics, Character e event (20 de cada)
