@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import alexProject.databinding.ActivitySplashBinding
 import android.content.Intent
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
+import kotlin.random.Random
 
 class SplashActivity : AppCompatActivity() {
 
@@ -21,13 +26,26 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setupSplash() = with(binding) {
-        tvSplash.alpha = 0f
-        tvSplash.animate().setDuration(1000).alpha(1f).withEndAction {
+        handleAleatorySplash()
+        imageSplash.animate().setDuration(3000).alpha(1f).withEndAction {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_in)
             finish()
         }
-
     }
+
+    private fun handleAleatorySplash() = with(binding) {
+        val arraySplash = arrayListOf(
+            R.drawable.splash_pantera,
+            R.drawable.splash_groot,
+            R.drawable.splash_spider,
+            R.drawable.splash_thanos,
+            R.drawable.spash_ironman,
+            R.drawable.splash_deadpool,
+        )
+        imageSplash.setImageResource(arraySplash[Random.nextInt(0, 6)])
+    }
+
+
 }
