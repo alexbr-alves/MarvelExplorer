@@ -70,7 +70,7 @@ class TimelineViewModel @Inject constructor(
                 }
             }
 
-            combinedList.sortByDescending { it.modified }
+            //combinedList.sortByDescending { it.modified }
 
             _listItems.value = ResourceState.Success(combinedList)
         } catch (t : Throwable) {
