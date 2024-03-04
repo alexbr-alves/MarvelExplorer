@@ -6,49 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/gray_500">
 
-    <LinearLayout
-        android:id="@+id/layout_character"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/title_top"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/gray_700"
-        android:orientation="horizontal"
-        android:paddingVertical="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/marvel"
+        android:text="@string/home_fragment_title_top"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseCompoundDrawables">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/marvel"
-            android:text="@string/title_fragment_characters"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/double_arrow_right_24" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/scrollview_characters"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_character">
+        app:layout_constraintTop_toBottomOf="@id/title_top">
 
 
         <RelativeLayout
@@ -58,12 +41,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
                 android:layout_marginEnd="5dp"
-                app:cardCornerRadius="75dp">
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/image_character1"
@@ -72,16 +54,16 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/cardView1"
-                app:cardCornerRadius="75dp">
+                android:layout_toEndOf="@+id/cardView1"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/image_character2"
@@ -90,16 +72,16 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/cardView2"
-                app:cardCornerRadius="75dp">
+                android:layout_toEndOf="@+id/cardView2"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/image_character3"
@@ -108,16 +90,16 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/cardView3"
-                app:cardCornerRadius="75dp">
+                android:layout_toEndOf="@+id/cardView3"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/image_character4"
@@ -126,16 +108,16 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/cardView4"
-                app:cardCornerRadius="75dp">
+                android:layout_toEndOf="@+id/cardView4"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/image_character5"
@@ -144,236 +126,84 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
-    </HorizontalScrollView>
-
-    <LinearLayout
-        android:id="@+id/layout_comic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray_700"
-        android:orientation="horizontal"
-        android:paddingVertical="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/scrollview_comic"
-        tools:ignore="UseCompoundDrawables">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/marvel"
-            android:text="@string/title_fragment_comic"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/double_arrow_right_24" />
-    </LinearLayout>
-
-
-    <HorizontalScrollView
-        android:id="@+id/scrollview_comic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal">
-
-            <ImageView
-                android:id="@+id/image_comic1"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="5dp"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_comic2"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_comic1"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_comic3"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_comic2"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_comic4"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_comic3"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_comic5"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_comic4"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         </RelativeLayout>
     </HorizontalScrollView>
 
-    <LinearLayout
-        android:id="@+id/layout_event"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_categories"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray_700"
-        android:orientation="horizontal"
-        android:paddingVertical="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollview_event"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="UseCompoundDrawables">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/marvel"
-            android:text="@string/title_fragment_event"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/double_arrow_right_24" />
-    </LinearLayout>
-
-
-    <HorizontalScrollView
-        android:id="@+id/scrollview_event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_weight="1"
+        android:fontFamily="@font/marvel"
+        android:text="@string/home_fragment_title_categories"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/text_characters" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal">
+    <TextView
+        android:id="@+id/text_characters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_corner"
+        android:backgroundTint="@color/gray_300"
+        android:fontFamily="@font/marvel"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/title_fragment_characters"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_comics" />
 
-            <ImageView
-                android:id="@+id/image_event1"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="5dp"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/text_comics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_corner"
+        android:backgroundTint="@color/gray_300"
+        android:fontFamily="@font/marvel"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/title_fragment_comic"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_events" />
 
-            <ImageView
-                android:id="@+id/image_event2"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_event1"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/text_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_corner"
+        android:backgroundTint="@color/gray_300"
+        android:fontFamily="@font/marvel"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/title_fragment_event"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_event3"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_event2"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_event4"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_event3"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/image_event5"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/image_event4"
-                android:background="@color/white"
-                android:contentDescription="@string/app_name"
-                android:padding="2dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        </RelativeLayout>
-    </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

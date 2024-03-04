@@ -18,6 +18,10 @@
     <string name="search_character">Pesquise um personagem</string>
     <string name="search_comic">Pesquise um HQ</string>
 
+    <!--    Home Fragment -->
+    <string name="home_fragment_title_top">Top Characters</string>
+    <string name="home_fragment_title_categories">Categories</string>
+
     <!--    Dialog delete -->
     <string name="dialog_title_text">DELETAR</string>
     <string name="dialog_message_text">Deseja realmente deletar esse personagem?</string>
