@@ -1,5 +1,6 @@
 package alexProject.fragment
 
+import alexProject.R
 import alexProject.data.local.DataHome
 import alexProject.databinding.FragmentHomeBinding
 import alexProject.util.Constants
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +34,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun setupUI() {
         loadCharacters()
-        loadComics()
-        loadEvents()
     }
 
     private fun loadCharacters() = binding.run {
@@ -64,75 +64,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         )
     }
 
-    private fun loadComics() = binding.run {
-        loadImage(
-            imageComic1,
-            DataHome.COMIC1.thumbnailModel.path,
-            DataHome.COMIC1.thumbnailModel.extension
-        )
-        loadImage(
-            imageComic2,
-            DataHome.COMIC2.thumbnailModel.path,
-            DataHome.COMIC2.thumbnailModel.extension
-        )
-        loadImage(
-            imageComic3,
-            DataHome.COMIC3.thumbnailModel.path,
-            DataHome.COMIC3.thumbnailModel.extension
-        )
-        loadImage(
-            imageComic4,
-            DataHome.COMIC4.thumbnailModel.path,
-            DataHome.COMIC4.thumbnailModel.extension
-        )
-        loadImage(
-            imageComic5,
-            DataHome.COMIC5.thumbnailModel.path,
-            DataHome.COMIC5.thumbnailModel.extension
-        )
-    }
-
-    private fun loadEvents() = binding.run {
-        loadImage(
-            imageEvent1,
-            DataHome.EVENT1.thumbnailModel.path,
-            DataHome.EVENT1.thumbnailModel.extension
-        )
-        loadImage(
-            imageEvent2,
-            DataHome.EVENT2.thumbnailModel.path,
-            DataHome.EVENT2.thumbnailModel.extension
-        )
-        loadImage(
-            imageEvent3,
-            DataHome.EVENT3.thumbnailModel.path,
-            DataHome.EVENT3.thumbnailModel.extension
-        )
-        loadImage(
-            imageEvent4,
-            DataHome.EVENT4.thumbnailModel.path,
-            DataHome.EVENT4.thumbnailModel.extension
-        )
-        loadImage(
-            imageEvent5,
-            DataHome.EVENT5.thumbnailModel.path,
-            DataHome.EVENT5.thumbnailModel.extension
-        )
-    }
 
     private fun clickEvents() = with(binding) {
-        layoutCharacter.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
-            findNavController().navigate(action)
-        }
-        layoutComic.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
-            findNavController().navigate(action)
-        }
-        layoutEvent.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
-            findNavController().navigate(action)
-        }
         imageCharacter1.setOnClickListener {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToDetailsCharacterFragment(DataHome.CHARACTER1)
@@ -163,59 +96,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(action)
         }
 
-
-        imageComic1.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsComicFragment(DataHome.COMIC1)
+        textCharacters.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
-        imageComic2.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsComicFragment(DataHome.COMIC2)
+        textComics.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
-        imageComic3.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsComicFragment(DataHome.COMIC3)
-            findNavController().navigate(action)
-        }
-        imageComic4.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsComicFragment(DataHome.COMIC4)
-            findNavController().navigate(action)
-        }
-        imageComic5.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsComicFragment(DataHome.COMIC5)
+        textEvents.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
             findNavController().navigate(action)
         }
 
-
-        imageEvent1.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsEventFragment(DataHome.EVENT1)
-            findNavController().navigate(action)
-        }
-        imageEvent2.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsEventFragment(DataHome.EVENT2)
-            findNavController().navigate(action)
-        }
-        imageEvent3.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsEventFragment(DataHome.EVENT3)
-            findNavController().navigate(action)
-        }
-        imageEvent4.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsEventFragment(DataHome.EVENT4)
-            findNavController().navigate(action)
-        }
-        imageEvent5.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToDetailsEventFragment(DataHome.EVENT5)
-            findNavController().navigate(action)
-        }
 
     }
 
