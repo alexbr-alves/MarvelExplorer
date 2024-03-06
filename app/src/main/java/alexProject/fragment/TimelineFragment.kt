@@ -1,7 +1,6 @@
 package alexProject.fragment
 
 import alexProject.adapters.TimelineAdapter
-import alexProject.data.model.timeline.TimelineType
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Converts
@@ -36,32 +35,12 @@ class TimelineFragment :
     }
 
     private fun clickAdapter() {
-        timelineAdapter?.setOnClickListener { model ->
-            when (model.type) {
-                TimelineType.CHARACTER -> {
-                    val action =
-                        TimelineFragmentDirections.actionSearchCharacterFragmentToDetailsCharacterFragment(
-                            converts.timelineToCharacter(model)
-                        )
-                    findNavController().navigate(action)
-                }
-
-                TimelineType.COMIC -> {
-                    val action =
-                        TimelineFragmentDirections.actionTimelineFragmentToDetailsComicFragment(
-                            converts.timelineToComic(model)
-                        )
-                    findNavController().navigate(action)
-                }
-
-                TimelineType.EVENT -> {
-                    val action =
-                        TimelineFragmentDirections.actionTimelineFragmentToDetailsEventFragment(
-                            converts.timelineToEvent(model)
-                        )
-                    findNavController().navigate(action)
-                }
-            }
+        timelineAdapter.setOnClickListener { model ->
+            val action =
+                TimelineFragmentDirections.actionTimelineFragmentToDetailsComicFragment(
+                    converts.timelineToComic(model)
+                )
+            findNavController().navigate(action)
         }
     }
 

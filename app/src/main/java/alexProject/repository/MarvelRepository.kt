@@ -2,6 +2,7 @@ package alexProject.repository
 
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel
+import alexProject.data.model.timeline.TimelineModel
 import alexProject.data.remote.ServiceApi
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class MarvelRepository @Inject constructor(
 
     //Timeline
     suspend fun getCharacterTimeline() = api.getCharacterTimeline()
-    suspend fun getComicTimeline() = api.getComicTimeline()
+    suspend fun getComicTimeline( orderBy: String? = "-modified", limit: Int? = 20, offset: Int? = 0) = api.getComicTimeline(limit = limit, orderBy = orderBy, offset = offset)
     suspend fun getEventTimeline() = api.getEventTimeline()
 
     //DAO
@@ -35,4 +36,8 @@ class MarvelRepository @Inject constructor(
     fun getAll() = dao.getAll()
     suspend fun delete(characterModel : FavoriteModel) = dao.delete(characterModel)
     suspend fun searchFavorite(id : Int) = dao.searchFavorite(id)
+
+    suspend fun insertCache(timeline : MutableList<TimelineModel>) = dao.insertCache(timeline)
+    fun getCache() = dao.getCache()
+
 }
