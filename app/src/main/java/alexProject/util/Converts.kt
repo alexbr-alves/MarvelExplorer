@@ -20,9 +20,9 @@ class Converts {
                 path = characterModel.thumbnailModel.path,
                 extension = characterModel.thumbnailModel.extension
             ),
-            item1 = characterModel.comics.available,
+            item1 = characterModel.comics.available ?: 0,
 
-            item2 = characterModel.events.available
+            item2 = characterModel.events.available ?: 0
 
         )
     }
@@ -91,8 +91,8 @@ class Converts {
                 comicModel.thumbnailModel.path,
                 comicModel.thumbnailModel.extension
             ),
-            comicModel.characters.available,
-            comicModel.events.available
+            comicModel.characters.available ?: 0,
+            comicModel.events.available ?: 0
         )
     }
 
@@ -106,8 +106,8 @@ class Converts {
                 eventModel.thumbnailModel.path,
                 eventModel.thumbnailModel.extension
             ),
-            eventModel.characters.available,
-            eventModel.comics.available
+            eventModel.characters.available ?: 0,
+            eventModel.comics.available ?: 0
         )
     }
 
@@ -121,10 +121,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                timelineModel.comics.available
+                timelineModel.comics?.available
             ),
             SizeItens(
-                timelineModel.event.available
+                timelineModel.event?.available
             )
         )
     }
@@ -139,10 +139,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                timelineModel.character.available
+                timelineModel.character?.available
             ),
             SizeItens(
-                timelineModel.event.available
+                timelineModel.event?.available
             )
         )
     }
@@ -157,10 +157,10 @@ class Converts {
                 timelineModel.thumbnailModel.extension
             ),
             SizeItens(
-                timelineModel.character.available
+                timelineModel.character?.available
             ),
             SizeItens(
-                timelineModel.comics.available
+                timelineModel.comics?.available
             )
         )
     }

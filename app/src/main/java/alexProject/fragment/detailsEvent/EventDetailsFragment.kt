@@ -60,10 +60,10 @@ class EventDetailsFragment : BaseFragment<FragmentDetailsEventBinding, EventDeta
         badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
-                badge.number = eventModel.characters.available
+                badge.number = eventModel.characters.available ?: 0
             }
             2 -> {
-                badge.number = eventModel.comics.available
+                badge.number = eventModel.comics.available ?: 0
             }
             else -> {
                 badge.isVisible = false

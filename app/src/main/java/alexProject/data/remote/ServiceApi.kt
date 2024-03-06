@@ -104,8 +104,9 @@ interface ServiceApi {
 
     @GET("comics")
     suspend fun getComicTimeline(
-        @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 20
+        @Query("orderBy") orderBy : String? = "-modified",
+        @Query("limit") limit : Int?  = 20,
+        @Query("offset") offset : Int? = 0,
     ) : Response<TimelineModelResponse>
 
     @GET("events")

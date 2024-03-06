@@ -62,10 +62,10 @@ class ComicDetailsFragment : BaseFragment<FragmentDetailsComicBinding, ComicDeta
         badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
-                badge.number = comicModel.characters.available
+                badge.number = comicModel.characters.available ?: 0
             }
             2 -> {
-                badge.number = comicModel.events.available
+                badge.number = comicModel.events.available ?: 0
             }
             else -> {
                 badge.isVisible = false

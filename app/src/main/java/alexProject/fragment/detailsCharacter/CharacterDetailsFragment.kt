@@ -1,7 +1,6 @@
 package alexProject.fragment.detailsCharacter
 
 import alexProject.R
-import alexProject.adapters.CharacterAdapter
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.FragmentDetailsCharacterBinding
 import alexProject.adapters.DetailsCharacterAdapter
@@ -64,10 +63,10 @@ class CharacterDetailsFragment :
         badge.horizontalOffset = 20
         when (tab.position) {
             1 -> {
-                badge.number = characterModel.comics.available
+                badge.number = characterModel.comics.available ?: 0
             }
             2 -> {
-                badge.number = characterModel.events.available
+                badge.number = characterModel.events.available ?: 0
             }
             else -> {
                 badge.isVisible = false
