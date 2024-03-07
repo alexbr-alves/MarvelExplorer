@@ -6,6 +6,7 @@ import alexProject.data.model.timeline.TimelineModelResponse
 import alexProject.data.model.timeline.TimelineType
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,10 @@ class TimelineViewModel @Inject constructor(
     }
 
     fun fetch() = viewModelScope.launch {
+        val group = repository.getGroup()
+        group.body().let {
+            Log.i("Brito", "fetch: $it")
+        }
         val recentItem = handleResponse(repository.getComicTimeline(  limit = 10 )).data?.data?.result?.get(0)
         repository.getCache().collect { data ->
             if (data.isNotEmpty()) {

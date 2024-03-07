@@ -3,12 +3,14 @@ package alexProject.repository
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.timeline.TimelineModel
+import alexProject.data.remote.GithubApi
 import alexProject.data.remote.ServiceApi
 import javax.inject.Inject
 
 class MarvelRepository @Inject constructor(
     private val api : ServiceApi,
-    private val dao : MarvelDao
+    private val dao : MarvelDao,
+    private val githubApi: GithubApi
 ) {
     suspend fun characters(nameStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.characters(nameStartsWith, limit,  offset)
     suspend fun comics(titleStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.comics(titleStartsWith, limit, offset)
@@ -27,10 +29,7 @@ class MarvelRepository @Inject constructor(
     suspend fun getComicEvent(eventId : Int, limit: Int = 100, offset : Int? = 0) = api.getComicEvent(eventId, limit, offset)
 
     //Timeline
-    suspend fun getCharacterTimeline() = api.getCharacterTimeline()
     suspend fun getComicTimeline( orderBy: String? = "-modified", limit: Int? = 20, offset: Int? = 0) = api.getComicTimeline(limit = limit, orderBy = orderBy, offset = offset)
-    suspend fun getEventTimeline() = api.getEventTimeline()
-
     //DAO
     suspend fun insert(characterModel : FavoriteModel) = dao.insert(characterModel)
     fun getAll() = dao.getAll()
@@ -39,5 +38,8 @@ class MarvelRepository @Inject constructor(
 
     suspend fun insertCache(timeline : MutableList<TimelineModel>) = dao.insertCache(timeline)
     fun getCache() = dao.getCache()
+
+    //Github
+    suspend fun getGroup() = githubApi.getGroups()
 
 }

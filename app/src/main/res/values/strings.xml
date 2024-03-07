@@ -47,6 +47,7 @@
     <string name="title_fragment_event">Events</string>
     <string name="title_fragment_detail">Details</string>
     <string name="title_fragment_characters">Characters</string>
+    <string name="title_fragment_teams_and_groups">Teams and Groups</string>
     <string name="title_fragment_series">Series</string>
     <string name="title_about">About</string>
 

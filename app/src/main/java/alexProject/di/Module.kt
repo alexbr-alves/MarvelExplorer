@@ -1,6 +1,7 @@
 package alexProject.di
 
 import alexProject.data.local.MarvelDatabase
+import alexProject.data.remote.GithubApi
 import alexProject.data.remote.ServiceApi
 import alexProject.util.Constants.APIKEY
 import alexProject.util.KeyMarvel.BASE_URL
@@ -88,6 +89,12 @@ object Module {
     @Provides
     fun provideServiceApi(retrofit : Retrofit) : ServiceApi {
         return retrofit.create(ServiceApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providerGithubApi(retrofit : Retrofit) : GithubApi {
+        return retrofit.create(GithubApi::class.java)
     }
 
     private fun provideToMd5Hash(encrypted : String) : String {
