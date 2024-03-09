@@ -27,8 +27,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/text_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_top">
@@ -41,8 +42,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"
-                android:layout_width="250dp"
-                android:layout_height="350dp"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp">
@@ -58,8 +59,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
-                android:layout_width="250dp"
-                android:layout_height="350dp"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cardView1"
@@ -76,8 +77,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="250dp"
-                android:layout_height="350dp"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cardView2"
@@ -94,8 +95,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
-                android:layout_width="250dp"
-                android:layout_height="350dp"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cardView3"
@@ -112,8 +113,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
-                android:layout_width="250dp"
-                android:layout_height="350dp"
+                android:layout_width="200dp"
+                android:layout_height="250dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cardView4"
@@ -141,6 +142,26 @@
         android:layout_weight="1"
         android:fontFamily="@font/marvel"
         android:text="@string/home_fragment_title_categories"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/scrollview_characters"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_teams" />
+
+    <TextView
+        android:id="@+id/text_teams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_corner"
+        android:backgroundTint="@color/gray_300"
+        android:fontFamily="@font/marvel"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/title_fragment_teams_and_groups"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"

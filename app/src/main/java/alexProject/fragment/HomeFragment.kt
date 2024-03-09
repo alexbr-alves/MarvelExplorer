@@ -96,6 +96,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(action)
         }
 
+        textTeams.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToGroupFragment()
+            findNavController().navigate(action)
+        }
+
         textCharacters.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
             findNavController().navigate(action)

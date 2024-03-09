@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/detailsCharacterFragment"
         tools:layout="@layout/fragment_details_character"
-        android:name="alexProject.fragment.detailsCharacter.CharacterDetailsFragment"
+        android:name="alexProject.fragment.character.CharacterDetailsFragment"
         android:label="DetailsCharacterFragment" >
         <argument
             android:name="character"
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/CharacterFragment"
         tools:layout="@layout/fragment_character"
-        android:name="alexProject.fragment.CharacterFragment"
+        android:name="alexProject.fragment.character.CharacterFragment"
         android:label="ListCharacterFragment" >
         <action
             android:id="@+id/action_listCharacterFragment_to_detailsCharacterFragment"
@@ -134,11 +134,14 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_groupFragment"
+            app:destination="@id/groupFragment" />
     </fragment>
     <fragment
         android:id="@+id/comicsFragment"
         tools:layout="@layout/fragment_comic"
-        android:name="alexProject.fragment.ComicsFragment"
+        android:name="alexProject.fragment.comic.ComicsFragment"
         android:label="ComicsFragment" >
         <action
             android:id="@+id/action_comicsFragment_to_detailsComicFragment"
@@ -156,7 +159,7 @@
     <fragment
         android:id="@+id/eventFragment"
         tools:layout="@layout/fragment_event"
-        android:name="alexProject.fragment.EventFragment"
+        android:name="alexProject.fragment.event.EventFragment"
         android:label="EventFragment" >
         <action
             android:id="@+id/action_eventFragment_to_detailsEventFragment"
@@ -175,7 +178,7 @@
     <fragment
         tools:layout="@layout/fragment_details_comic"
         android:id="@+id/detailsComicFragment"
-        android:name="alexProject.fragment.detailsComic.ComicDetailsFragment"
+        android:name="alexProject.fragment.comic.ComicDetailsFragment"
         android:label="DetailsComicFragment" >
         <argument
             android:name="Comic"
@@ -207,7 +210,7 @@
     <fragment
         android:id="@+id/detailsEventFragment"
         tools:layout="@layout/fragment_details_event"
-        android:name="alexProject.fragment.detailsEvent.EventDetailsFragment"
+        android:name="alexProject.fragment.event.EventDetailsFragment"
         android:label="DetailsEventFragment" >
         <argument
             android:name="eventModel"
@@ -232,5 +235,23 @@
         <action
             android:id="@+id/action_detailsEventFragment_to_CharacterFragment"
             app:destination="@id/CharacterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="alexProject.fragment.group.GroupFragment"
+        tools:layout="@layout/fragment_group"
+        android:label="GroupFragment" >
+        <action
+            android:id="@+id/action_groupFragment_to_groupWikiFragment"
+            app:destination="@id/groupWikiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupWikiFragment"
+        tools:layout="@layout/fragment_group_wiki"
+        android:name="alexProject.fragment.group.GroupWikiFragment"
+        android:label="GroupWikiFragment" >
+        <argument
+            android:name="groupModel"
+            app:argType="alexProject.data.model.group.GroupModel" />
     </fragment>
 </navigation>

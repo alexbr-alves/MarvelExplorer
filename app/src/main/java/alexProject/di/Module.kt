@@ -9,6 +9,7 @@ import alexProject.util.Constants.HASH
 import alexProject.util.KeyMarvel.PRIVATE_KEY
 import alexProject.util.KeyMarvel.PUBLIC_KEY
 import alexProject.util.Constants.TS
+import alexProject.util.KeyGithub.GITHUB_PERSONAL_ACCESS_TOKEN
 import android.content.Context
 import androidx.room.Room
 import dagger.Module
@@ -49,22 +50,30 @@ object Module {
 
         return OkHttpClient().newBuilder()
             .addInterceptor { chain ->
-                val currentTimestamp = System.currentTimeMillis()
-                val newUrl = chain.request().url
-                    .newBuilder()
-                    .addQueryParameter(TS, currentTimestamp.toString())
-                    .addQueryParameter(APIKEY, PUBLIC_KEY)
-                    .addQueryParameter(
-                        HASH,
-                        provideToMd5Hash(currentTimestamp.toString() + PRIVATE_KEY + PUBLIC_KEY)
-                    )
-                    .build()
+                val request = chain.request()
+                val originalHttpUrl = request.url
+                if (originalHttpUrl.toString().startsWith(BASE_URL)) {
+                    val currentTimestamp = System.currentTimeMillis()
+                    val newUrl = originalHttpUrl.newBuilder()
+                        .addQueryParameter(TS, currentTimestamp.toString())
+                        .addQueryParameter(APIKEY, PUBLIC_KEY)
+                        .addQueryParameter(
+                            HASH,
+                            provideToMd5Hash(currentTimestamp.toString() + PRIVATE_KEY + PUBLIC_KEY)
+                        )
+                        .build()
 
-                val newRequest = chain.request()
-                    .newBuilder()
-                    .url(newUrl)
-                    .build()
-                chain.proceed(newRequest)
+                    val newRequest = request.newBuilder()
+                        .url(newUrl)
+                        .build()
+                    chain.proceed(newRequest)
+                } else {
+                    val newRequest = request.newBuilder()
+                        .addHeader("Authorization", "Token $GITHUB_PERSONAL_ACCESS_TOKEN")
+                        .addHeader("X-GitHub-Api-Version", "2022-11-28")
+                        .build()
+                    chain.proceed(newRequest)
+                }
             }
             .addInterceptor(logging)
             .build()
@@ -108,5 +117,4 @@ object Module {
         Timber.d("hash -> $encryptedString")
         return encryptedString ?: ""
     }
-
 }
