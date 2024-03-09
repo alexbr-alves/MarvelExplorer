@@ -9,6 +9,7 @@ import alexProject.util.Constants.HASH
 import alexProject.util.KeyMarvel.PRIVATE_KEY
 import alexProject.util.KeyMarvel.PUBLIC_KEY
 import alexProject.util.Constants.TS
+import alexProject.util.KeyGithub.GITHUB_PERSONAL_ACCESS_TOKEN
 import android.content.Context
 import androidx.room.Room
 import dagger.Module
@@ -67,7 +68,11 @@ object Module {
                         .build()
                     chain.proceed(newRequest)
                 } else {
-                    chain.proceed(request)
+                    val newRequest = request.newBuilder()
+                        .addHeader("Authorization", "Token $GITHUB_PERSONAL_ACCESS_TOKEN")
+                        .addHeader("X-GitHub-Api-Version", "2022-11-28")
+                        .build()
+                    chain.proceed(newRequest)
                 }
             }
             .addInterceptor(logging)

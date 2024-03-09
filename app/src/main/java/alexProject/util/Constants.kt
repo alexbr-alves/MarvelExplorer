@@ -17,9 +17,4 @@ object Constants {
     const val VERIFIED = "verified"
     const val NOT_VERIFIED = "not_verified"
 
-    //GITHUB
-
-    const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/alexbr-alves/database/master/"
-    const val MARVEL_GROUPS = "marvel_groups.json"
-
 }
