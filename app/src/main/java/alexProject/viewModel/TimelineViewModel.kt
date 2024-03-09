@@ -32,10 +32,6 @@ class TimelineViewModel @Inject constructor(
     }
 
     fun fetch() = viewModelScope.launch {
-        val group = repository.getGroup()
-        group.body().let {
-            Log.i("Brito", "fetch: $it")
-        }
         val recentItem = handleResponse(repository.getComicTimeline(  limit = 10 )).data?.data?.result?.get(0)
         repository.getCache().collect { data ->
             if (data.isNotEmpty()) {

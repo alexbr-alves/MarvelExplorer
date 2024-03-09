@@ -1,7 +1,6 @@
 package alexProject.di
 
 import alexProject.data.local.MarvelDatabase
-import alexProject.data.remote.GithubApi
 import alexProject.data.remote.ServiceApi
 import alexProject.util.Constants.APIKEY
 import alexProject.util.KeyMarvel.BASE_URL
@@ -50,22 +49,26 @@ object Module {
 
         return OkHttpClient().newBuilder()
             .addInterceptor { chain ->
-                val currentTimestamp = System.currentTimeMillis()
-                val newUrl = chain.request().url
-                    .newBuilder()
-                    .addQueryParameter(TS, currentTimestamp.toString())
-                    .addQueryParameter(APIKEY, PUBLIC_KEY)
-                    .addQueryParameter(
-                        HASH,
-                        provideToMd5Hash(currentTimestamp.toString() + PRIVATE_KEY + PUBLIC_KEY)
-                    )
-                    .build()
+                val request = chain.request()
+                val originalHttpUrl = request.url
+                if (originalHttpUrl.toString().startsWith(BASE_URL)) {
+                    val currentTimestamp = System.currentTimeMillis()
+                    val newUrl = originalHttpUrl.newBuilder()
+                        .addQueryParameter(TS, currentTimestamp.toString())
+                        .addQueryParameter(APIKEY, PUBLIC_KEY)
+                        .addQueryParameter(
+                            HASH,
+                            provideToMd5Hash(currentTimestamp.toString() + PRIVATE_KEY + PUBLIC_KEY)
+                        )
+                        .build()
 
-                val newRequest = chain.request()
-                    .newBuilder()
-                    .url(newUrl)
-                    .build()
-                chain.proceed(newRequest)
+                    val newRequest = request.newBuilder()
+                        .url(newUrl)
+                        .build()
+                    chain.proceed(newRequest)
+                } else {
+                    chain.proceed(request)
+                }
             }
             .addInterceptor(logging)
             .build()
@@ -91,12 +94,6 @@ object Module {
         return retrofit.create(ServiceApi::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun providerGithubApi(retrofit : Retrofit) : GithubApi {
-        return retrofit.create(GithubApi::class.java)
-    }
-
     private fun provideToMd5Hash(encrypted : String) : String {
         var pass = encrypted
         var encryptedString : String? = null
@@ -115,5 +112,4 @@ object Module {
         Timber.d("hash -> $encryptedString")
         return encryptedString ?: ""
     }
-
 }
