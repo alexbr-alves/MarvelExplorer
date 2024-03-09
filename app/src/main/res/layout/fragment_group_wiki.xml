@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="32dp"
-    android:background="@color/black_raisin">
+    android:background="@color/black_raisin"
+    android:paddingBottom="32dp">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
@@ -70,26 +70,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_description" />
 
-            <HorizontalScrollView
-                android:id="@+id/scrollview_current_members"
-                android:layout_width="0dp"
-                android:layout_height="250dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_current_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:scrollbars="horizontal"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_current_members">
+                app:layout_constraintTop_toBottomOf="@+id/text_current_members"
+                tools:listitem="@layout/item_card_name2" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle_current_members"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_card_name2" />
-
-            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/text_former_members"
@@ -97,34 +88,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/fragment_group_current_members"
+                android:text="@string/fragment_group_former_members"
                 android:textColor="@color/white"
                 android:textFontWeight="600"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollview_current_members" />
+                app:layout_constraintTop_toBottomOf="@+id/recycle_current_members" />
 
-            <HorizontalScrollView
-                android:id="@+id/scrollview_former_members"
-                android:layout_width="0dp"
-                android:layout_height="250dp"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_former_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:orientation="horizontal"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_former_members"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_former_members">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle_former_members"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_card_name2" />
-
-            </HorizontalScrollView>
+                tools:listitem="@layout/item_card_name2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

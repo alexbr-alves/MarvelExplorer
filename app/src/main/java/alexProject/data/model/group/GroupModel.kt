@@ -11,7 +11,7 @@ data class GroupModel(
     @SerializedName("image")
     val image: String,
     @SerializedName("current_members")
-    val currentMembers: GroupMemberModel,
+    val currentMembers: List<GroupMemberModel>,
     @SerializedName("former_members")
-    val formerMembers: GroupMemberModel
+    val formerMembers: List<GroupMemberModel>
 ) : Serializable

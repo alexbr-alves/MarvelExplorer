@@ -9,5 +9,5 @@ data class GroupMemberModel(
     @SerializedName("image")
     val image: String,
     @SerializedName("people_name")
-    val heroPhoto: String
+    val peopleName: String
 ): Serializable
