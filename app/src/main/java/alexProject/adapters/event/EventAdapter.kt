@@ -1,7 +1,7 @@
 package alexProject.adapters.event
 
 import alexProject.data.model.event.EventModel
-import alexProject.databinding.LayoutCardNameBinding
+import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
-    inner class EventViewHolder(val binding : LayoutCardNameBinding) :
+    inner class EventViewHolder(val binding : ItemCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<EventModel>() {
@@ -47,7 +47,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : EventViewHolder {
         return EventViewHolder(
-            LayoutCardNameBinding.inflate(
+            ItemCardNameBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )

@@ -1,6 +1,6 @@
 package alexProject.viewModel.group
 
-import alexProject.data.model.GroupModelResponse
+import alexProject.data.model.group.GroupModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
 import androidx.lifecycle.ViewModel

@@ -2,7 +2,7 @@ package alexProject.adapters.character
 
 
 import alexProject.data.model.character.CharacterModel
-import alexProject.databinding.LayoutCardNameBinding
+import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
-    inner class CharacterViewHolder(val binding : LayoutCardNameBinding) :
+    inner class CharacterViewHolder(val binding : ItemCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<CharacterModel>() {
@@ -47,7 +47,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     override fun getItemCount() : Int = characters.size
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : CharacterViewHolder {
         return CharacterViewHolder(
-            LayoutCardNameBinding.inflate(
+            ItemCardNameBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )

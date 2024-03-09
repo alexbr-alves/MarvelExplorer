@@ -1,6 +1,6 @@
 package alexProject.data.remote
 
-import alexProject.data.model.GroupModelResponse
+import alexProject.data.model.group.GroupModelResponse
 import alexProject.data.model.character.CharacterModelResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse

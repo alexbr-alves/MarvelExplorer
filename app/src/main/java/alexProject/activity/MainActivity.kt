@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setupToolbar(textVisible : Boolean, title : String = "") =
+    fun setupToolbar(textVisible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
@@ -83,6 +83,11 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_characters)
                 )
                 R.id.groupFragment -> setupToolbar(
+                    true,
+                    getString(R.string.title_fragment_teams_and_groups)
+                )
+
+                R.id.groupWikiFragment -> setupToolbar(
                     true,
                     getString(R.string.title_fragment_teams_and_groups)
                 )

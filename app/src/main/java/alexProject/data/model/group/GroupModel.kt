@@ -1,4 +1,4 @@
-package alexProject.data.model
+package alexProject.data.model.group
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -10,8 +10,8 @@ data class GroupModel(
     val description: String,
     @SerializedName("image")
     val image: String,
-    /*@SerializedName("current_members")
-    val currentMembers: List<Int>,
+    @SerializedName("current_members")
+    val currentMembers: GroupMemberModel,
     @SerializedName("former_members")
-    val formerMembers: List<Int>*/
+    val formerMembers: GroupMemberModel
 ) : Serializable

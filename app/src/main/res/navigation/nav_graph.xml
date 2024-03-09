@@ -240,5 +240,18 @@
         android:id="@+id/groupFragment"
         android:name="alexProject.fragment.group.GroupFragment"
         tools:layout="@layout/fragment_group"
-        android:label="GroupFragment" />
+        android:label="GroupFragment" >
+        <action
+            android:id="@+id/action_groupFragment_to_groupWikiFragment"
+            app:destination="@id/groupWikiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupWikiFragment"
+        tools:layout="@layout/fragment_group_wiki"
+        android:name="alexProject.fragment.group.GroupWikiFragment"
+        android:label="GroupWikiFragment" >
+        <argument
+            android:name="groupModel"
+            app:argType="alexProject.data.model.group.GroupModel" />
+    </fragment>
 </navigation>

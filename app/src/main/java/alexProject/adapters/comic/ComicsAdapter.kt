@@ -1,7 +1,7 @@
 package alexProject.adapters.comic
 
 import alexProject.data.model.comic.ComicModel
-import alexProject.databinding.LayoutCardNameBinding
+import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
-    inner class ComicsViewHolder(val binding : LayoutCardNameBinding) :
+    inner class ComicsViewHolder(val binding : ItemCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
@@ -51,7 +51,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ComicsViewHolder {
         return ComicsViewHolder(
-            LayoutCardNameBinding.inflate(
+            ItemCardNameBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )

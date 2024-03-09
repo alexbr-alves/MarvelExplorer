@@ -1,6 +1,6 @@
 package alexProject.adapters.group
 
-import alexProject.data.model.GroupModel
+import alexProject.data.model.group.GroupModel
 import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.setInvisible
 import android.view.LayoutInflater

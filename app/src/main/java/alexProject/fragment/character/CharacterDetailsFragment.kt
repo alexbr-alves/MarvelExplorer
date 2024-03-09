@@ -28,7 +28,6 @@ class CharacterDetailsFragment :
     private var viewPager2 : ViewPager2? = null
     private lateinit var favoriteModel : FavoriteModel
     private var converts = Converts()
-    private val comicSize: Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater, container : ViewGroup?

@@ -63,7 +63,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:spanCount="2"
-                tools:listitem="@layout/layout_card_name" />
+                tools:listitem="@layout/item_card_name" />
 
             <TextView
                 android:id="@+id/text_see_more"

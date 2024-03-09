@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -38,8 +39,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
     }
 
     private fun clickAdapter() {
-        groupAdapter.setOnClickListener {
-            it
+        groupAdapter.setOnClickListener { groupModel ->
+            val action = GroupFragmentDirections.actionGroupFragmentToGroupWikiFragment(groupModel)
+            findNavController().navigate(action)
         }
     }
 

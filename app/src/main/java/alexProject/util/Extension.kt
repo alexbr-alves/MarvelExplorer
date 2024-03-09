@@ -29,7 +29,7 @@ fun View.setGone() {
 fun loadImage(
     imageView : ImageView,
     path : String,
-    extension : String
+    extension : String? = null
 ) {
     Glide.with(imageView)
         .load("$path.$extension")
