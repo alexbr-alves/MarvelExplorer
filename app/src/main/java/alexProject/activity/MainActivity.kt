@@ -6,6 +6,7 @@ import android.os.Bundle
 import alexProject.databinding.ActivityMainBinding
 import alexProject.util.setGone
 import alexProject.util.setVisible
+import android.content.Intent
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -96,6 +97,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.detailsEventFragment -> hideToolbar()
             }
         }
+    }
+
+    fun goToGroupActivity() {
+        val intent = Intent(this, GroupsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun hideToolbar() {

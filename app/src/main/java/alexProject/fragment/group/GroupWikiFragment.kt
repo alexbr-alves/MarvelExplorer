@@ -1,6 +1,6 @@
 package alexProject.fragment.group
 
-import alexProject.activity.MainActivity
+import alexProject.activity.GroupsActivity
 import alexProject.adapters.group.CurrentMemberAdapter
 import alexProject.adapters.group.FormerMemberAdapter
 import alexProject.data.model.group.GroupModel
@@ -20,7 +20,7 @@ class GroupWikiFragment : Fragment() {
     private lateinit var groupModel: GroupModel
     private val currentMemberAdapter by lazy { CurrentMemberAdapter() }
     private val formerMemberAdapter by lazy { FormerMemberAdapter() }
-    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private val groupsActivity by lazy { activity as GroupsActivity }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ class GroupWikiFragment : Fragment() {
     }
 
     private fun setupUI() {
-        mainActivity.setupToolbar(true, groupModel.name)
+        groupsActivity.setupToolbar(true, groupModel.name)
     }
 
     private fun loadGroupWiki(groupModel: GroupModel) = binding?.run {

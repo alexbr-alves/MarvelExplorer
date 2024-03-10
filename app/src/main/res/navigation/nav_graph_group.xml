@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_group"
+    app:startDestination="@id/groupFragment">
+
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="alexProject.fragment.group.GroupFragment"
+        android:label="GroupFragment"
+        tools:layout="@layout/fragment_group" >
+        <action
+            android:id="@+id/action_groupFragment_to_groupWikiFragment"
+            app:destination="@id/groupWikiFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/groupWikiFragment"
+        android:name="alexProject.fragment.group.GroupWikiFragment"
+        android:label="GroupWikiFragment"
+        tools:layout="@layout/fragment_group_wiki">
+        <argument
+            android:name="groupModel"
+            app:argType="alexProject.data.model.group.GroupModel" />
+    </fragment>
+
+</navigation>
