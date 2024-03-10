@@ -1,6 +1,7 @@
 package alexProject.fragment
 
 import alexProject.R
+import alexProject.activity.MainActivity
 import alexProject.data.local.DataHome
 import alexProject.databinding.FragmentHomeBinding
 import alexProject.util.Constants
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val viewModel : HomeViewModel by viewModels()
+    private val mainActivity : MainActivity by lazy { activity as MainActivity }
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,8 +99,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
 
         textTeams.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToGroupFragment()
-            findNavController().navigate(action)
+            mainActivity.goToGroupActivity()
         }
 
         textCharacters.setOnClickListener {
