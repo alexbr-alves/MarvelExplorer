@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
-
     }
 
     fun setupToolbar(textVisible : Boolean, title : String = "") =
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 toolbarInclude.setGone()
             }
         }
+
 
     private fun setupToolbar() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->

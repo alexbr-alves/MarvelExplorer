@@ -17,18 +17,17 @@ class GroupsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGroupBinding
     private lateinit var navHostFragment: NavHostFragment
 
-    override fun onCreate(savedInstanceState : Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViews(binding)
-        //setupToolbar()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
-
+        binding.bottomNavigation.setGone()
     }
 
-    private fun initViews(binding : ActivityGroupBinding) {
+    private fun initViews(binding: ActivityGroupBinding) {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container_view_group) as NavHostFragment
         val navController = navHostFragment.navController
@@ -38,12 +37,12 @@ class GroupsActivity : AppCompatActivity() {
         }
     }
 
-    fun setupToolbar(textVisible : Boolean, title : String = "") =
+    fun setupToolbar(textVisible: Boolean, title: String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
             }
-            val toolbarInclude : View = findViewById(R.id.toolbar)
+            val toolbarInclude: View = findViewById(R.id.toolbar)
             if (textVisible) {
                 toolbarInclude.setVisible()
                 toolbar.text.setVisible()
