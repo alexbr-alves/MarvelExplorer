@@ -64,6 +64,7 @@ class GroupWikiFragment : Fragment() {
             .into(imageGroup)
         textTitle.text = groupModel.name
         textDescription.text = groupModel.description
+        textLongDescription.text = groupModel.longDescription
 
 
     }
