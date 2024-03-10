@@ -1,9 +1,12 @@
 package alexProject.data.remote
 
+import alexProject.data.model.group.GroupModelResponse
 import alexProject.data.model.character.CharacterModelResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.timeline.TimelineModelResponse
+import alexProject.util.KeyGithub.GITHUB_BASE_URL
+import alexProject.util.KeyGithub.RF_MARVEL_GROUPS
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -96,22 +99,13 @@ interface ServiceApi {
     ) : Response<ComicModelResponse>
 
     // Timeline
-    @GET("characters")
-    suspend fun getCharacterTimeline(
-        @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 20
-    ) : Response<TimelineModelResponse>
-
     @GET("comics")
     suspend fun getComicTimeline(
-        @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 20
+        @Query("orderBy") orderBy : String? = "-modified",
+        @Query("limit") limit : Int?  = 20,
+        @Query("offset") offset : Int? = 0,
     ) : Response<TimelineModelResponse>
 
-    @GET("events")
-    suspend fun getEventTimeline(
-        @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int = 20
-    ) : Response<TimelineModelResponse>
-
+    @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)
+    suspend fun getGroup() : Response<GroupModelResponse>
 }

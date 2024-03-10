@@ -6,6 +6,7 @@ import android.os.Bundle
 import alexProject.databinding.ActivityMainBinding
 import alexProject.util.setGone
 import alexProject.util.setVisible
+import android.content.Intent
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -26,10 +27,9 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
-
     }
 
-    private fun setupToolbar(textVisible : Boolean, title : String = "") =
+    fun setupToolbar(textVisible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 toolbarInclude.setGone()
             }
         }
+
 
     private fun setupToolbar() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -82,11 +83,25 @@ class MainActivity : AppCompatActivity() {
                     true,
                     getString(R.string.title_fragment_characters)
                 )
+                R.id.groupFragment -> setupToolbar(
+                    true,
+                    getString(R.string.title_fragment_teams_and_groups)
+                )
+
+                R.id.groupWikiFragment -> setupToolbar(
+                    true,
+                    getString(R.string.title_fragment_teams_and_groups)
+                )
                 R.id.detailsComicFragment -> hideToolbar()
 
                 R.id.detailsEventFragment -> hideToolbar()
             }
         }
+    }
+
+    fun goToGroupActivity() {
+        val intent = Intent(this, GroupsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun hideToolbar() {

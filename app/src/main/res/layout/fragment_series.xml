@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvInputLayout"
                 app:spanCount="2"
-                tools:listitem="@layout/layout_card_name" />
+                tools:listitem="@layout/item_card_name" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
