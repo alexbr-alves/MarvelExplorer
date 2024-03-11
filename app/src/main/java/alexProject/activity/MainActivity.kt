@@ -24,18 +24,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViews(binding)
-        setupToolbar()
+        setupListener()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
     }
 
-    fun setupToolbar(textVisible : Boolean, title : String = "") =
+    private fun setupToolbar(visible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
             }
             val toolbarInclude : View = findViewById(R.id.toolbar)
-            if (textVisible) {
+            if (visible) {
                 toolbarInclude.setVisible()
                 toolbar.text.setVisible()
                 toolbar.text.text = title
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    private fun setupToolbar() {
+    private fun setupListener() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
@@ -101,6 +101,11 @@ class MainActivity : AppCompatActivity() {
 
     fun goToGroupActivity() {
         val intent = Intent(this, GroupsActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToMoviesActivity() {
+        val intent = Intent(this, MoviesActivity::class.java)
         startActivity(intent)
     }
 

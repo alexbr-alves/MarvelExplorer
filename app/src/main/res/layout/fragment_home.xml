@@ -6,226 +6,115 @@
     android:layout_height="match_parent"
     android:background="@color/gray_500">
 
-
-    <TextView
-        android:id="@+id/title_top"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/marvel"
-        android:text="@string/home_fragment_title_top"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <HorizontalScrollView
-        android:id="@+id/scrollview_characters"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/text_categories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_top">
-
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="5dp"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/image_character1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cardView1"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/image_character2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cardView2"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/image_character3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cardView3"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/image_character4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView5"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cardView4"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/image_character5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
-    </HorizontalScrollView>
-
-    <TextView
-        android:id="@+id/text_categories"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/marvel"
-        android:text="@string/home_fragment_title_categories"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/scrollview_characters"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_teams" />
-
-    <TextView
-        android:id="@+id/text_teams"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_corner"
-        android:backgroundTint="@color/gray_300"
-        android:fontFamily="@font/marvel"
-        android:paddingVertical="20dp"
-        android:paddingStart="20dp"
-        android:text="@string/title_fragment_teams_and_groups"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_characters" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/text_characters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_corner"
-        android:backgroundTint="@color/gray_300"
-        android:fontFamily="@font/marvel"
-        android:paddingVertical="20dp"
-        android:paddingStart="20dp"
-        android:text="@string/title_fragment_characters"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_comics" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_comics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_corner"
-        android:backgroundTint="@color/gray_300"
-        android:fontFamily="@font/marvel"
-        android:paddingVertical="20dp"
-        android:paddingStart="20dp"
-        android:text="@string/title_fragment_comic"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_events" />
+            <TextView
+                android:id="@+id/text_teams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_teams_and_groups"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/text_events"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_corner"
-        android:backgroundTint="@color/gray_300"
-        android:fontFamily="@font/marvel"
-        android:paddingVertical="20dp"
-        android:paddingStart="20dp"
-        android:text="@string/title_fragment_event"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/text_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_movies"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+               app:layout_constraintTop_toBottomOf="@+id/text_teams"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <TextView
+                android:id="@+id/text_characters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_characters"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/text_movies"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <TextView
+                android:id="@+id/text_comics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_comic"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/text_characters"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/text_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_event"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/text_comics"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -25,6 +25,17 @@ class GroupsActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
         binding.bottomNavigation.setGone()
+        setupListener()
+    }
+
+    private fun setupListener() {
+        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.groupFragment -> setupToolbar(
+                    true, getString(R.string.title_fragment_teams_and_groups)
+                )
+            }
+        }
     }
 
     private fun initViews(binding: ActivityGroupBinding) {

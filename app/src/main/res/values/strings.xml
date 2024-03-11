@@ -48,6 +48,7 @@
     <string name="title_fragment_detail">Details</string>
     <string name="title_fragment_characters">Characters</string>
     <string name="title_fragment_teams_and_groups">Teams and Groups</string>
+    <string name="title_fragment_movies">Movies</string>
     <string name="title_fragment_series">Series</string>
     <string name="title_about">About</string>
 
@@ -67,5 +68,8 @@
     <string name="item_transaction">item transaction</string>
     <string name="fragment_group_current_members">Current Members</string>
     <string name="fragment_group_former_members">Former Members</string>
+
+    <string name="fragment_movies_marvel_movies">Marvel Movies</string>
+    <string name="fragment_movies_other_movies">Other Movies</string>
 
 </resources>
