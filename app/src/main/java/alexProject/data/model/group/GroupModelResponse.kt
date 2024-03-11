@@ -1,6 +1,5 @@
 package alexProject.data.model.group
 
-import alexProject.data.model.group.GroupModel
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

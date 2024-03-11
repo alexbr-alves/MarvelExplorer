@@ -57,7 +57,7 @@
                 tools:text="Earth's Mightiest Heroes stand as the planet's first line of defense against the most powerful threats in the universe." />
 
             <TextView
-                android:id="@+id/text_current_members"
+                android:id="@+id/text_marvel_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
@@ -74,17 +74,16 @@
                 android:id="@+id/recycle_current_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:scrollbars="horizontal"
                 android:orientation="horizontal"
                 tools:itemCount="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_current_members"
+                app:layout_constraintTop_toBottomOf="@+id/text_marvel_movies"
                 tools:listitem="@layout/item_card_name2" />
 
 
             <TextView
-                android:id="@+id/text_former_members"
+                android:id="@+id/text_other_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
@@ -104,9 +103,8 @@
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal"
                 android:orientation="horizontal"
-                android:layout_marginStart="32dp"
                 tools:itemCount="1"
-                app:layout_constraintTop_toBottomOf="@+id/text_former_members"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_movies"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:listitem="@layout/item_card_name2" />
 

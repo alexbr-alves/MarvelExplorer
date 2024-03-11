@@ -4,9 +4,11 @@ import alexProject.data.model.group.GroupModelResponse
 import alexProject.data.model.character.CharacterModelResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
+import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.timeline.TimelineModelResponse
 import alexProject.util.KeyGithub.GITHUB_BASE_URL
 import alexProject.util.KeyGithub.RF_MARVEL_GROUPS
+import alexProject.util.KeyGithub.RF_MARVEL_MOVEIS
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -106,6 +108,10 @@ interface ServiceApi {
         @Query("offset") offset : Int? = 0,
     ) : Response<TimelineModelResponse>
 
+    //GITHUB API
     @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)
     suspend fun getGroup() : Response<GroupModelResponse>
+
+    @GET(GITHUB_BASE_URL + RF_MARVEL_MOVEIS)
+    suspend fun getMovies() : Response<MoviesModelResponse>
 }

@@ -55,8 +55,8 @@ class FormerMemberAdapter : RecyclerView.Adapter<FormerMemberAdapter.GroupViewHo
     override fun onBindViewHolder(holder: FormerMemberAdapter.GroupViewHolder, position: Int) {
         val groupItem = groups[position]
         holder.binding.apply {
-            textHeroName.text = groupItem.heroName
-            textPeopleName.text = groupItem.peopleName
+            text1.text = groupItem.heroName
+            text2.text = groupItem.peopleName
             Glide.with(image).load(groupItem.image).into(image)
         }
     }
