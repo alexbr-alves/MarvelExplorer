@@ -2,6 +2,7 @@ package alexProject.adapters.movies
 
 
 import alexProject.data.model.movies.MoviesModel
+import alexProject.data.model.timeline.TimelineModel
 import alexProject.databinding.ItemCardName2Binding
 import alexProject.util.setGone
 import android.view.LayoutInflater
@@ -59,6 +60,17 @@ class MarvelMoviesAdapter : RecyclerView.Adapter<MarvelMoviesAdapter.MoviesViewH
             text2.setGone()
             Glide.with(image).load(moviesItens.image).into(image)
         }
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(moviesItens)
+            }
+        }
+    }
+
+    private var onItemClickListener : ((MoviesModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : (MoviesModel) -> Unit){
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {

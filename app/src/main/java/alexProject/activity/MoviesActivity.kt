@@ -31,9 +31,10 @@ class MoviesActivity : AppCompatActivity() {
     private fun setupListener() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.groupFragment -> setupToolbar(
-                    true, getString(R.string.title_fragment_teams_and_groups)
-                )
+                R.id.webViewFragment -> {
+                    setupToolbar(false)
+                }
+                R.id.moviesFragment -> setupToolbar(true, getString(R.string.title_fragment_movies))
             }
         }
     }
