@@ -45,11 +45,17 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
 
     private fun clickEvent() {
         moviesAdapter.setOnItemClickListener { moviesModel ->
-            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(moviesModel.url, moviesModel.name)
+            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(
+                moviesModel.url,
+                moviesModel.name
+            )
             findNavController().navigate(action)
         }
         otherMoviesAdapter.setOnItemClickListener { moviesModel ->
-            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(moviesModel.url, moviesModel.name)
+            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(
+                moviesModel.url,
+                moviesModel.name
+            )
             findNavController().navigate(action)
         }
     }
