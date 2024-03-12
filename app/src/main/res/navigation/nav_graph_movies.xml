@@ -9,5 +9,21 @@
         android:id="@+id/moviesFragment"
         tools:layout="@layout/fragment_movies"
         android:name="alexProject.fragment.movies.MoviesFragment"
-        android:label="MoviesFragment" />
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        tools:layout="@layout/fragment_webview"
+        android:name="alexProject.fragment.WebViewFragment"
+        android:label="WebViewFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="toolbarTitle"
+            app:argType="string" />
+    </fragment>
 </navigation>

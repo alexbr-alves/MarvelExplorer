@@ -1,10 +1,9 @@
 package alexProject.fragment.movies
 
 import alexProject.R
-import alexProject.adapters.group.GroupAdapter
+import alexProject.activity.MoviesActivity
 import alexProject.adapters.movies.MarvelMoviesAdapter
 import alexProject.adapters.movies.OtherMoviesAdapter
-import alexProject.data.model.movies.MoviesModel
 import alexProject.data.model.movies.MoviesResponseData
 import alexProject.databinding.FragmentMoviesBinding
 import alexProject.fragment.BaseFragment
@@ -18,13 +17,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
@@ -41,6 +40,18 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         collectObserve()
+        clickEvent()
+    }
+
+    private fun clickEvent() {
+        moviesAdapter.setOnItemClickListener { moviesModel ->
+            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(moviesModel.url, moviesModel.name)
+            findNavController().navigate(action)
+        }
+        otherMoviesAdapter.setOnItemClickListener { moviesModel ->
+            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(moviesModel.url, moviesModel.name)
+            findNavController().navigate(action)
+        }
     }
 
     private fun collectObserve() = lifecycleScope.launch {
@@ -52,13 +63,17 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
                     data.data?.movies.let { results ->
                         results?.let { movies -> loadPage(movies) }
                         results?.let { setupRecycleView(it) }
+                        binding.run {
+                            textMarvelMovies.setVisible()
+                            textOtherMovies.setVisible()
+                        }
                     }
                 }
 
                 is ResourceState.Error -> {
                     binding.progressbarSearch.setInvisible()
                     data.message?.let { message ->
-                        Timber.tag("GroupFragment").e("Error -> $message")
+                        Timber.tag("MoviesFragment").e("Error -> $message")
                     }
                 }
 

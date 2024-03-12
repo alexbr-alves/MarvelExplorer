@@ -59,6 +59,17 @@ class OtherMoviesAdapter : RecyclerView.Adapter<OtherMoviesAdapter.MoviesViewHol
             text2.setGone()
             Glide.with(image).load(moviesItens.image).into(image)
         }
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(moviesItens)
+            }
+        }
+    }
+
+    private var onItemClickListener : ((MoviesModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : (MoviesModel) -> Unit){
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {
