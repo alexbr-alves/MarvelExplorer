@@ -1,4 +1,4 @@
-# Aplicativo MarvelExplorer
+# Aplicativo MarvelExplorer 
 
 ### Marvel Explorer é o aplicativo Android para todos os fãs do universo Marvel. Com uma interface intuitiva e recursos poderosos, permite aos usuários explorar o vasto mundo dos super-heróis da Marvel de uma maneira envolvente e informativa.
 
