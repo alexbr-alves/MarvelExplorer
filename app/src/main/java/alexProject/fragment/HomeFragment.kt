@@ -38,6 +38,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             mainActivity.goToMoviesActivity()
         }
 
+        textTvShow.setOnClickListener {
+            mainActivity.goToTvShow()
+        }
+
         textCharacters.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
             findNavController().navigate(action)

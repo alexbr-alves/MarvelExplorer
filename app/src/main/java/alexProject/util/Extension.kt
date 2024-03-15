@@ -1,5 +1,7 @@
 package alexProject.util
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -16,6 +18,11 @@ fun Fragment.toast(message : String, duration : Int = Toast.LENGTH_LONG) {
 
 fun View.setVisible() {
     visibility = View.VISIBLE
+}
+
+fun Activity.goToActivity(destinationActivity: Class<out Activity>) {
+    val intent = Intent(this, destinationActivity)
+    startActivity(intent)
 }
 
 fun View.setInvisible() {
@@ -42,4 +49,7 @@ fun String.limitDescription(characters : Int) : String {
         return "${this.substring(firstCharacter, characters)}..."
     }
     return this
+
+
+
 }

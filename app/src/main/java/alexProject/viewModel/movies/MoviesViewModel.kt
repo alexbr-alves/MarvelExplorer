@@ -1,6 +1,5 @@
 package alexProject.viewModel.movies
 
-import alexProject.data.model.group.GroupModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState

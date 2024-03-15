@@ -1,7 +1,6 @@
 package alexProject.activity
 
 import alexProject.R
-import alexProject.databinding.ActivityGroupBinding
 import alexProject.databinding.ActivityMoviesBinding
 import alexProject.util.setGone
 import alexProject.util.setVisible
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,9 +29,6 @@ class MoviesActivity : AppCompatActivity() {
     private fun setupListener() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.webViewFragment -> {
-                    setupToolbar(false)
-                }
                 R.id.moviesFragment -> setupToolbar(true, getString(R.string.title_fragment_movies))
             }
         }

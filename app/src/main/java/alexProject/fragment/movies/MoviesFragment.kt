@@ -2,8 +2,7 @@ package alexProject.fragment.movies
 
 import alexProject.R
 import alexProject.activity.MoviesActivity
-import alexProject.adapters.movies.MarvelMoviesAdapter
-import alexProject.adapters.movies.OtherMoviesAdapter
+import alexProject.adapters.ItemSiteMarvelAdapter
 import alexProject.data.model.movies.MoviesResponseData
 import alexProject.databinding.FragmentMoviesBinding
 import alexProject.fragment.BaseFragment
@@ -28,8 +27,8 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
     override val viewModel: MoviesViewModel by viewModels()
-    private val moviesAdapter by lazy { MarvelMoviesAdapter() }
-    private val otherMoviesAdapter by lazy { OtherMoviesAdapter() }
+    private val moviesAdapter by lazy { ItemSiteMarvelAdapter() }
+    private val otherMoviesAdapter by lazy { ItemSiteMarvelAdapter() }
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -44,17 +43,16 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
     }
 
     private fun clickEvent() {
-        moviesAdapter.setOnItemClickListener { moviesModel ->
+        handleClickEvent(moviesAdapter)
+        handleClickEvent(otherMoviesAdapter)
+    }
+
+    private fun handleClickEvent(itemAdapter: ItemSiteMarvelAdapter) {
+        itemAdapter.setOnItemClickListener { itemModel ->
+            (activity as MoviesActivity).setupToolbar(true, itemModel.name)
             val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(
-                moviesModel.url,
-                moviesModel.name
-            )
-            findNavController().navigate(action)
-        }
-        otherMoviesAdapter.setOnItemClickListener { moviesModel ->
-            val action = MoviesFragmentDirections.actionMoviesFragmentToWebViewFragment(
-                moviesModel.url,
-                moviesModel.name
+                itemModel.url,
+                itemModel.name
             )
             findNavController().navigate(action)
         }
@@ -103,12 +101,12 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
         recycleMovies.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = moviesAdapter
-            moviesAdapter.movies = data.moviesMarvel
+            moviesAdapter.list = data.moviesMarvel
         }
         recycleOtherMovies.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = otherMoviesAdapter
-            otherMoviesAdapter.movies = data.otherMovies
+            otherMoviesAdapter.list = data.otherMovies
         }
     }
 
