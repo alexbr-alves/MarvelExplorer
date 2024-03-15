@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 
 fun Fragment.toast(message : String, duration : Int = Toast.LENGTH_LONG) {
@@ -33,6 +34,10 @@ fun View.setGone() {
     visibility = View.GONE
 }
 
+fun <T> Fragment.observe(liveData: LiveData<T>, observer: (T) -> Unit) {
+    liveData.observe(viewLifecycleOwner, observer)
+}
+
 fun loadImage(
     imageView : ImageView,
     path : String,
@@ -49,7 +54,5 @@ fun String.limitDescription(characters : Int) : String {
         return "${this.substring(firstCharacter, characters)}..."
     }
     return this
-
-
 
 }

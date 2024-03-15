@@ -7,7 +7,7 @@ import alexProject.data.model.movies.MoviesResponseData
 import alexProject.databinding.FragmentMoviesBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
-import alexProject.util.setInvisible
+import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.movies.MoviesViewModel
 import android.os.Bundle
@@ -20,7 +20,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -59,33 +58,21 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.fetch()
-        viewModel.listItems.collect { data ->
-            when (data) {
-                is ResourceState.Success -> {
-                    binding.progressbarSearch.setInvisible()
-                    data.data?.movies.let { results ->
-                        results?.let { movies -> loadPage(movies) }
-                        results?.let { setupRecycleView(it) }
-                        binding.run {
-                            textMarvelMovies.setVisible()
-                            textOtherMovies.setVisible()
-                        }
+        with(viewModel) {
+            fetch()
+            observe(isLoading) { isLoading ->
+                (activity as MoviesActivity).showProgressBar(isLoading)
+            }
+            observe(onError) { onError ->
+                Timber.e(onError)
+            }
+            observe(listItems) { result ->
+                result.data?.movies.let { moviesResponseData ->
+                    moviesResponseData?.let { movies ->
+                        loadPage(movies)
+                        setupRecycleView(movies)
                     }
                 }
-
-                is ResourceState.Error -> {
-                    binding.progressbarSearch.setInvisible()
-                    data.message?.let { message ->
-                        Timber.tag("MoviesFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressbarSearch.setVisible()
-                }
-
-                else -> {}
             }
 
         }

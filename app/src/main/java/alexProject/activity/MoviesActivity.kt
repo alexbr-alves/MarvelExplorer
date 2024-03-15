@@ -2,6 +2,7 @@ package alexProject.activity
 
 import alexProject.R
 import alexProject.databinding.ActivityMoviesBinding
+import alexProject.state.ResourceState
 import alexProject.util.setGone
 import alexProject.util.setVisible
 import android.os.Bundle
@@ -55,4 +56,11 @@ class MoviesActivity : AppCompatActivity() {
             }
         }
 
+    fun showProgressBar(loading: Boolean?) {
+        if (loading == true) {
+            binding.progressbarSearch.setVisible()
+        } else {
+            binding.progressbarSearch.setGone()
+        }
+    }
 }
