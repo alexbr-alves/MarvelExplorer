@@ -1,5 +1,6 @@
 package alexProject.data.model.movies
 
+import alexProject.data.model.ItemSiteMarvelModel
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -9,7 +10,7 @@ data class MoviesResponseData(
     @SerializedName("description")
     val description: String,
     @SerializedName("marvel_movies")
-    val moviesMarvel: List<MoviesModel>,
+    val moviesMarvel: List<ItemSiteMarvelModel>,
     @SerializedName("other_movies")
-    val otherMovies: List<MoviesModel>
+    val otherMovies: List<ItemSiteMarvelModel>
 ) : Serializable

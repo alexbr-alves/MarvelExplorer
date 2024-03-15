@@ -63,5 +63,4 @@ class GroupsActivity : AppCompatActivity() {
                 toolbarInclude.setGone()
             }
         }
-
 }

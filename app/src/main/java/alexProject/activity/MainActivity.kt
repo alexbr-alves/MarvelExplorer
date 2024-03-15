@@ -4,9 +4,9 @@ import alexProject.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import alexProject.databinding.ActivityMainBinding
+import alexProject.util.goToActivity
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import android.content.Intent
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -100,13 +100,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToGroupActivity() {
-        val intent = Intent(this, GroupsActivity::class.java)
-        startActivity(intent)
+        goToActivity(GroupsActivity::class.java)
     }
 
     fun goToMoviesActivity() {
-        val intent = Intent(this, MoviesActivity::class.java)
-        startActivity(intent)
+        goToActivity(MoviesActivity::class.java)
+    }
+
+    fun goToTvShow() {
+        goToActivity(TvShowActivity::class.java)
     }
 
     private fun hideToolbar() {

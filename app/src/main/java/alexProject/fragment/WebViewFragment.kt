@@ -1,7 +1,6 @@
 package alexProject.fragment
 
 import alexProject.databinding.FragmentWebviewBinding
-import alexProject.util.setVisible
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,11 +26,6 @@ class WebViewFragment : Fragment() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.text.text = args.toolbarTitle
-        binding.toolbar.text.setVisible()
-        binding.toolbar.back.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
         val webView = binding.webView
         webView.webViewClient = WebViewClient()
         webView.loadUrl(args.url)
