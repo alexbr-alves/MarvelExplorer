@@ -2,12 +2,13 @@ package alexProject.fragment.event
 
 
 import alexProject.adapters.comic.ComicDetailsAdapter
+import alexProject.data.model.comic.ComicModelResponse
 import alexProject.databinding.FragmentComicEventBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.event.EventComicsViewModel
 import android.os.Bundle
@@ -21,25 +22,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class EventComicsFragment(private val comicId : Int) :
+class EventComicsFragment(private val comicId: Int) :
     BaseFragment<FragmentComicEventBinding, EventComicsViewModel>() {
 
-    override val viewModel : EventComicsViewModel by viewModels()
+    override val viewModel: EventComicsViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
-    private var totalItems : Int = 0
+    private var totalItems: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentComicEventBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentComicEventBinding =
         FragmentComicEventBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         collectObserver()
@@ -69,7 +69,7 @@ class EventComicsFragment(private val comicId : Int) :
             adapter = comicDetailsAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -88,34 +88,28 @@ class EventComicsFragment(private val comicId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetch(comicId)
-        viewModel.list.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.result.isEmpty()) {
-                            binding.textEmpty.setVisible()
-                        } else {
-                            comicDetailsAdapter.comics = values.data.result.toList()
-                            totalItems = values.data.total
-                        }
-                    }
-                }
+        with(viewModel) {
+            fetch(comicId)
+            observe(onError) { onError ->
+                Timber.e(onError)
+            }
+            observe(isLoading) { isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
+            }
+            observe(listItems) { result ->
+                handleList(result)
 
-                is ResourceState.Error -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("CharactersComicFragment").e("Error -> $message")
-                    }
-                }
+            }
+        }
+    }
 
-                is ResourceState.Loading -> {
-                    binding.progressBarDetail.setVisible()
-                }
-
-                else -> {
-                }
+    private fun handleList(result: ResourceState<ComicModelResponse>) {
+        result.data?.data?.let { comicModelData ->
+            if (comicModelData.result.isEmpty()) {
+                binding.textEmpty.setVisible()
+            } else {
+                comicDetailsAdapter.comics = comicModelData.result.toList()
+                totalItems = comicModelData.total
             }
         }
     }
