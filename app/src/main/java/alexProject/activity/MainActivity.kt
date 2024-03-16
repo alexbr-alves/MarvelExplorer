@@ -111,6 +111,10 @@ class MainActivity : AppCompatActivity() {
         goToActivity(TvShowActivity::class.java)
     }
 
+    fun goToGamesActivity() {
+        goToActivity(GamesActivity::class.java)
+    }
+
     private fun hideToolbar() {
         val toolbarInclude : View = findViewById(R.id.toolbar)
         toolbarInclude.setGone()
