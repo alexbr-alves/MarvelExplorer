@@ -18,4 +18,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/splash_deadpool" />
 
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/logo_marvel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
