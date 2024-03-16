@@ -3,10 +3,9 @@ package alexProject.fragment.comic
 import alexProject.adapters.event.EventDetailsAdapter
 import alexProject.databinding.FragmentEventComicBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.comics.ComicEventsViewModel
 import android.os.Bundle
@@ -20,23 +19,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ComicEventFragment(private val comicId : Int) :
+class ComicEventFragment(private val comicId: Int) :
     BaseFragment<FragmentEventComicBinding, ComicEventsViewModel>() {
-    override val viewModel : ComicEventsViewModel by viewModels()
+    override val viewModel: ComicEventsViewModel by viewModels()
     private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
-    private var totalItems : Int = 0
+    private var totalItems: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentEventComicBinding = FragmentEventComicBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentEventComicBinding = FragmentEventComicBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         collectObserver()
@@ -67,7 +65,7 @@ class ComicEventFragment(private val comicId : Int) :
             layoutManager = GridLayoutManager(requireContext(), 2)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -86,36 +84,26 @@ class ComicEventFragment(private val comicId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetch(comicId)
-        viewModel.list.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.result.isEmpty()) {
-                            binding.textEmpty.setVisible()
-                        } else {
-                            eventDetailsAdapter.events = values.data.result.toList()
-                            totalItems = values.data.total
-                        }
+        with(viewModel) {
+            fetch(comicId)
+            observe(onError) { onError ->
+                Timber.d(onError)
+            }
+            observe(isLoading) { isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
+            }
+            observe(listItems) { result ->
+                result.data?.data?.let { eventModelData ->
+                    if (eventModelData.result.isEmpty()) {
+                        binding.textEmpty.setVisible()
+                    } else {
+                        eventDetailsAdapter.events = eventModelData.result.toList()
+                        totalItems = eventModelData.total
                     }
-                }
-
-                is ResourceState.Error -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("EventComicFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressBarDetail.setVisible()
-                }
-
-                else -> {
                 }
             }
         }
+
     }
 
 }

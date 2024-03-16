@@ -4,10 +4,9 @@ package alexProject.fragment.comic
 import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterComicBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.comics.ComicCharactersViewModel
 import android.os.Bundle
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -90,32 +88,21 @@ class ComicCharactersFragment(private val comicId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.comicCharacterList.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.results.isEmpty()) {
-                            binding.textEmpty.setVisible()
-                        } else {
-                            characterDetailsAdapter.characters = values.data.results.toList()
-                            totalItems = values.data.total
-                        }
+        with(viewModel) {
+            observe(onError) {onError ->
+                Timber.d(onError)
+            }
+            observe(isLoading) { isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
+            }
+            observe(comicCharacterList) {result ->
+                result.data?.data?.let { characterModels ->
+                    if (characterModels.results.isEmpty()) {
+                        binding.textEmpty.setVisible()
+                    } else {
+                        characterDetailsAdapter.characters = characterModels.results.toList()
+                        totalItems = characterModels.total
                     }
-                }
-
-                is ResourceState.Error -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("CharactersComicFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressBarDetail.setVisible()
-                }
-
-                else -> {
                 }
             }
         }
