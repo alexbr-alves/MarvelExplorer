@@ -50,10 +50,7 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
-                    setupToolbar(
-                        true,
-                        getString(R.string.marvel)
-                    )
+                    setupToolbar(false)
                     binding.toolbar.back.setGone()
                 }
 

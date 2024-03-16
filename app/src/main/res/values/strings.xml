@@ -47,7 +47,7 @@
     <string name="title_fragment_event">Events</string>
     <string name="title_fragment_detail">Details</string>
     <string name="title_fragment_characters">Characters</string>
-    <string name="title_fragment_teams_and_groups">Teams and Groups</string>
+    <string name="title_fragment_teams_and_groups">Teams</string>
     <string name="title_fragment_tv_show">Tv Show</string>
     <string name="title_fragment_movies">Movies</string>
     <string name="title_fragment_series">Series</string>
