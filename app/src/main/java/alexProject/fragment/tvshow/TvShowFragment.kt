@@ -3,11 +3,12 @@ package alexProject.fragment.tvshow
 import alexProject.activity.TvShowActivity
 import alexProject.adapters.ItemSiteMarvelAdapter
 import alexProject.data.model.ItemSiteMarvelModel
+import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.data.model.tv_show.TvShowResponseData
 import alexProject.databinding.FragmentTvShowBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
-import alexProject.util.setInvisible
+import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.tvShow.TvShowViewModel
 import android.os.Bundle
@@ -21,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -66,39 +66,33 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.fetch()
-        viewModel.listItems.collect { data ->
-            when (data) {
-                is ResourceState.Success -> {
-                    binding.progressbarSearch.setInvisible()
-                    data.data?.tvShows.let { results ->
-                        results?.let { loadPage(it) }
-                        results?.let { setupRecyclerView(it) }
-                        binding.run {
-                            textOnHulu.setVisible()
-                            textAnimation.setVisible()
-                            textSeriesOnDisneyPlus.setVisible()
-                            textNonFictionDisney.setVisible()
-                            textMarvelDisneyPlus.setVisible()
-                        }
-
-                    }
-                }
-
-                is ResourceState.Error -> {
-                    binding.progressbarSearch.setInvisible()
-                    data.message?.let { message ->
-                        Timber.tag("MoviesFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressbarSearch.setVisible()
-                }
-
-                else -> {}
+        with(viewModel) {
+            fetch()
+            observe(onError) { onError ->
+                Timber.e(onError)
             }
+            observe(isLoading) { isLoading ->
+                binding.progressbarSearch.setVisible(isLoading)
+            }
+            observe(listItems) { result ->
+                handleList(result)
+            }
+        }
+    }
 
+    private fun handleList(result: ResourceState<TvShowModelResponse>) {
+        result.data?.tvShows?.let { tvShowResponseData ->
+            tvShowResponseData.let {
+                loadPage(it)
+                setupRecyclerView(it)
+                binding.run {
+                    textOnHulu.setVisible()
+                    textAnimation.setVisible()
+                    textSeriesOnDisneyPlus.setVisible()
+                    textNonFictionDisney.setVisible()
+                    textMarvelDisneyPlus.setVisible()
+                }
+            }
         }
     }
 
@@ -110,8 +104,16 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
 
     private fun setupRecyclerView(data: TvShowResponseData) = with(binding) {
         handleRecyclerView(recycleDisneyPlus, marvelDisneyPlusAdapter, data.marvelOnDisneyPlus)
-        handleRecyclerView(recycleNonFictionDisney, nonFictionDisneyAdapter, data.nonFictionDisneyPlus)
-        handleRecyclerView(recycleSeriesOnDisneyPlus, seriesOnDisneyPlusAdapter, data.marvelSeriesDPlus)
+        handleRecyclerView(
+            recycleNonFictionDisney,
+            nonFictionDisneyAdapter,
+            data.nonFictionDisneyPlus
+        )
+        handleRecyclerView(
+            recycleSeriesOnDisneyPlus,
+            seriesOnDisneyPlusAdapter,
+            data.marvelSeriesDPlus
+        )
         handleRecyclerView(recycleOnHulu, onHuluAdapter, data.marvelOnHulu)
         handleRecyclerView(recycleAnimation, animationAdapter, data.animation)
     }

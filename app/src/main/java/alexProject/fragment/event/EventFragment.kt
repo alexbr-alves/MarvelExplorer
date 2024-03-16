@@ -1,12 +1,13 @@
 package alexProject.fragment.event
 
 import alexProject.adapters.event.EventAdapter
+import alexProject.data.model.event.EventModelResponse
 import alexProject.databinding.FragmentEventBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.event.EventViewModel
 import android.animation.ValueAnimator
@@ -25,26 +26,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
-    override val viewModel : EventViewModel by viewModels()
+    override val viewModel: EventViewModel by viewModels()
     private val eventAdapter by lazy { EventAdapter() }
-    private val args : EventFragmentArgs by navArgs()
+    private val args: EventFragmentArgs by navArgs()
     private var isSearchExpanded = false
-    private var totalItems : Int = 0
-    private var initialOffset : Int = 0
+    private var totalItems: Int = 0
+    private var initialOffset: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentEventBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentEventBinding =
         FragmentEventBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         collectObserver()
         setupRecycleView()
@@ -56,7 +56,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     private fun setupUI() {
         if (args.verity == Constants.VERIFIED) {
-          binding.searchIcon.setVisible()
+            binding.searchIcon.setVisible()
         } else {
             binding.searchIcon.setGone()
         }
@@ -120,31 +120,26 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetch(args.verity, args.id, offset = initialOffset)
-        viewModel.eventList.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBar.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.result.isNotEmpty()) {
-                            eventAdapter.eventList = values.data.result.toList()
-                            totalItems = values.data.total
-                        }
-                    }
-                }
+        with(viewModel) {
+            fetch(args.verity, args.id, offset = initialOffset)
+            observe(onError) { onError ->
+                Timber.e(onError)
+            }
+            observe(isLoading) { isLoading ->
+                binding.progressBar.setVisible(isLoading)
+            }
+            observe(listItems) { result ->
+                handleList(result)
 
-                is ResourceState.Error -> {
-                    binding.progressBar.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("EventFragment").e("Error -> $message")
-                    }
-                }
+            }
+        }
+    }
 
-                is ResourceState.Loading -> {
-                    binding.progressBar.setVisible()
-                }
-
-                else -> {}
+    private fun handleList(result: ResourceState<EventModelResponse>) {
+        result.data?.data?.let { eventModelData ->
+            if (eventModelData.result.isNotEmpty()) {
+                eventAdapter.eventList = eventModelData.result.toList()
+                totalItems = eventModelData.total
             }
         }
     }
@@ -155,7 +150,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
             layoutManager = GridLayoutManager(context, 2)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -173,22 +168,22 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         }
     }
 
-    private fun searchInit(query : String? = null) = with(binding) {
+    private fun searchInit(query: String? = null) = with(binding) {
         searchEditText.setText(query)
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
-                char : CharSequence?,
-                start : Int,
-                count : Int,
-                after : Int
+                char: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
             ) {
             }
 
             override fun onTextChanged(
-                char : CharSequence?,
-                start : Int,
-                before : Int,
-                count : Int
+                char: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
             ) {
                 if (char.toString().isEmpty()) {
                     updateEventList()
@@ -197,11 +192,11 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                 }
             }
 
-            override fun afterTextChanged(s : Editable?) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    private fun updateEventList(query : String? = null) {
+    private fun updateEventList(query: String? = null) {
         viewModel.fetch(titleStartsWith = query, offset = initialOffset)
     }
 }
