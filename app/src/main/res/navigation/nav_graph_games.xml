@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_games.xml"
+    app:startDestination="@id/gamesFragment">
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="alexProject.fragment.games.GamesFragment"
+        android:label="GamesFragment" >
+        <action
+            android:id="@+id/action_gamesFragment_to_webViewFragment3"
+            app:destination="@id/webViewFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment3"
+        android:name="alexProject.fragment.WebViewFragment"
+        android:label="WebViewFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+</navigation>

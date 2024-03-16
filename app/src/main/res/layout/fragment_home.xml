@@ -76,6 +76,25 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
+                android:id="@+id/text_games"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner"
+                android:backgroundTint="@color/gray_300"
+                android:fontFamily="@font/marvel"
+                android:paddingVertical="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/title_fragment_games"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/text_movies"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
                 android:id="@+id/text_characters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +110,7 @@
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/text_movies"
+                app:layout_constraintTop_toBottomOf="@+id/text_games"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView

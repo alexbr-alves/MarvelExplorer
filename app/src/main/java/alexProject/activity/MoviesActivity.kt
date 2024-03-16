@@ -37,7 +37,7 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun initViews(binding: ActivityMoviesBinding) {
         navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container_view_group) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view_movies) as NavHostFragment
     }
 
     fun setupToolbar(textVisible: Boolean, title: String = "") =

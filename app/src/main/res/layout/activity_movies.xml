@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context="alexProject.activity.GroupsActivity">
+    tools:context="alexProject.activity.MoviesActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container_view_group"
+            android:id="@+id/fragment_container_view_movies"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -41,4 +41,5 @@ class MarvelRepository @Inject constructor(
     suspend fun getGroup() = api.getGroup()
     suspend fun getMovies() = api.getMovies()
     suspend fun getTvShow() = api.getTvShow()
+    suspend fun getGames() = api.getGames()
 }

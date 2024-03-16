@@ -15,18 +15,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    override val viewModel : HomeViewModel by viewModels()
-    private val mainActivity : MainActivity by lazy { activity as MainActivity }
+    override val viewModel: HomeViewModel by viewModels()
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clickEvents()
     }
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
     private fun clickEvents() = with(binding) {
 
@@ -42,20 +42,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             mainActivity.goToTvShow()
         }
 
+        textGames.setOnClickListener {
+            mainActivity.goToGamesActivity()
+        }
+
         textCharacters.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
         textComics.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
             findNavController().navigate(action)
         }
         textEvents.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
             findNavController().navigate(action)
         }
-
-
     }
 
 }

@@ -51,6 +51,7 @@
     <string name="title_fragment_tv_show">Tv Show</string>
     <string name="title_fragment_movies">Movies</string>
     <string name="title_fragment_series">Series</string>
+    <string name="title_fragment_games">Games</string>
     <string name="title_about">About</string>
 
 
@@ -67,10 +68,11 @@
     <string name="data_and_time">%s - %s</string>
     <string name="search_event">Pesquise um evento</string>
     <string name="item_transaction">item transaction</string>
-    <string name="fragment_group_current_members">Current Members</string>
-    <string name="fragment_group_former_members">Former Members</string>
-    <string name="fragment_movies_marvel_movies">Marvel Movies</string>
-    <string name="fragment_movies_other_movies">Other Movies</string>
+    <string name="fragment_group_current_members">CURRENT MEMBERS</string>
+    <string name="fragment_group_former_members">FORMER MEMBERS</string>
+    <string name="fragment_movies_marvel_movies">MARVEL MOVIES</string>
+    <string name="fragment_movies_other_movies">Other Movies OTHER MOVIES</string>
+    <string name="fragment_games_all_games">ALL GAMES</string>
 
     <string name="fragment_tv_show_on_disney_plus">MARVEL ON DISNEY+</string>
     <string name="fragment_tv_show_non_fiction_disney_plus">NON-FICTION DISNEY+</string>
