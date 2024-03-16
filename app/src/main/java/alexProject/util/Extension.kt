@@ -17,8 +17,12 @@ fun Fragment.toast(message : String, duration : Int = Toast.LENGTH_LONG) {
     ).show()
 }
 
-fun View.setVisible() {
-    visibility = View.VISIBLE
+fun View.setVisible(visible: Boolean? = null) {
+    visibility = if (visible == true || visible == null) {
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
 }
 
 fun Activity.goToActivity(destinationActivity: Class<out Activity>) {

@@ -3,10 +3,9 @@ package alexProject.fragment.character
 import alexProject.adapters.comic.ComicDetailsAdapter
 import alexProject.databinding.FragmentComicsCharapterBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.character.CharacterComicsViewModel
 import android.os.Bundle
@@ -88,33 +87,24 @@ class CharacterComicsFragment(private val characterId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetchComic(characterId)
-        viewModel.comicList.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.result.isNotEmpty()) {
-                            comicDetailsAdapter.comics = values.data.result.toList()
-                            totalItems = values.data.total
-                        } else {
-                            binding.textEmpty.setVisible()
-                        }
+        with(viewModel) {
+            fetchComic(characterId)
+            observe(comicList) { result ->
+                result.data?.data?.let { comicModelData ->
+                    if (comicModelData.result.isNotEmpty()) {
+                        comicDetailsAdapter.comics = comicModelData.result.toList()
+                        totalItems = comicModelData.total
+                    } else {
+                        binding.textEmpty.setVisible()
                     }
                 }
+            }
+            observe(onError) {
+                Timber.e(it)
+            }
 
-                is ResourceState.Error -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("ListCharacterFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressBarDetail.setVisible()
-                }
-
-                else -> {}
+            observe(isLoading) {isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
             }
         }
     }

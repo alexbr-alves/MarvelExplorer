@@ -6,9 +6,7 @@ import alexProject.adapters.ItemSiteMarvelAdapter
 import alexProject.data.model.movies.MoviesResponseData
 import alexProject.databinding.FragmentMoviesBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.observe
-import alexProject.util.setVisible
 import alexProject.viewModel.movies.MoviesViewModel
 import android.os.Bundle
 import android.view.LayoutInflater

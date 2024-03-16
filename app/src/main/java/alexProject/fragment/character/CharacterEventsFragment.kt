@@ -3,10 +3,9 @@ package alexProject.fragment.character
 import alexProject.adapters.event.EventDetailsAdapter
 import alexProject.databinding.FragmentEventsCharapterBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.character.CharacterEventsViewModel
 import android.os.Bundle
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -64,35 +62,24 @@ class CharacterEventsFragment(private val characterId : Int) :
     }
 
     private fun collectObserver() = lifecycleScope.launch {
-        viewModel.fetchEvent(characterId)
-        viewModel.eventList.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.data?.let { values ->
-                        if (values.data.result.isNotEmpty()) {
-                            eventDetailsAdapter.events = values.data.result.toList()
-                            totalItems = values.data.total
-                        } else {
-                            binding.textEmpty.setVisible()
-                        }
-                    }
-                }
-
-                is ResourceState.Error -> {
-                    binding.progressBarDetail.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("ListCharacterFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressBarDetail.setVisible()
-                }
-
-                else -> {}
+        with(viewModel) {
+            fetchEvent(characterId)
+            observe(onError) {onError ->
+                Timber.e(onError)
             }
-
+            observe(isLoading) {isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
+            }
+            observe(eventList) {result ->
+                result.data?.data?.let { eventModelData ->
+                    if (eventModelData.result.isNotEmpty()) {
+                        eventDetailsAdapter.events = result.data.data.result.toList()
+                        totalItems = result.data.data.total
+                    } else {
+                        binding.textEmpty.setVisible()
+                    }
+                }
+            }
         }
     }
 

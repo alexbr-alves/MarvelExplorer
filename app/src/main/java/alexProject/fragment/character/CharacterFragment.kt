@@ -5,10 +5,9 @@ import alexProject.adapters.character.CharacterAdapter
 import alexProject.databinding.FragmentCharacterBinding
 import alexProject.fragment.BaseFragment
 import alexProject.viewModel.character.CharacterViewModel
-import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.observe
 import alexProject.util.setGone
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import android.animation.ValueAnimator
 import android.os.Bundle
@@ -26,26 +25,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>() {
-    override val viewModel : CharacterViewModel by viewModels()
+    override val viewModel: CharacterViewModel by viewModels()
     private val characterAdapter by lazy { CharacterAdapter() }
-    private val args : CharacterFragmentArgs by navArgs()
+    private val args: CharacterFragmentArgs by navArgs()
     private var isSearchExpanded = false
-    private var totalItems : Int = 0
-    private var initialOffset : Int = 0
+    private var totalItems: Int = 0
+    private var initialOffset: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentCharacterBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCharacterBinding =
         FragmentCharacterBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
         clickAdapter()
@@ -106,29 +104,18 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.fetch(args.origem, args.id, offset = initialOffset)
-        viewModel.list.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    resource.data?.let { values ->
-                        binding.progressCircular.setInvisible()
-                        characterAdapter.characters = values.data.results.toList()
-                        totalItems = values.data.total
-                    }
+        with(viewModel) {
+            fetch(args.origem, args.id, offset = initialOffset)
+            observe(listItem) { result ->
+                result.data?.data?.let { character ->
+                    characterAdapter.characters = character.results.toList()
                 }
-
-                is ResourceState.Error -> {
-                    binding.progressCircular.setInvisible()
-                    resource.message?.let { message ->
-                        Timber.tag("ListCharacterFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressCircular.setVisible()
-                }
-
-                else -> {}
+            }
+            observe(onError) { onError ->
+                Timber.e(onError)
+            }
+            observe(isLoading) { isLoading ->
+                binding.progressCircular.setVisible(isLoading)
             }
         }
     }
@@ -157,7 +144,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
             layoutManager = LinearLayoutManager(requireContext())
             layoutManager = GridLayoutManager(requireContext(), 2)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -175,22 +162,22 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
     }
 
-    private fun searchInit(query : String? = null) = with(binding) {
+    private fun searchInit(query: String? = null) = with(binding) {
         searchEditText.setText(query)
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
-                char : CharSequence?,
-                start : Int,
-                count : Int,
-                after : Int
+                char: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
             ) {
             }
 
             override fun onTextChanged(
-                char : CharSequence?,
-                start : Int,
-                before : Int,
-                count : Int
+                char: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
             ) {
                 if (char.toString().isEmpty()) {
                     updateCharacterList()
@@ -199,11 +186,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                 }
             }
 
-            override fun afterTextChanged(s : Editable?) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    private fun updateCharacterList(query : String? = null) {
+    private fun updateCharacterList(query: String? = null) {
         viewModel.fetch(nameStartsWith = query, offset = initialOffset)
     }
 
