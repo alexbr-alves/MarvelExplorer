@@ -1,10 +1,11 @@
 package alexProject.fragment.group
 
 import alexProject.adapters.group.GroupAdapter
+import alexProject.data.model.group.GroupModelResponse
 import alexProject.databinding.FragmentGroupBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
-import alexProject.util.setInvisible
+import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.group.GroupViewModel
 import android.os.Bundle
@@ -16,7 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -46,31 +46,25 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.fetch()
-        viewModel.listItems.collect { result ->
-            when(result) {
-                is ResourceState.Success -> {
-                    binding.progressbarSearch.setInvisible()
-                    result.data?.groups.let {
-                        if (!it.isNullOrEmpty()) {
-                            groupAdapter.groups = it.toList()
-                        }
-                    }
-                }
-                is ResourceState.Error -> {
-                    binding.progressbarSearch.setInvisible()
-                    result.message?.let { message ->
-                        Timber.tag("GroupFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressbarSearch.setVisible()
-                }
-
-                else -> {}
+        with(viewModel) {
+            fetch()
+            observe(onError) { onError ->
+                Timber.e(onError)
             }
+            observe(isLoading) { isLoading ->
+                binding.progressbarSearch.setVisible(isLoading)
+            }
+            observe(listItems) { result ->
+                handleList(result)
+            }
+        }
+    }
 
+    private fun handleList(result: ResourceState<GroupModelResponse>) {
+        result.data?.let { groupModelResponse ->
+            if (groupModelResponse.groups.isNotEmpty()) {
+                groupAdapter.groups = groupModelResponse.groups.toList()
+            }
         }
     }
 
