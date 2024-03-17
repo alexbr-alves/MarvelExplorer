@@ -1,18 +1,14 @@
 package alexProject.data.local
 
 import alexProject.data.model.FavoriteModel
-import alexProject.data.model.timeline.TimelineModel
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-
-
 @Dao
 interface MarvelDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(characterModel : FavoriteModel) : Long
 
@@ -25,10 +21,4 @@ interface MarvelDao {
     @Query("Select COUNT(*) from favoriteModel WHERE id = :characterId")
     suspend fun searchFavorite(characterId : Int) : Boolean
 
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCache(timelineModel: MutableList<TimelineModel>) : List<Long>
-
-    @Query("SELECT * FROM timelineModel order by modified desc")
-    fun getCache() : Flow<MutableList<TimelineModel>>
 }

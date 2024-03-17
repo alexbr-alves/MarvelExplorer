@@ -6,7 +6,6 @@ import alexProject.data.model.character.CharacterModel
 import alexProject.data.model.SizeItens
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
-import alexProject.data.model.timeline.TimelineModel
 
 class Converts {
 
@@ -108,60 +107,6 @@ class Converts {
             ),
             eventModel.characters.available ?: 0,
             eventModel.comics.available ?: 0
-        )
-    }
-
-    fun timelineToCharacter(timelineModel : TimelineModel) : CharacterModel {
-        return CharacterModel(
-            timelineModel.id,
-            timelineModel.title,
-            timelineModel.description,
-            ThumbnailModel(
-                timelineModel.thumbnailModel.path,
-                timelineModel.thumbnailModel.extension
-            ),
-            SizeItens(
-                timelineModel.comics?.available
-            ),
-            SizeItens(
-                timelineModel.event?.available
-            )
-        )
-    }
-
-    fun timelineToComic(timelineModel : TimelineModel) : ComicModel {
-        return ComicModel(
-            timelineModel.id,
-            timelineModel.title,
-            timelineModel.description ?: "",
-            ThumbnailModel(
-                timelineModel.thumbnailModel.path,
-                timelineModel.thumbnailModel.extension
-            ),
-            SizeItens(
-                timelineModel.character?.available
-            ),
-            SizeItens(
-                timelineModel.event?.available
-            )
-        )
-    }
-
-    fun timelineToEvent(timelineModel : TimelineModel) : EventModel {
-        return EventModel(
-            timelineModel.id,
-            timelineModel.title,
-            timelineModel.description ?: "",
-            ThumbnailModel(
-                timelineModel.thumbnailModel.path,
-                timelineModel.thumbnailModel.extension
-            ),
-            SizeItens(
-                timelineModel.character?.available
-            ),
-            SizeItens(
-                timelineModel.comics?.available
-            )
         )
     }
 

@@ -72,7 +72,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
                     }
                 }
             }
-
         }
     }
 

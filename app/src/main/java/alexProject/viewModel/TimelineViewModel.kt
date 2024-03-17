@@ -1,90 +1,34 @@
 package alexProject.viewModel
 
-import alexProject.R
-import alexProject.data.model.timeline.TimelineModel
-import alexProject.data.model.timeline.TimelineModelResponse
-import alexProject.data.model.timeline.TimelineType
+import alexProject.data.model.comic.ComicModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
-import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import retrofit2.Response
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class TimelineViewModel @Inject constructor(
     private val repository: MarvelRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private val _listItems =
-        MutableStateFlow<ResourceState<Collection<TimelineModel>>>(ResourceState.Loading())
-    val listItems: StateFlow<ResourceState<Collection<TimelineModel>>> = _listItems
+    val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
 
     init {
         fetch()
     }
 
     fun fetch() = viewModelScope.launch {
-        val recentItem = handleResponse(repository.getComicTimeline(  limit = 10 )).data?.data?.result?.get(0)
-        repository.getCache().collect { data ->
-            if (data.isNotEmpty()) {
-                if (recentItem?.modified == data.get(0).modified) {
-                    _listItems.value = ResourceState.Success(data)
-                } else {
-                    safeFetch()
-                }
-            } else {
-                safeFetch()
-            }
-        }
+        safeFetch()
     }
 
-    private suspend fun safeFetch() {
-        try {
-            val comicList = handleResponse(repository.getComicTimeline(limit = 60))
-            val combinedList = mutableListOf<TimelineModel>()
-
-            comicList.data?.let {
-                it.data.result.map { it.type = TimelineType.COMIC }
-            }
-            comicList.data?.let { data ->
-                combinedList.addAll(
-                    data.data.result as Collection<TimelineModel>
-                )
-            }
-
-            combinedList.sortByDescending { it.modified }
-            insertCache(combinedList)
-            _listItems.value = ResourceState.Success(combinedList)
-
-        } catch (t: Throwable) {
-            when (t) {
-                is IOException -> _listItems.value =
-                    ResourceState.Error(R.string.error_internet_connection.toString())
-
-                else -> _listItems.value =
-                    ResourceState.Error(R.string.error_data_conversion_failure.toString())
-            }
-        }
-    }
-
-    private fun insertCache(timelineModel: MutableList<TimelineModel>) = viewModelScope.launch {
-        repository.insertCache(timelineModel)
-    }
-
-    private fun handleResponse(response: Response<TimelineModelResponse>): ResourceState<TimelineModelResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { values ->
-                return ResourceState.Success(values)
-            }
-        }
-        return ResourceState.Error(response.message())
+    private suspend fun safeFetch() = viewModelScope.launch {
+        isLoading.value = true
+        handleFetchResponse(
+            repository.comics(orderBy = "-modified", limit = 60),
+            listItems
+        )
     }
 }
