@@ -1,13 +1,13 @@
 package alexProject.fragment.character
 
-import alexProject.adapters.comic.ComicDetailsAdapter
-import alexProject.databinding.FragmentComicsCharapterBinding
+import alexProject.adapters.event.EventDetailsAdapter
+import alexProject.databinding.FragmentEventsCharapterBinding
 import alexProject.fragment.BaseFragment
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.viewModel.character.CharacterComicsViewModel
+import alexProject.viewModel.character.CharacterEventsViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,23 +19,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CharacterComicsFragment(private val characterId : Int) :
-    BaseFragment<FragmentComicsCharapterBinding, CharacterComicsViewModel>() {
+class EventsViewPagerFragment(private val characterId : Int) :
+    BaseFragment<FragmentEventsCharapterBinding, CharacterEventsViewModel>() {
 
-    override val viewModel : CharacterComicsViewModel by viewModels()
-    private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
+    private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
+    override val viewModel : CharacterEventsViewModel by viewModels()
     private var totalItems : Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentComicsCharapterBinding =
-        FragmentComicsCharapterBinding.inflate(inflater, container, false)
+    ) : FragmentEventsCharapterBinding =
+        FragmentEventsCharapterBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,28 +44,49 @@ class CharacterComicsFragment(private val characterId : Int) :
     }
 
     private fun clickAdapter() {
-        comicDetailsAdapter.setOnClickListener { comicModel ->
+        eventDetailsAdapter.setOnClickListener { eventModel ->
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsComicFragment(
-                    comicModel
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsEventFragment(
+                    eventModel
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToComicsFragment(
-                    Constants.CHARACTER,
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToEventFragment(
+                    Constants.EVENT,
                     characterId
                 )
             findNavController().navigate(action)
         }
     }
 
-    private fun setupRecycleView() = with(binding) {
-        rvComics.apply {
-            adapter = comicDetailsAdapter
-            layoutManager = GridLayoutManager(context, 2)
+    private fun collectObserver() = lifecycleScope.launch {
+        with(viewModel) {
+            fetchEvent(characterId)
+            observe(onError) {onError ->
+                Timber.e(onError)
+            }
+            observe(isLoading) {isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
+            }
+            observe(eventList) {result ->
+                result.data?.data?.let { eventModelData ->
+                    if (eventModelData.result.isNotEmpty()) {
+                        eventDetailsAdapter.events = result.data.data.result.toList()
+                        totalItems = result.data.data.total
+                    } else {
+                        binding.textEmpty.setVisible()
+                    }
+                }
+            }
+        }
+    }
 
+    private fun setupRecycleView() = with(binding) {
+        rvEvents.apply {
+            adapter = eventDetailsAdapter
+            layoutManager = GridLayoutManager(context, 2)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -86,26 +106,4 @@ class CharacterComicsFragment(private val characterId : Int) :
         }
     }
 
-    private fun collectObserver() = lifecycleScope.launch {
-        with(viewModel) {
-            fetchComic(characterId)
-            observe(comicList) { result ->
-                result.data?.data?.let { comicModelData ->
-                    if (comicModelData.result.isNotEmpty()) {
-                        comicDetailsAdapter.comics = comicModelData.result.toList()
-                        totalItems = comicModelData.total
-                    } else {
-                        binding.textEmpty.setVisible()
-                    }
-                }
-            }
-            observe(onError) {
-                Timber.e(it)
-            }
-
-            observe(isLoading) {isLoading ->
-                binding.progressBarDetail.setVisible(isLoading)
-            }
-        }
-    }
 }

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
     }
 
-    private fun setupToolbar(visible : Boolean, title : String = "") =
+    fun setupToolbar(visible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
@@ -74,7 +74,9 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_event)
                 )
 
-                R.id.detailsCharacterFragment -> hideToolbar()
+                R.id.detailsCharacterFragment -> {
+                    setupToolbar(true, getString(R.string.title_fragment_characters))
+                }
 
                 R.id.CharacterFragment -> setupToolbar(
                     true,

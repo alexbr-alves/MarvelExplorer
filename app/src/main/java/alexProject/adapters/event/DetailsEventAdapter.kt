@@ -1,8 +1,8 @@
 package alexProject.adapters.event
 
-import alexProject.fragment.event.EventCharactersFragment
-import alexProject.fragment.event.EventComicsFragment
-import alexProject.fragment.event.EventDescriptionFragment
+import alexProject.fragment.character.ComicsViewPagerFragment
+import alexProject.fragment.character.DescriptionViewPagerFragment
+import alexProject.fragment.comic.CharactersViewPagerFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -15,10 +15,10 @@ class DetailsEventAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> EventDescriptionFragment(description)
-            1 -> EventCharactersFragment(id)
-            2 -> EventComicsFragment(id)
-            else -> EventDescriptionFragment(description)
+            0 -> DescriptionViewPagerFragment(description)
+            1 -> CharactersViewPagerFragment(id)
+            2 -> ComicsViewPagerFragment(id)
+            else -> DescriptionViewPagerFragment(description)
         }
     }
 }

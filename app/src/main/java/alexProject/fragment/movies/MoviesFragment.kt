@@ -7,6 +7,7 @@ import alexProject.data.model.movies.MoviesResponseData
 import alexProject.databinding.FragmentMoviesBinding
 import alexProject.fragment.BaseFragment
 import alexProject.util.observe
+import alexProject.util.setVisible
 import alexProject.viewModel.movies.MoviesViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,6 +70,8 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
                     moviesResponseData?.let { movies ->
                         loadPage(movies)
                         setupRecycleView(movies)
+                        binding.textMarvelMovies.setVisible()
+                        binding.textOtherMovies.setVisible()
                     }
                 }
             }

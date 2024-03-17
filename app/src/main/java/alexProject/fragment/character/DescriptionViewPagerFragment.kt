@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class CharacterDescriptionFragment(private val description : String) : Fragment() {
+class DescriptionViewPagerFragment(private val description : String) : Fragment() {
     private var _binding : FragmentDescriptionCharacterBinding? = null
     private val binding get() = _binding!!
 

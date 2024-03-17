@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_raisin">
+    android:background="@color/dark_purple">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_details"
@@ -19,43 +19,24 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imgCharacterDetails"
+                android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="500dp"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/app_name"
-                app:layout_constraintStart_toStartOf="@id/imgCharacterDetails"
-                app:layout_constraintTop_toTopOf="@id/imgCharacterDetails"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <include
-                android:id="@+id/icon_back_alone"
-                layout="@layout/icon_back_alone" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_corner"
+                android:background="@color/dark_purple"
                 android:paddingTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgCharacterDetails">
+                app:layout_constraintTop_toBottomOf="@id/image">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvNameCharacterDetails"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/poppins_thin"
-                    android:lineHeight="42dp"
-                    android:paddingVertical="5dp"
-                    android:text="@string/tx_item_name"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
@@ -65,8 +46,7 @@
                     android:elevation="1dp"
                     app:layout_constraintBottom_toTopOf="@id/viewPager2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvNameCharacterDetails"
-                    app:tabBackground="@color/black_raisin"
+                    app:tabBackground="@color/dark_purple"
                     app:tabIndicatorColor="@color/white"
                     app:tabIndicatorFullWidth="false"
                     app:tabIndicatorGravity="bottom"
@@ -104,7 +84,7 @@
                     android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@color/black_raisin"
+                    android:background="@color/dark_purple"
                     android:minHeight="300dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

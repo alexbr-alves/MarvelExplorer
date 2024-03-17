@@ -1,14 +1,13 @@
-package alexProject.fragment.comic
+package alexProject.fragment.character
 
-
-import alexProject.adapters.character.CharacterDetailsAdapter
-import alexProject.databinding.FragmentCharacterComicBinding
+import alexProject.adapters.comic.ComicDetailsAdapter
+import alexProject.databinding.FragmentComicsCharapterBinding
 import alexProject.fragment.BaseFragment
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.viewModel.comics.ComicCharactersViewModel
+import alexProject.viewModel.character.CharacterComicsViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,49 +23,48 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ComicCharactersFragment(private val comicId : Int) :
-    BaseFragment<FragmentCharacterComicBinding, ComicCharactersViewModel>() {
+class ComicsViewPagerFragment(private val characterId : Int) :
+    BaseFragment<FragmentComicsCharapterBinding, CharacterComicsViewModel>() {
 
-    override val viewModel : ComicCharactersViewModel by viewModels()
-    private val characterDetailsAdapter by lazy { CharacterDetailsAdapter() }
+    override val viewModel : CharacterComicsViewModel by viewModels()
+    private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
     private var totalItems : Int = 0
 
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentCharacterComicBinding =
-        FragmentCharacterComicBinding.inflate(inflater, container, false)
+    ) : FragmentComicsCharapterBinding =
+        FragmentComicsCharapterBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacterComic(comicId)
-        setupRecyclerView()
+        setupRecycleView()
         collectObserver()
         clickAdapter()
     }
 
     private fun clickAdapter() {
-        characterDetailsAdapter.setOnClickListener { characterModel ->
+        comicDetailsAdapter.setOnClickListener { comicModel ->
             val action =
-                ComicDetailsFragmentDirections.actionDetailsComicFragmentToDetailsCharacterFragment(
-                    characterModel
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsComicFragment(
+                    comicModel
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             val action =
-                ComicDetailsFragmentDirections.actionDetailsComicFragmentToCharacterFragment(
-                    Constants.COMIC,
-                    comicId
+                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToComicsFragment(
+                    Constants.CHARACTER,
+                    characterId
                 )
             findNavController().navigate(action)
         }
     }
 
-    private fun setupRecyclerView() = with(binding) {
+    private fun setupRecycleView() = with(binding) {
         rvComics.apply {
-            adapter = characterDetailsAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = comicDetailsAdapter
+            layoutManager = GridLayoutManager(context, 2)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
@@ -89,21 +87,23 @@ class ComicCharactersFragment(private val comicId : Int) :
 
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
-            observe(onError) {onError ->
-                Timber.d(onError)
-            }
-            observe(isLoading) { isLoading ->
-                binding.progressBarDetail.setVisible(isLoading)
-            }
-            observe(comicCharacterList) {result ->
-                result.data?.data?.let { characterModels ->
-                    if (characterModels.results.isEmpty()) {
-                        binding.textEmpty.setVisible()
+            fetchComic(characterId)
+            observe(comicList) { result ->
+                result.data?.data?.let { comicModelData ->
+                    if (comicModelData.result.isNotEmpty()) {
+                        comicDetailsAdapter.comics = comicModelData.result.toList()
+                        totalItems = comicModelData.total
                     } else {
-                        characterDetailsAdapter.characters = characterModels.results.toList()
-                        totalItems = characterModels.total
+                        binding.textEmpty.setVisible()
                     }
                 }
+            }
+            observe(onError) {
+                Timber.e(it)
+            }
+
+            observe(isLoading) {isLoading ->
+                binding.progressBarDetail.setVisible(isLoading)
             }
         }
     }

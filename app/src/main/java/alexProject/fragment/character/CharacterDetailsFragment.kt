@@ -1,6 +1,7 @@
 package alexProject.fragment.character
 
 import alexProject.R
+import alexProject.activity.MainActivity
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.FragmentDetailsCharacterBinding
 import alexProject.adapters.character.DetailsCharacterAdapter
@@ -47,9 +48,6 @@ class CharacterDetailsFragment :
     }
 
     private fun setupUI() = binding.run {
-        iconBackAlone.imageBack.setOnClickListener {
-            activity?.onBackPressed()
-        }
         handleBadge(binding.tabLayout.getTabAt(1)!!)
         handleBadge(binding.tabLayout.getTabAt(2)!!)
 
@@ -126,11 +124,11 @@ class CharacterDetailsFragment :
     private fun onLoadCharacter(characterModel : CharacterModel) = with(binding) {
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
             val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-            tvNameCharacterDetails.text = characterModel.name
+            (activity as MainActivity).setupToolbar(true, characterModel.name)
             imageFavorite.setImageResource(color)
            handleTabLayout()
             loadImage(
-                imgCharacterDetails,
+                image,
                 characterModel.thumbnailModel.path,
                 characterModel.thumbnailModel.extension
             )
