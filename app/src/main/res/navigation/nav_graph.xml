@@ -111,30 +111,6 @@
             android:id="@+id/action_homeFragment_to_comicsFragment"
             app:destination="@id/comicsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_eventFragment2"
-            app:destination="@id/eventFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_detailsCharacterFragment"
-            app:destination="@id/detailsCharacterFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-        <action
-            android:id="@+id/action_homeFragment_to_detailsComicFragment"
-            app:destination="@id/detailsComicFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-        <action
-            android:id="@+id/action_homeFragment_to_detailsEventFragment"
-            app:destination="@id/detailsEventFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-        <action
             android:id="@+id/action_homeFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
     </fragment>
