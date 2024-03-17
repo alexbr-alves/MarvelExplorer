@@ -1,9 +1,6 @@
 package alexProject.adapters
 
-import alexProject.R
 import alexProject.data.model.comic.ComicModel
-import alexProject.data.model.timeline.TimelineModel
-import alexProject.data.model.timeline.TimelineType
 import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription

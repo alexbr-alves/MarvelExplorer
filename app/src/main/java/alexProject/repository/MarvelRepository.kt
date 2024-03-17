@@ -2,7 +2,6 @@ package alexProject.repository
 
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel
-import alexProject.data.model.timeline.TimelineModel
 import alexProject.data.remote.ServiceApi
 import javax.inject.Inject
 

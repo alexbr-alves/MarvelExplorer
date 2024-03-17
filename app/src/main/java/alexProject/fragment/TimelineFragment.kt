@@ -1,12 +1,8 @@
 package alexProject.fragment
 
-import alexProject.activity.MoviesActivity
 import alexProject.adapters.TimelineAdapter
 import alexProject.databinding.FragmentTimelineBinding
-import alexProject.state.ResourceState
-import alexProject.util.Converts
 import alexProject.util.observe
-import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
@@ -18,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -27,7 +22,6 @@ class TimelineFragment :
     BaseFragment<FragmentTimelineBinding, TimelineViewModel>() {
     override val viewModel : TimelineViewModel by viewModels()
     private val timelineAdapter by lazy { TimelineAdapter() }
-    private var converts = Converts()
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,10 +31,10 @@ class TimelineFragment :
     }
 
     private fun clickAdapter() {
-        timelineAdapter.setOnClickListener { model ->
+        timelineAdapter.setOnClickListener { comicModel ->
             val action =
                 TimelineFragmentDirections.actionTimelineFragmentToDetailsComicFragment(
-                    model
+                    comicModel
                 )
             findNavController().navigate(action)
         }

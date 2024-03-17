@@ -27,7 +27,7 @@ class TimelineViewModel @Inject constructor(
     private suspend fun safeFetch() = viewModelScope.launch {
         isLoading.value = true
         handleFetchResponse(
-            repository.comics(orderBy = "-modified"),
+            repository.comics(orderBy = "-modified", limit = 60),
             listItems
         )
     }

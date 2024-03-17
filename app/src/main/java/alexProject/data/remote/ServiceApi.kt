@@ -6,9 +6,7 @@ import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
-import alexProject.data.model.timeline.TimelineModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
-import alexProject.util.Constants
 import alexProject.util.KeyGithub.GITHUB_BASE_URL
 import alexProject.util.KeyGithub.RF_MARVEL_GAMES
 import alexProject.util.KeyGithub.RF_MARVEL_GROUPS
