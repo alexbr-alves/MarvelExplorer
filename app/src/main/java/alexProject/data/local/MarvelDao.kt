@@ -25,10 +25,4 @@ interface MarvelDao {
     @Query("Select COUNT(*) from favoriteModel WHERE id = :characterId")
     suspend fun searchFavorite(characterId : Int) : Boolean
 
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCache(timelineModel: MutableList<TimelineModel>) : List<Long>
-
-    @Query("SELECT * FROM timelineModel order by modified desc")
-    fun getCache() : Flow<MutableList<TimelineModel>>
 }

@@ -1,6 +1,7 @@
 package alexProject.adapters
 
 import alexProject.R
+import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.timeline.TimelineModel
 import alexProject.data.model.timeline.TimelineType
 import alexProject.databinding.LayoutTimelineBinding
@@ -18,26 +19,24 @@ import java.util.Locale
 
 class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
 
-    inner class TimelineViewHolder(val binding : LayoutTimelineBinding) :
+    inner class TimelineViewHolder(val binding: LayoutTimelineBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private val desireDataFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private val desiredTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
-    private val differCallback = object : DiffUtil.ItemCallback<TimelineModel>() {
-        override fun areItemsTheSame(oldItem : TimelineModel, newItem : TimelineModel) : Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
+        override fun areItemsTheSame(oldItem: ComicModel, newItem: ComicModel): Boolean {
             return true
         }
 
         override fun areContentsTheSame(
-            oldItem : TimelineModel,
-            newItem : TimelineModel
-        ) : Boolean {
+            oldItem: ComicModel,
+            newItem: ComicModel
+        ): Boolean {
             return (oldItem.id == newItem.id) &&
                     (oldItem.description == newItem.description) &&
                     (oldItem.title == newItem.title) &&
-                    (oldItem.name == newItem.name) &&
-                    (oldItem.modified == newItem.modified) &&
                     (oldItem.thumbnailModel.path == newItem.thumbnailModel.path) &&
                     (oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension)
         }
@@ -45,13 +44,13 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var timelineList : List<TimelineModel>
+    var timelineList: List<ComicModel>
         get() = differ.currentList
         set(value) = differ.submitList(value.filter {
             it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
         })
 
-    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : TimelineViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimelineViewHolder {
         return TimelineViewHolder(
             LayoutTimelineBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
@@ -59,35 +58,16 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
         )
     }
 
-    override fun getItemCount() : Int {
+    override fun getItemCount(): Int {
         return timelineList.size
     }
 
-    override fun onBindViewHolder(holder : TimelineViewHolder, position : Int) {
+    override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
         val context = holder.itemView.context
         val timeline = timelineList[position]
         holder.binding.apply {
-            if (timeline.title.isNullOrEmpty()) {
-                name.text = timeline.name.limitDescription(30) ?: ""
-            } else {
-                name.text = timeline.title.limitDescription(30)
-            }
+            name.text = timeline.title.limitDescription(30)
 
-            when (timeline.type) {
-                TimelineType.CHARACTER -> type.text =
-                    context.getString(R.string.title_fragment_characters)
-
-                TimelineType.COMIC -> type.text =
-                    context.getString(R.string.comics)
-
-                TimelineType.EVENT -> type.text =
-                    context.getString(R.string.title_fragment_event)
-            }
-            textData.text = context.getString(
-                R.string.data_and_time,
-                desiredTimeFormat.format(timeline.modified),
-                desireDataFormat.format(timeline.modified)
-            )
             if (timeline.description.isNullOrEmpty()) {
                 description.setGone()
             } else {
@@ -107,9 +87,9 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
         }
     }
 
-    private var onItemClickListener : ((TimelineModel) -> Unit)? = null
+    private var onItemClickListener: ((ComicModel) -> Unit)? = null
 
-    fun setOnClickListener(listener : (TimelineModel) -> Unit) {
+    fun setOnClickListener(listener: (ComicModel) -> Unit) {
         onItemClickListener = listener
     }
 }

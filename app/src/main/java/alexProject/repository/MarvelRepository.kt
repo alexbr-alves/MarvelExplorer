@@ -11,7 +11,7 @@ class MarvelRepository @Inject constructor(
     private val dao : MarvelDao
 ) {
     suspend fun characters(nameStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.characters(nameStartsWith, limit,  offset)
-    suspend fun comics(titleStartsWith : String? = null, limit: Int = 100, offset : Int? = 0) = api.comics(titleStartsWith, limit, offset)
+    suspend fun comics(titleStartsWith : String? = null, limit: Int = 100, offset : Int? = 0, orderBy : String? = null) = api.comics(titleStartsWith, limit, offset, orderBy )
     suspend fun events() = api.events()
 
     //Character details
@@ -27,16 +27,12 @@ class MarvelRepository @Inject constructor(
     suspend fun getComicEvent(eventId : Int, limit: Int = 100, offset : Int? = 0) = api.getComicEvent(eventId, limit, offset)
 
     //Timeline
-    suspend fun getComicTimeline( orderBy: String? = "-modified", limit: Int? = 20, offset: Int? = 0) = api.getComicTimeline(limit = limit, orderBy = orderBy, offset = offset)
+    suspend fun getComicTimeline( ) = api.getComicTimeline()
     //DAO
     suspend fun insert(characterModel : FavoriteModel) = dao.insert(characterModel)
     fun getAll() = dao.getAll()
     suspend fun delete(characterModel : FavoriteModel) = dao.delete(characterModel)
     suspend fun searchFavorite(id : Int) = dao.searchFavorite(id)
-
-    suspend fun insertCache(timeline : MutableList<TimelineModel>) = dao.insertCache(timeline)
-    fun getCache() = dao.getCache()
-
 
     suspend fun getGroup() = api.getGroup()
     suspend fun getMovies() = api.getMovies()

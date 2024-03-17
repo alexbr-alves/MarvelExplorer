@@ -1,9 +1,11 @@
 package alexProject.fragment
 
+import alexProject.activity.MoviesActivity
 import alexProject.adapters.TimelineAdapter
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Converts
+import alexProject.util.observe
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
@@ -38,39 +40,27 @@ class TimelineFragment :
         timelineAdapter.setOnClickListener { model ->
             val action =
                 TimelineFragmentDirections.actionTimelineFragmentToDetailsComicFragment(
-                    converts.timelineToComic(model)
+                    model
                 )
             findNavController().navigate(action)
         }
     }
 
     private fun collectObserve() = lifecycleScope.launch {
-        viewModel.listItems.collect { result ->
-            when (result) {
-                is ResourceState.Success -> {
-                    binding.progressbarSearch.setInvisible()
-                    result.data?.let { item ->
-                        if (item.isNotEmpty()) {
-                            timelineAdapter.timelineList = item.toList()
-                        }
-                    }
+        with(viewModel) {
+            fetch()
+            observe(isLoading) { isLoading ->
+                binding.progressbarSearch.setVisible(isLoading)
+            }
+            observe(onError) { onError ->
+                Timber.e(onError)
+            }
+            observe(listItems) { result ->
+                result.data?.data?.result?.let {
+                    timelineAdapter.timelineList = it.toList()
                 }
-
-                is ResourceState.Error -> {
-                    binding.progressbarSearch.setInvisible()
-                    result.message?.let { message ->
-                        Timber.tag("TimelineFragment").e("Error -> $message")
-                    }
-                }
-
-                is ResourceState.Loading -> {
-                    binding.progressbarSearch.setVisible()
-                }
-
-                else -> {}
             }
         }
-
     }
 
     private fun setupRecycleView() = with(binding) {

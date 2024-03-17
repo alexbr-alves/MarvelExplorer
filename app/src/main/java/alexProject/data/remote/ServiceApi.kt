@@ -33,6 +33,7 @@ interface ServiceApi {
         @Query("titleStartsWith") titleStartsWith : String? = null,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
+        @Query("orderBy") orderBy : String? = null,
     ) : Response<ComicModelResponse>
 
     @GET("events")
@@ -109,9 +110,9 @@ interface ServiceApi {
     @GET("comics")
     suspend fun getComicTimeline(
         @Query("orderBy") orderBy : String? = "-modified",
-        @Query("limit") limit : Int?  = 20,
+        @Query("limit") limit : Int?  = 60,
         @Query("offset") offset : Int? = 0,
-    ) : Response<TimelineModelResponse>
+    ) : Response<ComicModelResponse>
 
     //GITHUB API
     @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)
