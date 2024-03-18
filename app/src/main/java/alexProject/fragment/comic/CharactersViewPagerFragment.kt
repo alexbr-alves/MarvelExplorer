@@ -4,12 +4,14 @@ package alexProject.fragment.comic
 import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterComicBinding
 import alexProject.fragment.BaseFragment
+import alexProject.fragment.character.DetailsFragmentDirections
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.comics.ComicCharactersViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,15 +49,16 @@ class CharactersViewPagerFragment(private val comicId : Int) :
 
     private fun clickAdapter() {
         characterDetailsAdapter.setOnClickListener { characterModel ->
-            val action =
-                ComicDetailsFragmentDirections.actionDetailsComicFragmentToDetailsCharacterFragment(
-                    characterModel
+            val action = DetailsFragmentDirections.actionDetailsFragmentSelf(
+                comic = Constants.COMIC_INVALID,
+                character = characterModel,
+                event = Constants.EVENT_INVALID,
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             val action =
-                ComicDetailsFragmentDirections.actionDetailsComicFragmentToCharacterFragment(
+            DetailsFragmentDirections.actionDetailsFragmentToCharacterFragment(
                     Constants.COMIC,
                     comicId
                 )

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_event)
                 )
 
-                R.id.detailsCharacterFragment -> {
+                R.id.detailsFragment -> {
                     setupToolbar(true, getString(R.string.title_fragment_characters))
                 }
 
@@ -91,9 +91,6 @@ class MainActivity : AppCompatActivity() {
                     true,
                     getString(R.string.title_fragment_teams_and_groups)
                 )
-                R.id.detailsComicFragment -> hideToolbar()
-
-                R.id.detailsEventFragment -> hideToolbar()
             }
         }
     }

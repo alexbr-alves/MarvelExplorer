@@ -4,6 +4,7 @@ import alexProject.data.model.event.EventModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,6 @@ class CharacterEventsViewModel @Inject constructor(
 
     private suspend fun safeFetchEvent(characterId: Int) {
         isLoading.value = true
-
         handleFetchResponse(
             repository.getEventsCharacter(characterId, 10, 0),
             eventList

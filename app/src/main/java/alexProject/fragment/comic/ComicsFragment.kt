@@ -150,7 +150,11 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     private fun clickAdapter() {
         comicsAdapter.setOnClickListener {
             val action = ComicsFragmentDirections
-                .actionComicsFragmentToDetailsComicFragment(it)
+                .actionComicsFragmentToDetailsFragment(
+                    comic = it,
+                    character = Constants.CHARACTER_INVALID,
+                    event = Constants.EVENT_INVALID,
+                )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {

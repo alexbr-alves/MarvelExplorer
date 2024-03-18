@@ -9,6 +9,7 @@ import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.character.CharacterEventsViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class EventsViewPagerFragment(private val characterId : Int) :
     BaseFragment<FragmentEventsCharapterBinding, CharacterEventsViewModel>() {
-
     private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
     override val viewModel : CharacterEventsViewModel by viewModels()
     private var totalItems : Int = 0
@@ -45,15 +45,19 @@ class EventsViewPagerFragment(private val characterId : Int) :
 
     private fun clickAdapter() {
         eventDetailsAdapter.setOnClickListener { eventModel ->
+            collectObserver()
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsEventFragment(
-                    eventModel
+                DetailsFragmentDirections.actionDetailsFragmentSelf(
+                    comic = Constants.COMIC_INVALID,
+                    character = Constants.CHARACTER_INVALID,
+                    event = eventModel
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
+            collectObserver()
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToEventFragment(
+                DetailsFragmentDirections.actionDetailsFragmentToEventFragment(
                     Constants.EVENT,
                     characterId
                 )

@@ -56,16 +56,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
                 DestinationHome.CHARACTERS -> {
                     val action =
-                        HomeFragmentDirections.actionHomeFragmentToListCharacterFragment(
+                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(
                             Constants.HOME,
                             0
                         )
-                    findNavController().navigate(action)
-                }
-
-                DestinationHome.EVENTS -> {
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToEventFragment2(Constants.HOME, 0)
                     findNavController().navigate(action)
                 }
 

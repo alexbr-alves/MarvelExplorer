@@ -9,6 +9,7 @@ import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.character.CharacterComicsViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,14 +47,17 @@ class ComicsViewPagerFragment(private val characterId : Int) :
     private fun clickAdapter() {
         comicDetailsAdapter.setOnClickListener { comicModel ->
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsComicFragment(
-                    comicModel
+                DetailsFragmentDirections.actionDetailsFragmentSelf(
+                    comic = comicModel,
+                    character = Constants.CHARACTER_INVALID,
+                    event = Constants.EVENT_INVALID,
+
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToComicsFragment(
+                DetailsFragmentDirections.actionDetailsFragmentToComicsFragment(
                     Constants.CHARACTER,
                     characterId
                 )
