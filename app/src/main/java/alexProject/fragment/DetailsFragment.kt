@@ -9,7 +9,14 @@ import alexProject.data.model.FavoriteModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
 import alexProject.util.Constants
+import alexProject.util.Constants.CHARACTER
+import alexProject.util.Constants.CHARACTER_INVALID
+import alexProject.util.Constants.COMIC
+import alexProject.util.Constants.COMIC_INVALID
+import alexProject.util.Constants.EVENT
+import alexProject.util.Constants.EVENT_INVALID
 import alexProject.util.Converts
+import alexProject.util.limitDescription
 import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
 import android.os.Bundle
@@ -51,19 +58,19 @@ class DetailsFragment :
     }
 
     private fun setupUI() = binding.run {
-        handleBadge(binding.tabLayout.getTabAt(1)!!)
-        handleBadge(binding.tabLayout.getTabAt(2)!!)
+        setupBadge(binding.tabLayout.getTabAt(TAB_INDEX_1)!!)
+        setupBadge(binding.tabLayout.getTabAt(TAB_INDEX_2)!!)
         handleToolbar()
-        handleViewPager()
+        setupViewPager()
         handleTabLayout()
-        descriptionCharacter()
+        setupFavorite()
         onLoad()
     }
 
     private fun getFavorite(): FavoriteModel {
-        if (characterModel == Constants.CHARACTER_INVALID && comicModel == Constants.COMIC_INVALID) {
+        if (characterModel == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
             return converts.eventToFavorite(eventModel)
-        } else if (characterModel == Constants.CHARACTER_INVALID && eventModel == Constants.EVENT_INVALID) {
+        } else if (characterModel == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
             return converts.comicToFavorite(comicModel)
         } else {
             return converts.characterToFavorite(characterModel)
@@ -72,9 +79,9 @@ class DetailsFragment :
 
     private fun handleToolbar() {
         val toolbarTitle =
-            if (characterModel == Constants.CHARACTER_INVALID && comicModel == Constants.COMIC_INVALID) {
+            if (characterModel == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
                 getString(R.string.title_fragment_event)
-            } else if (characterModel == Constants.CHARACTER_INVALID && eventModel == Constants.EVENT_INVALID) {
+            } else if (characterModel == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
                 getString(R.string.title_fragment_comic)
             } else {
                 getString(R.string.title_fragment_characters)
@@ -82,72 +89,63 @@ class DetailsFragment :
         (activity as MainActivity).setupToolbar(true, toolbarTitle)
     }
 
-    private fun handleBadge(tab: TabLayout.Tab) {
+    private fun setupBadge(tab: TabLayout.Tab) {
         val badge = tab.orCreateBadge
         badge.isVisible = true
         badge.backgroundColor = resources.getColor(R.color.lavender_indigo)
-        badge.horizontalOffset = 20
-        handleBadgeCharacter(tab, badge)
-        handleBadgeEvent(tab, badge)
-        handleBadgeComic(tab, badge)
-    }
+        badge.horizontalOffset = BADGE_HORIZONTAL_OFFSET
 
-    private fun handleBadgeCharacter(tab: TabLayout.Tab, badge: BadgeDrawable) {
-        if (characterModel != Constants.CHARACTER_INVALID) {
-            binding.tabLayout.getTabAt(1)?.text = getString(R.string.title_fragment_comic)
-            binding.tabLayout.getTabAt(2)?.text = getString(R.string.title_fragment_event)
-            when (tab.position) {
-                1 -> {
-                    badge.number = characterModel.comics.available ?: 0
-                }
-
-                2 -> {
-                    badge.number = characterModel.events.available ?: 0
-                }
-
-                else -> {
-                    badge.isVisible = false
-                }
-            }
+        if (eventModel != EVENT_INVALID) {
+            handleBadge(
+                tab,
+                badge,
+                getString(R.string.title_fragment_characters),
+                getString(R.string.title_fragment_comic),
+                eventModel.characters.available,
+                eventModel.comics.available
+            )
+        } else if (comicModel != COMIC_INVALID) {
+            handleBadge(
+                tab,
+                badge,
+                getString(R.string.title_fragment_characters),
+                getString(R.string.title_fragment_event),
+                comicModel.characters.available,
+                comicModel.events.available
+            )
+        } else {
+            handleBadge(
+                tab,
+                badge,
+                getString(R.string.title_fragment_comic),
+                getString(R.string.title_fragment_event),
+                characterModel.comics.available,
+                characterModel.events.available
+            )
         }
     }
 
-    private fun handleBadgeComic(tab: TabLayout.Tab, badge: BadgeDrawable) {
-        if (comicModel != Constants.COMIC_INVALID) {
-            binding.tabLayout.getTabAt(1)?.text = getString(R.string.title_fragment_characters)
-            binding.tabLayout.getTabAt(2)?.text = getString(R.string.title_fragment_event)
-            when (tab.position) {
-                1 -> {
-                    badge.number = comicModel.characters.available ?: 0
-                }
-
-                2 -> {
-                    badge.number = comicModel.events.available ?: 0
-                }
-
-                else -> {
-                    badge.isVisible = false
-                }
+    private fun handleBadge(
+        tab: TabLayout.Tab,
+        badge: BadgeDrawable,
+        tabOneString: String,
+        tabTwoString: String,
+        badgeOneNumber: Int?,
+        badgeTwoNumber: Int?
+    ) {
+        binding.tabLayout.getTabAt(TAB_INDEX_1)?.text = tabOneString
+        binding.tabLayout.getTabAt(TAB_INDEX_2)?.text = tabTwoString
+        when (tab.position) {
+            1 -> {
+                badge.number = badgeOneNumber ?: 0
             }
-        }
-    }
 
-    private fun handleBadgeEvent(tab: TabLayout.Tab, badge: BadgeDrawable) {
-        if (eventModel != Constants.EVENT_INVALID) {
-            binding.tabLayout.getTabAt(1)?.text = getString(R.string.title_fragment_characters)
-            binding.tabLayout.getTabAt(2)?.text = getString(R.string.title_fragment_comic)
-            when (tab.position) {
-                1 -> {
-                    badge.number = eventModel.characters.available ?: 0
-                }
+            2 -> {
+                badge.number = badgeTwoNumber ?: 0
+            }
 
-                2 -> {
-                    badge.number = eventModel.comics.available ?: 0
-                }
-
-                else -> {
-                    badge.isVisible = false
-                }
+            else -> {
+                badge.isVisible = false
             }
         }
     }
@@ -169,79 +167,51 @@ class DetailsFragment :
         })
     }
 
-    private fun handleViewPager() {
-        handleCharacterViewPager()
-        handleComicViewPager()
-        handleEventViewPager()
-    }
-
-    private fun handleEventViewPager() {
-        if (eventModel != Constants.EVENT_INVALID) {
-            viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
-            val characterDescription =
-                if (!eventModel.description.isNullOrEmpty()) eventModel.description else ""
-            val detailsCharacterAdapter = DetailsCharacterAdapter(
-                fragmentManager = childFragmentManager,
-                lifecycle = lifecycle,
-                id = eventModel.id,
-                description = characterDescription,
-                origin = Constants.EVENT
+    private fun setupViewPager() {
+        if (eventModel != EVENT_INVALID) {
+            handleViewPager(
+                eventModel.id,
+                eventModel.description,
+                EVENT
             )
-            viewPager2?.adapter = detailsCharacterAdapter
-            viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    viewPager2?.offscreenPageLimit = 1
-                }
-            })
-        }
-    }
-
-    private fun handleComicViewPager() {
-        if (comicModel != Constants.COMIC_INVALID) {
-            viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
-            val characterDescription =
-                if (!comicModel.description.isNullOrEmpty()) comicModel.description else ""
-            val detailsCharacterAdapter = DetailsCharacterAdapter(
-                childFragmentManager,
-                lifecycle,
+        } else if (comicModel != COMIC_INVALID) {
+            handleViewPager(
                 comicModel.id,
-                characterDescription,
-                origin = Constants.COMIC
+                comicModel.description,
+                COMIC
             )
-            viewPager2?.adapter = detailsCharacterAdapter
-            viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    viewPager2?.offscreenPageLimit = 1
-                }
-            })
-        }
-    }
-
-    private fun handleCharacterViewPager() {
-        if (characterModel != Constants.CHARACTER_INVALID) {
-            viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
-            val characterDescription =
-                if (!characterModel.description.isNullOrEmpty()) characterModel.description else ""
-            val detailsCharacterAdapter = DetailsCharacterAdapter(
-                childFragmentManager,
-                lifecycle,
+        } else {
+            handleViewPager(
                 characterModel.id,
-                characterDescription,
-                origin = Constants.CHARACTER
+                characterModel.description,
+                CHARACTER
             )
-            viewPager2?.adapter = detailsCharacterAdapter
-            viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    viewPager2?.offscreenPageLimit = 1
-                }
-            })
         }
     }
 
-    private fun descriptionCharacter() = binding.run {
+    private fun handleViewPager(
+        id: Int,
+        description: String,
+        origin: String
+    ) {
+        viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
+        val detailsCharacterAdapter = DetailsCharacterAdapter(
+            fragmentManager = childFragmentManager,
+            lifecycle = lifecycle,
+            id = id,
+            description = description ?: "",
+            origin = origin
+        )
+        viewPager2?.adapter = detailsCharacterAdapter
+        viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                viewPager2?.offscreenPageLimit = 1
+            }
+        })
+    }
+
+    private fun setupFavorite() = binding.run {
         imageFavorite.setOnClickListener {
             viewModel.searchFavorite(favoriteModel.id)
             viewModel.searchCharacter.observe(viewLifecycleOwner) {
@@ -257,58 +227,49 @@ class DetailsFragment :
     }
 
     private fun onLoad() {
-        onLoadCharacter()
-        onLoadComic()
-        onLoadEvent()
-    }
-
-    private fun onLoadEvent() = with(binding) {
-        if (eventModel != Constants.EVENT_INVALID) {
-            viewModel.searchCharacter.observe(viewLifecycleOwner) {
-                val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-                imageFavorite.setImageResource(color)
-                textTitle.text = eventModel.title
-                handleTabLayout()
-                loadImage(
-                    image,
-                    eventModel.thumbnailModel.path,
-                    eventModel.thumbnailModel.extension
-                )
-            }
+        if (eventModel != EVENT_INVALID) {
+            loadModel(
+                eventModel.title,
+                eventModel.thumbnailModel.path,
+                eventModel.thumbnailModel.extension
+            )
+        } else if (comicModel != COMIC_INVALID) {
+            loadModel(
+                comicModel.title,
+                comicModel.thumbnailModel.path,
+                comicModel.thumbnailModel.extension
+            )
+        } else {
+            loadModel(
+                characterModel.name,
+                characterModel.thumbnailModel.path,
+                characterModel.thumbnailModel.extension
+            )
         }
     }
 
-    private fun onLoadComic() = with(binding) {
-        if (comicModel != Constants.COMIC_INVALID) {
-            viewModel.searchCharacter.observe(viewLifecycleOwner) {
-                val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-                imageFavorite.setImageResource(color)
-                textTitle.text = comicModel.title
-                handleTabLayout()
-                loadImage(
-                    image,
-                    comicModel.thumbnailModel.path,
-                    comicModel.thumbnailModel.extension
-                )
-            }
+    private fun loadModel(
+        title: String,
+        imagePath: String,
+        imageExtension: String,
+    ) = with(binding) {
+        viewModel.searchCharacter.observe(viewLifecycleOwner) {
+            val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
+            imageFavorite.setImageResource(color)
+            textTitle.text = title.limitDescription(MAX_TEXT_SIZE)
+            handleTabLayout()
+            loadImage(
+                image,
+                imagePath,
+                imageExtension
+            )
         }
     }
 
-    private fun onLoadCharacter() = with(binding) {
-        if (characterModel != Constants.CHARACTER_INVALID) {
-            viewModel.searchCharacter.observe(viewLifecycleOwner) {
-                val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-                imageFavorite.setImageResource(color)
-                textTitle.text = characterModel.name
-                handleTabLayout()
-                loadImage(
-                    image,
-                    characterModel.thumbnailModel.path,
-                    characterModel.thumbnailModel.extension
-                )
-            }
-        }
+    companion object {
+        const val MAX_TEXT_SIZE = 20
+        const val BADGE_HORIZONTAL_OFFSET = 20
+        const val TAB_INDEX_1 = 1
+        const val TAB_INDEX_2 = 2
     }
-
-
 }
