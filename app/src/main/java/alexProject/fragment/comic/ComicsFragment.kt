@@ -80,10 +80,8 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         }
         animator.duration = 300
         animator.start()
-
         searchEditText.visibility = View.VISIBLE
         searchEditText.requestFocus()
-
         isSearchExpanded = true
     }
 
@@ -153,7 +151,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                 .actionComicsFragmentToDetailsFragment(
                     comic = it,
                     character = Constants.CHARACTER_INVALID,
-                    event = Constants.EVENT_INVALID,
+                    event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
         }

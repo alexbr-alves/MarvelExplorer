@@ -1,20 +1,20 @@
-package alexProject.fragment.comic
+package alexProject.fragment.character
 
 
 import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterComicBinding
 import alexProject.fragment.BaseFragment
-import alexProject.fragment.character.DetailsFragmentDirections
+import alexProject.fragment.DetailsFragmentDirections
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.viewModel.comics.ComicCharactersViewModel
+import alexProject.viewModel.character.CharactersViewPagerViewModel
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebStorage.Origin
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,10 +26,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CharactersViewPagerFragment(private val comicId : Int) :
-    BaseFragment<FragmentCharacterComicBinding, ComicCharactersViewModel>() {
+class CharactersViewPagerFragment(private val comicId : Int, private val origin: String) :
+    BaseFragment<FragmentCharacterComicBinding, CharactersViewPagerViewModel>() {
 
-    override val viewModel : ComicCharactersViewModel by viewModels()
+    override val viewModel : CharactersViewPagerViewModel by viewModels()
     private val characterDetailsAdapter by lazy { CharacterDetailsAdapter() }
     private var totalItems : Int = 0
 
@@ -41,7 +41,6 @@ class CharactersViewPagerFragment(private val comicId : Int) :
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacterComic(comicId)
         setupRecyclerView()
         collectObserver()
         clickAdapter()
@@ -52,7 +51,7 @@ class CharactersViewPagerFragment(private val comicId : Int) :
             val action = DetailsFragmentDirections.actionDetailsFragmentSelf(
                 comic = Constants.COMIC_INVALID,
                 character = characterModel,
-                event = Constants.EVENT_INVALID,
+                event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
         }
@@ -92,6 +91,7 @@ class CharactersViewPagerFragment(private val comicId : Int) :
 
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
+            fetchCharacterComic(comicId, origin)
             observe(onError) {onError ->
                 Timber.d(onError)
             }

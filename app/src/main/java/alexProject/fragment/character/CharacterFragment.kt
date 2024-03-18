@@ -126,7 +126,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                 .actionCharacterFragmentToDetailsFragment(
                     comic = Constants.COMIC_INVALID,
                     character = characterModel,
-                    event = Constants.EVENT_INVALID,
+                    event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
         }

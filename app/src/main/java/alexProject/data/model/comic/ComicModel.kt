@@ -2,6 +2,7 @@ package alexProject.data.model.comic
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
+import alexProject.util.Constants
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -17,5 +18,6 @@ data class ComicModel(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("events")
-    val events : SizeItens
+    val events : SizeItens,
+    val type : String = Constants.COMIC
 ) : Serializable

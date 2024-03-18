@@ -1,4 +1,4 @@
-package alexProject.fragment.character
+package alexProject.fragment
 
 
 import alexProject.R

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         tools:layout="@layout/fragment_details_character"
-        android:name="alexProject.fragment.character.DetailsFragment"
+        android:name="alexProject.fragment.DetailsFragment"
         android:label="detailsFragment" >
         <argument
             android:name="character"

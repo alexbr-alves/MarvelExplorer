@@ -1,15 +1,15 @@
-package alexProject.fragment.character
+package alexProject.fragment.comic
 
 import alexProject.adapters.comic.ComicDetailsAdapter
 import alexProject.databinding.FragmentComicsCharapterBinding
 import alexProject.fragment.BaseFragment
+import alexProject.fragment.DetailsFragmentDirections
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.viewModel.character.CharacterComicsViewModel
+import alexProject.viewModel.comics.ComicsViewPagerViewModel
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +24,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ComicsViewPagerFragment(private val characterId : Int) :
-    BaseFragment<FragmentComicsCharapterBinding, CharacterComicsViewModel>() {
+class ComicsViewPagerFragment(private val characterId: Int,private val origin: String) :
+    BaseFragment<FragmentComicsCharapterBinding, ComicsViewPagerViewModel>() {
 
-    override val viewModel : CharacterComicsViewModel by viewModels()
+    override val viewModel : ComicsViewPagerViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
     private var totalItems : Int = 0
 
@@ -50,7 +50,7 @@ class ComicsViewPagerFragment(private val characterId : Int) :
                 DetailsFragmentDirections.actionDetailsFragmentSelf(
                     comic = comicModel,
                     character = Constants.CHARACTER_INVALID,
-                    event = Constants.EVENT_INVALID,
+                    event = Constants.EVENT_INVALID
 
                 )
             findNavController().navigate(action)
@@ -91,7 +91,7 @@ class ComicsViewPagerFragment(private val characterId : Int) :
 
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
-            fetchComic(characterId)
+            fetchComic(characterId, origin)
             observe(comicList) { result ->
                 result.data?.data?.let { comicModelData ->
                     if (comicModelData.result.isNotEmpty()) {

@@ -37,7 +37,7 @@ class TimelineFragment :
                 TimelineFragmentDirections.actionTimelineFragmentToDetailsFragment(
                     comic = comicModel,
                     character = Constants.CHARACTER_INVALID,
-                    event = Constants.EVENT_INVALID,
+                    event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
         }

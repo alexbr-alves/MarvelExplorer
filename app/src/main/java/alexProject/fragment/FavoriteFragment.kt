@@ -65,7 +65,6 @@ class FavoriteFragment :
                             comic = Constants.COMIC_INVALID,
                             character = converts.favoriteToCharacter(favoriteModel),
                             event = Constants.EVENT_INVALID,
-
                             )
                     findNavController().navigate(action)
                 }
@@ -76,7 +75,6 @@ class FavoriteFragment :
                             comic = converts.favoriteToComic(favoriteModel),
                             character = Constants.CHARACTER_INVALID,
                             event = Constants.EVENT_INVALID,
-
                             )
                     findNavController().navigate(action)
                 }
@@ -86,7 +84,7 @@ class FavoriteFragment :
                         .actionFavoriteCharacterFragmentToDetailsFragment(
                             comic = Constants.COMIC_INVALID,
                             character = Constants.CHARACTER_INVALID,
-                            event = converts.favoriteToEvent(favoriteModel)
+                            event = converts.favoriteToEvent(favoriteModel),
                         )
                     findNavController().navigate(action)
                 }

@@ -1,4 +1,4 @@
-package alexProject.fragment.character
+package alexProject.fragment
 
 import alexProject.R
 import alexProject.data.model.character.CharacterModel
@@ -7,12 +7,12 @@ import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
-import alexProject.fragment.BaseFragment
 import alexProject.util.Constants
 import alexProject.util.Converts
-import alexProject.viewModel.character.CharacterDetailsViewModel
+import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailsFragment :
-    BaseFragment<FragmentDetailsCharacterBinding, CharacterDetailsViewModel>() {
-    override val viewModel: CharacterDetailsViewModel by viewModels()
+    BaseFragment<FragmentDetailsCharacterBinding, DetailsViewModel>() {
+    override val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
     private lateinit var characterModel: CharacterModel
     private lateinit var comicModel: ComicModel
@@ -45,13 +45,23 @@ class DetailsFragment :
         characterModel = args.character
         comicModel = args.comic
         eventModel = args.event
-        favoriteModel = converts.characterToFavorite(characterModel)
+        favoriteModel = getFavorite()
         descriptionCharacter()
         onLoad()
         viewModel.searchFavorite(favoriteModel.id)
         handleViewPager()
         handleTabLayout()
         setupUI()
+    }
+
+    private fun getFavorite(): FavoriteModel {
+        if (characterModel == Constants.CHARACTER_INVALID && comicModel == Constants.COMIC_INVALID) {
+            return converts.eventToFavorite(eventModel)
+        } else if (characterModel == Constants.CHARACTER_INVALID && eventModel == Constants.EVENT_INVALID) {
+            return converts.comicToFavorite(comicModel)
+        } else {
+            return converts.characterToFavorite(characterModel)
+        }
     }
 
     private fun setupUI() = binding.run {
@@ -186,7 +196,7 @@ class DetailsFragment :
                 lifecycle,
                 comicModel.id,
                 characterDescription,
-                Constants.COMIC
+                origin = Constants.COMIC
             )
             viewPager2?.adapter = detailsCharacterAdapter
             viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -200,23 +210,23 @@ class DetailsFragment :
 
     private fun handleCharacterViewPager() {
         if (characterModel != Constants.CHARACTER_INVALID) {
-        viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
-        val characterDescription =
-            if (!characterModel.description.isNullOrEmpty()) characterModel.description else ""
-        val detailsCharacterAdapter = DetailsCharacterAdapter(
-            childFragmentManager,
-            lifecycle,
-            characterModel.id,
-            characterDescription,
-            Constants.CHARACTER
-        )
-        viewPager2?.adapter = detailsCharacterAdapter
-        viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                viewPager2?.offscreenPageLimit = 1
-            }
-        })
+            viewPager2 = view?.findViewById<ViewPager2>(R.id.viewPager2)
+            val characterDescription =
+                if (!characterModel.description.isNullOrEmpty()) characterModel.description else ""
+            val detailsCharacterAdapter = DetailsCharacterAdapter(
+                childFragmentManager,
+                lifecycle,
+                characterModel.id,
+                characterDescription,
+                origin = Constants.CHARACTER
+            )
+            viewPager2?.adapter = detailsCharacterAdapter
+            viewPager2?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    viewPager2?.offscreenPageLimit = 1
+                }
+            })
         }
     }
 
@@ -241,7 +251,7 @@ class DetailsFragment :
         onLoadEvent()
     }
 
-    private fun onLoadEvent()  = with(binding) {
+    private fun onLoadEvent() = with(binding) {
         if (eventModel != Constants.EVENT_INVALID) {
             viewModel.searchCharacter.observe(viewLifecycleOwner) {
                 val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
@@ -273,19 +283,18 @@ class DetailsFragment :
 
     private fun onLoadCharacter() = with(binding) {
         if (characterModel != Constants.CHARACTER_INVALID) {
-        viewModel.searchCharacter.observe(viewLifecycleOwner) {
-            val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-            imageFavorite.setImageResource(color)
-            handleTabLayout()
-            loadImage(
-                image,
-                characterModel.thumbnailModel.path,
-                characterModel.thumbnailModel.extension
-            )
-        }
+            viewModel.searchCharacter.observe(viewLifecycleOwner) {
+                val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
+                imageFavorite.setImageResource(color)
+                handleTabLayout()
+                loadImage(
+                    image,
+                    characterModel.thumbnailModel.path,
+                    characterModel.thumbnailModel.extension
+                )
             }
+        }
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package alexProject.data.model.event
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
+import alexProject.util.Constants
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -17,5 +18,6 @@ data class EventModel(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("comics")
-    val comics : SizeItens
+    val comics : SizeItens,
+    val type : String = Constants.EVENT
 ) : Serializable
