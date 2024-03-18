@@ -1,6 +1,7 @@
 package alexProject.fragment
 
 import alexProject.R
+import alexProject.activity.MainActivity
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.FragmentDetailsCharacterBinding
 import alexProject.adapters.character.DetailsCharacterAdapter
@@ -12,7 +13,6 @@ import alexProject.util.Converts
 import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +46,18 @@ class DetailsFragment :
         comicModel = args.comic
         eventModel = args.event
         favoriteModel = getFavorite()
-        descriptionCharacter()
-        onLoad()
         viewModel.searchFavorite(favoriteModel.id)
+        setupUI()
+    }
+
+    private fun setupUI() = binding.run {
+        handleBadge(binding.tabLayout.getTabAt(1)!!)
+        handleBadge(binding.tabLayout.getTabAt(2)!!)
+        handleToolbar()
         handleViewPager()
         handleTabLayout()
-        setupUI()
+        descriptionCharacter()
+        onLoad()
     }
 
     private fun getFavorite(): FavoriteModel {
@@ -64,10 +70,16 @@ class DetailsFragment :
         }
     }
 
-    private fun setupUI() = binding.run {
-        handleBadge(binding.tabLayout.getTabAt(1)!!)
-        handleBadge(binding.tabLayout.getTabAt(2)!!)
-
+    private fun handleToolbar() {
+        val toolbarTitle =
+            if (characterModel == Constants.CHARACTER_INVALID && comicModel == Constants.COMIC_INVALID) {
+                getString(R.string.title_fragment_event)
+            } else if (characterModel == Constants.CHARACTER_INVALID && eventModel == Constants.EVENT_INVALID) {
+                getString(R.string.title_fragment_comic)
+            } else {
+                getString(R.string.title_fragment_characters)
+            }
+        (activity as MainActivity).setupToolbar(true, toolbarTitle)
     }
 
     private fun handleBadge(tab: TabLayout.Tab) {
@@ -139,7 +151,6 @@ class DetailsFragment :
             }
         }
     }
-
 
     private fun handleTabLayout() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -256,6 +267,7 @@ class DetailsFragment :
             viewModel.searchCharacter.observe(viewLifecycleOwner) {
                 val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
                 imageFavorite.setImageResource(color)
+                textTitle.text = eventModel.title
                 handleTabLayout()
                 loadImage(
                     image,
@@ -271,6 +283,7 @@ class DetailsFragment :
             viewModel.searchCharacter.observe(viewLifecycleOwner) {
                 val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
                 imageFavorite.setImageResource(color)
+                textTitle.text = comicModel.title
                 handleTabLayout()
                 loadImage(
                     image,
@@ -286,6 +299,7 @@ class DetailsFragment :
             viewModel.searchCharacter.observe(viewLifecycleOwner) {
                 val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
                 imageFavorite.setImageResource(color)
+                textTitle.text = characterModel.name
                 handleTabLayout()
                 loadImage(
                     image,

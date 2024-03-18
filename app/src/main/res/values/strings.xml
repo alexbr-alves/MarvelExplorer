@@ -71,7 +71,7 @@
     <string name="fragment_group_current_members">CURRENT MEMBERS</string>
     <string name="fragment_group_former_members">FORMER MEMBERS</string>
     <string name="fragment_movies_marvel_movies">MARVEL MOVIES</string>
-    <string name="fragment_movies_other_movies">Other Movies OTHER MOVIES</string>
+    <string name="fragment_movies_other_movies">OTHER MOVIES</string>
     <string name="fragment_games_all_games">ALL GAMES</string>
 
     <string name="fragment_tv_show_on_disney_plus">MARVEL ON DISNEY+</string>

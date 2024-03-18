@@ -20,7 +20,6 @@ class EventsViewPagerViewModel @Inject constructor(
 
     fun fetchEvent(characterId: Int, origin: String) = viewModelScope.launch {
         safeFetchEvent(characterId, origin)
-        Log.i("Brito", "ViewModel: $origin")
     }
 
     private suspend fun safeFetchEvent(characterId: Int, origin: String) {

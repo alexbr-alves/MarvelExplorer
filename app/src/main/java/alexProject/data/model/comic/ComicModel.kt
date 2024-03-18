@@ -18,6 +18,5 @@ data class ComicModel(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("events")
-    val events : SizeItens,
-    val type : String = Constants.COMIC
+    val events : SizeItens
 ) : Serializable

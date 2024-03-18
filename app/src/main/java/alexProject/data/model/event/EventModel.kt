@@ -18,6 +18,5 @@ data class EventModel(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("comics")
-    val comics : SizeItens,
-    val type : String = Constants.EVENT
+    val comics : SizeItens
 ) : Serializable

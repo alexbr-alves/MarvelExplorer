@@ -28,14 +28,24 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:paddingVertical="5dp"
+                android:layout_marginStart="16dp"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                tools:text="Alex Brito"
+                android:layout_height="wrap_content"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/dark_purple"
-                android:paddingTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image">
+                app:layout_constraintTop_toBottomOf="@id/text_title">
 
 
                 <com.google.android.material.tabs.TabLayout
