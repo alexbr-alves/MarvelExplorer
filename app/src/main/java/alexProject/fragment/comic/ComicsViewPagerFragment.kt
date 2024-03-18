@@ -68,7 +68,7 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
     private fun setupRecycleView() = with(binding) {
         rvComics.apply {
             adapter = comicDetailsAdapter
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, SPAN_COUNT)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
@@ -79,7 +79,7 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 10) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= INITIAL_POSITION && totalItems > MAX_SIZE) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -110,5 +110,10 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
                 binding.progressBarDetail.setVisible(isLoading)
             }
         }
+    }
+    companion object {
+        const val SPAN_COUNT = 3
+        const val MAX_SIZE = 30
+        const val INITIAL_POSITION = 0
     }
 }

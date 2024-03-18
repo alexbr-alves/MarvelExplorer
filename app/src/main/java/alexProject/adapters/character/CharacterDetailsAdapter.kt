@@ -2,6 +2,7 @@ package alexProject.adapters.character
 
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.LayoutMiniCardsBinding
+import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class CharacterDetailsAdapter :
     override fun onBindViewHolder(holder : CharacterViewHolder, position : Int) {
         val character = characters[position]
         holder.binding.apply {
-            textName.text = character.name
+            textName.text = character.name.limitDescription(15)
 
             loadImage(
                 image,

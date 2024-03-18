@@ -62,7 +62,7 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
     override fun onBindViewHolder(holder : ComicViewHolder, position : Int) {
         val comic = comics[position]
         holder.binding.apply {
-            textName.text = comic.title.limitDescription(20)
+            textName.text = comic.title.limitDescription(15)
 
             loadImage(
                 image,

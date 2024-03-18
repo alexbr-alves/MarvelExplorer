@@ -5,6 +5,7 @@ import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterComicBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
+import alexProject.fragment.comic.ComicsViewPagerFragment
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
@@ -68,7 +69,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
     private fun setupRecyclerView() = with(binding) {
         rvComics.apply {
             adapter = characterDetailsAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), SPAN_COUNT)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
@@ -79,7 +80,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 10) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= INITIAL_POSITION && totalItems > ComicsViewPagerFragment.MAX_SIZE) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -109,5 +110,10 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
                 }
             }
         }
+    }
+    companion object {
+        const val SPAN_COUNT = 3
+        const val MAX_SIZE = 30
+        const val INITIAL_POSITION = 0
     }
 }

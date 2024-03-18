@@ -27,13 +27,13 @@ class EventsViewPagerViewModel @Inject constructor(
         when(origin) {
             Constants.CHARACTER -> {
                 handleFetchResponse(
-                    repository.getEventsCharacter(characterId, 10, 0),
+                    repository.getEventsCharacter(characterId, 30, 0),
                     eventList
                 )
             }
             Constants.COMIC -> {
                 handleFetchResponse(
-                    repository.getEventComics(characterId, 10, 0),
+                    repository.getEventComics(characterId, 30, 0),
                     eventList
                 )
             }
