@@ -5,6 +5,7 @@ import alexProject.data.model.MenuHomeModel
 import alexProject.databinding.ItemCardName2Binding
 import alexProject.databinding.ItemMenuHomeBinding
 import alexProject.util.setGone
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -25,6 +26,7 @@ class MenuHomeAdapter : RecyclerView.Adapter<MenuHomeAdapter.MenuHomeViewHolder>
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: MenuHomeModel,
             newItem: MenuHomeModel

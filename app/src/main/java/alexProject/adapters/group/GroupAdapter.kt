@@ -3,6 +3,7 @@ package alexProject.adapters.group
 import alexProject.data.model.group.GroupModel
 import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.setInvisible
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -22,6 +23,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.AdapterViewHolder>() {
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: GroupModel,
             newItem: GroupModel

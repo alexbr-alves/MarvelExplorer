@@ -4,6 +4,7 @@ import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -22,6 +23,7 @@ class CharacterDetailsAdapter :
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem : CharacterModel,
             newItem : CharacterModel
