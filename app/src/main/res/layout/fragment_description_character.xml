@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="12dp"
         android:layout_marginTop="12dp"
-        android:background="@color/black_raisin"
+        android:background="@color/dark_purple"
         android:fontFamily="@font/marvel"
         android:paddingVertical="20dp"
         android:text="@string/text_description_empty"
