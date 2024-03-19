@@ -2,7 +2,9 @@ package alexProject.adapters.event
 
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.LayoutMiniCardsBinding
+import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -20,6 +22,7 @@ class EventDetailsAdapter : RecyclerView.Adapter<EventDetailsAdapter.EventViewHo
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem : EventModel,
             newItem : EventModel
@@ -54,7 +57,7 @@ class EventDetailsAdapter : RecyclerView.Adapter<EventDetailsAdapter.EventViewHo
     override fun onBindViewHolder(holder : EventViewHolder, position : Int) {
         val event = events[position]
         holder.binding.apply {
-            textName.text = event.title
+            textName.text = event.title.limitDescription(15)
 
             loadImage(
                 image,

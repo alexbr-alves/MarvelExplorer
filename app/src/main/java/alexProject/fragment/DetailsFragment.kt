@@ -8,7 +8,6 @@ import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
-import alexProject.util.Constants
 import alexProject.util.Constants.CHARACTER
 import alexProject.util.Constants.CHARACTER_INVALID
 import alexProject.util.Constants.COMIC
@@ -16,7 +15,6 @@ import alexProject.util.Constants.COMIC_INVALID
 import alexProject.util.Constants.EVENT
 import alexProject.util.Constants.EVENT_INVALID
 import alexProject.util.Converts
-import alexProject.util.limitDescription
 import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
 import android.os.Bundle
@@ -171,18 +169,21 @@ class DetailsFragment :
         if (eventModel != EVENT_INVALID) {
             handleViewPager(
                 eventModel.id,
+                eventModel.title,
                 eventModel.description,
                 EVENT
             )
         } else if (comicModel != COMIC_INVALID) {
             handleViewPager(
                 comicModel.id,
+                comicModel.title,
                 comicModel.description,
                 COMIC
             )
         } else {
             handleViewPager(
                 characterModel.id,
+                characterModel.name,
                 characterModel.description,
                 CHARACTER
             )
@@ -191,6 +192,7 @@ class DetailsFragment :
 
     private fun handleViewPager(
         id: Int,
+        title: String,
         description: String,
         origin: String
     ) {
@@ -199,6 +201,7 @@ class DetailsFragment :
             fragmentManager = childFragmentManager,
             lifecycle = lifecycle,
             id = id,
+            title = title,
             description = description ?: "",
             origin = origin
         )
@@ -256,7 +259,6 @@ class DetailsFragment :
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
             val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
             imageFavorite.setImageResource(color)
-            textTitle.text = title.limitDescription(MAX_TEXT_SIZE)
             handleTabLayout()
             loadImage(
                 image,
@@ -267,7 +269,6 @@ class DetailsFragment :
     }
 
     companion object {
-        const val MAX_TEXT_SIZE = 20
         const val BADGE_HORIZONTAL_OFFSET = 20
         const val TAB_INDEX_1 = 1
         const val TAB_INDEX_2 = 2

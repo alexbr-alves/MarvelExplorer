@@ -4,6 +4,7 @@ package alexProject.adapters
 import alexProject.data.model.ItemSiteMarvelModel
 import alexProject.databinding.ItemCardName2Binding
 import alexProject.util.setGone
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -24,6 +25,7 @@ class ItemSiteMarvelAdapter : RecyclerView.Adapter<ItemSiteMarvelAdapter.MoviesV
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: ItemSiteMarvelModel,
             newItem: ItemSiteMarvelModel

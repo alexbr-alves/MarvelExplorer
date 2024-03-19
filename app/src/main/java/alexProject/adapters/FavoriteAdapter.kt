@@ -7,6 +7,7 @@ import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.setGone
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -24,6 +25,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.CharacterViewHolder
             return true
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem : FavoriteModel,
             newItem : FavoriteModel
