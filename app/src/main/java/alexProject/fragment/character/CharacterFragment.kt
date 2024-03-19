@@ -123,7 +123,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
     private fun clickAdapter() {
         characterAdapter.setOnClickListener { characterModel ->
             val action = CharacterFragmentDirections
-                .actionListCharacterFragmentToDetailsCharacterFragment(characterModel)
+                .actionCharacterFragmentToDetailsFragment(
+                    comic = Constants.COMIC_INVALID,
+                    character = characterModel,
+                    event = Constants.EVENT_INVALID
+                )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {

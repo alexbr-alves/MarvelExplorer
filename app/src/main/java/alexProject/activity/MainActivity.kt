@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.back.setOnClickListener { onBackPressed() }
     }
 
-    private fun setupToolbar(visible : Boolean, title : String = "") =
+    fun setupToolbar(visible : Boolean, title : String = "") =
         with(binding) {
             toolbar.back.setOnClickListener {
                 onBackPressed()
@@ -74,7 +74,9 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.title_fragment_event)
                 )
 
-                R.id.detailsCharacterFragment -> hideToolbar()
+                R.id.detailsFragment -> {
+                    setupToolbar(true, getString(R.string.title_fragment_characters))
+                }
 
                 R.id.CharacterFragment -> setupToolbar(
                     true,
@@ -89,9 +91,6 @@ class MainActivity : AppCompatActivity() {
                     true,
                     getString(R.string.title_fragment_teams_and_groups)
                 )
-                R.id.detailsComicFragment -> hideToolbar()
-
-                R.id.detailsEventFragment -> hideToolbar()
             }
         }
     }

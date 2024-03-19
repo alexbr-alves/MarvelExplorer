@@ -1,4 +1,4 @@
-package alexProject.viewModel.character
+package alexProject.viewModel
 
 import alexProject.data.model.FavoriteModel
 import alexProject.repository.MarvelRepository
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterDetailsViewModel @Inject constructor(
+class DetailsViewModel @Inject constructor(
     private val repository : MarvelRepository
 ) : ViewModel() {
 

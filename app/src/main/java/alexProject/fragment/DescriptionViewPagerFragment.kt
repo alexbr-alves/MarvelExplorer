@@ -1,22 +1,23 @@
-package alexProject.fragment.comic
+package alexProject.fragment
+
 
 import alexProject.R
+import alexProject.databinding.FragmentDescriptionCharacterBinding
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import alexProject.databinding.FragmentDescriptionComicBinding
+import androidx.fragment.app.Fragment
 
-class ComicDescriptionFragment(private val description : String) : Fragment() {
-    private var _binding : FragmentDescriptionComicBinding? = null
+class DescriptionViewPagerFragment(private val description : String) : Fragment() {
+    private var _binding : FragmentDescriptionCharacterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?,
         savedInstanceState : Bundle?
     ) : View {
-        _binding = FragmentDescriptionComicBinding.inflate(inflater, container, false)
+        _binding = FragmentDescriptionCharacterBinding.inflate(inflater, container, false)
         setupUI()
         return binding.root
     }
@@ -28,5 +29,4 @@ class ComicDescriptionFragment(private val description : String) : Fragment() {
             textDescription.text = description
         }
     }
-
 }

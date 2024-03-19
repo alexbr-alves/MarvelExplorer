@@ -2,6 +2,7 @@ package alexProject.fragment
 
 import alexProject.adapters.TimelineAdapter
 import alexProject.databinding.FragmentTimelineBinding
+import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
@@ -20,10 +21,10 @@ import timber.log.Timber
 @AndroidEntryPoint
 class TimelineFragment :
     BaseFragment<FragmentTimelineBinding, TimelineViewModel>() {
-    override val viewModel : TimelineViewModel by viewModels()
+    override val viewModel: TimelineViewModel by viewModels()
     private val timelineAdapter by lazy { TimelineAdapter() }
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
         collectObserve()
@@ -33,8 +34,10 @@ class TimelineFragment :
     private fun clickAdapter() {
         timelineAdapter.setOnClickListener { comicModel ->
             val action =
-                TimelineFragmentDirections.actionTimelineFragmentToDetailsComicFragment(
-                    comicModel
+                TimelineFragmentDirections.actionTimelineFragmentToDetailsFragment(
+                    comic = comicModel,
+                    character = Constants.CHARACTER_INVALID,
+                    event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
         }
@@ -65,8 +68,8 @@ class TimelineFragment :
     }
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentTimelineBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentTimelineBinding =
         FragmentTimelineBinding.inflate(inflater, container, false)
 }

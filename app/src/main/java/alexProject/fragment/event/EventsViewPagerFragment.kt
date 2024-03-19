@@ -1,13 +1,14 @@
-package alexProject.fragment.character
+package alexProject.fragment.event
 
 import alexProject.adapters.event.EventDetailsAdapter
 import alexProject.databinding.FragmentEventsCharapterBinding
 import alexProject.fragment.BaseFragment
+import alexProject.fragment.DetailsFragmentDirections
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.viewModel.character.CharacterEventsViewModel
+import alexProject.viewModel.event.EventsViewPagerViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,11 +24,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CharacterEventsFragment(private val characterId : Int) :
-    BaseFragment<FragmentEventsCharapterBinding, CharacterEventsViewModel>() {
-
+class EventsViewPagerFragment(private val characterId: Int, private val origin: String) :
+    BaseFragment<FragmentEventsCharapterBinding, EventsViewPagerViewModel>() {
     private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
-    override val viewModel : CharacterEventsViewModel by viewModels()
+    override val viewModel : EventsViewPagerViewModel by viewModels()
     private var totalItems : Int = 0
 
     override fun getViewBinding(
@@ -45,15 +45,19 @@ class CharacterEventsFragment(private val characterId : Int) :
 
     private fun clickAdapter() {
         eventDetailsAdapter.setOnClickListener { eventModel ->
+            collectObserver()
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToDetailsEventFragment(
-                    eventModel
+                DetailsFragmentDirections.actionDetailsFragmentSelf(
+                    comic = Constants.COMIC_INVALID,
+                    character = Constants.CHARACTER_INVALID,
+                    event = eventModel
                 )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
+            collectObserver()
             val action =
-                CharacterDetailsFragmentDirections.actionDetailsCharacterFragmentToEventFragment(
+                DetailsFragmentDirections.actionDetailsFragmentToEventFragment(
                     Constants.EVENT,
                     characterId
                 )
@@ -63,7 +67,7 @@ class CharacterEventsFragment(private val characterId : Int) :
 
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
-            fetchEvent(characterId)
+            fetchEvent(characterId, origin)
             observe(onError) {onError ->
                 Timber.e(onError)
             }
@@ -86,7 +90,7 @@ class CharacterEventsFragment(private val characterId : Int) :
     private fun setupRecycleView() = with(binding) {
         rvEvents.apply {
             adapter = eventDetailsAdapter
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, SPAN_COUNT)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -96,7 +100,7 @@ class CharacterEventsFragment(private val characterId : Int) :
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > 10) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= INITIAL_POSITION && totalItems > MAX_SIZE) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -104,6 +108,11 @@ class CharacterEventsFragment(private val characterId : Int) :
                 }
             })
         }
+    }
+    companion object {
+        const val SPAN_COUNT = 3
+        const val MAX_SIZE = 30
+        const val INITIAL_POSITION = 0
     }
 
 }

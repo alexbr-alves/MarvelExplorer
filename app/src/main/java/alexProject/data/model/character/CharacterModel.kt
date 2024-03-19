@@ -2,6 +2,7 @@ package alexProject.data.model.character
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
+import alexProject.util.Constants
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -22,6 +23,5 @@ data class CharacterModel(
     @SerializedName("comics")
     val comics : SizeItens,
     @SerializedName("events")
-    val events : SizeItens,
-
+    val events : SizeItens
     ) : Serializable

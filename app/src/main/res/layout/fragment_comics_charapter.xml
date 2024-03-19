@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
     android:layout_marginTop="10dp"
-    android:background="@color/black_raisin">
+    android:background="@color/dark_purple">
 
     <TextView
         android:id="@+id/text_empty"
@@ -32,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:spanCount="2"
+        app:spanCount="3"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/layout_mini_cards">
     </androidx.recyclerview.widget.RecyclerView>

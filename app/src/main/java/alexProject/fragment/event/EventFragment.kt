@@ -105,7 +105,11 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     private fun clickAdapter() {
         eventAdapter.setOnClickListener {
             val action = EventFragmentDirections
-                .actionEventFragmentToDetailsEventFragment(it)
+                .actionEventFragmentToDetailsFragment(
+                    event = it,
+                    comic = Constants.COMIC_INVALID,
+                    character = Constants.CHARACTER_INVALID
+                )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
