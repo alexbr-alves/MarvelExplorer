@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="10dp"
-    android:background="@color/black_raisin">
+    android:background="@color/dark_purple">
 
     <TextView
         android:id="@+id/text_empty"

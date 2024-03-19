@@ -64,6 +64,7 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
         val timeline = timelineList[position]
         holder.binding.apply {
             name.text = timeline.title.limitDescription(30)
+            type.setGone()
 
             if (timeline.description.isNullOrEmpty()) {
                 description.setGone()
