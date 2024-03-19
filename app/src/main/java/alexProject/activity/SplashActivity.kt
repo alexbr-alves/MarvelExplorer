@@ -43,8 +43,11 @@ class SplashActivity : AppCompatActivity() {
             R.drawable.splash_thanos,
             R.drawable.spash_ironman,
             R.drawable.splash_deadpool,
+            R.drawable.splash_thor,
+            R.drawable.splash_avanged,
+            R.drawable.splash_star_lord
         )
-        imageSplash.setImageResource(arraySplash[Random.nextInt(0, 6)])
+        imageSplash.setImageResource(arraySplash[Random.nextInt(0, arraySplash.size)])
     }
 
 
