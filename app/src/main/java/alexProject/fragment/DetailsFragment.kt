@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -216,35 +217,51 @@ class DetailsFragment :
 
     private fun setupFavorite() = binding.run {
         imageFavorite.setOnClickListener {
-            viewModel.searchFavorite(favoriteModel.id)
-            viewModel.searchCharacter.observe(viewLifecycleOwner) {
-                if (it) {
-                    viewModel.delete(favoriteModel)
-                    binding.imageFavorite.setImageResource(R.drawable.favorite)
-                } else {
-                    viewModel.insert(favoriteModel)
-                    binding.imageFavorite.setImageResource(R.drawable.favorite_complete)
+            handleFavorite()
+        }
+        image.setOnClickListener(object : View.OnClickListener {
+            private var lastClickTime: Long = 0
+            override fun onClick(v: View) {
+                val clickTime = System.currentTimeMillis()
+                if (clickTime - lastClickTime < 300) {
+                    handleFavorite()
                 }
+                lastClickTime = clickTime
             }
+        })
+    }
+
+    private fun handleFavorite() = binding.run {
+        handleFavoriteAnimationLike()
+        val isFavorite = imageFavorite.isSelected
+        if (isFavorite) {
+            viewModel.delete(favoriteModel)
+        } else {
+            viewModel.insert(favoriteModel)
+        }
+        binding.imageFavorite.isSelected = !binding.imageFavorite.isSelected
+
+    }
+
+    private fun handleFavoriteAnimationLike() = binding.run {
+        if (!imageFavorite.isSelected) {
+            imageViewAnimation.likeAnimation()
         }
     }
 
     private fun onLoad() {
         if (eventModel != EVENT_INVALID) {
             loadModel(
-                eventModel.title,
                 eventModel.thumbnailModel.path,
                 eventModel.thumbnailModel.extension
             )
         } else if (comicModel != COMIC_INVALID) {
             loadModel(
-                comicModel.title,
                 comicModel.thumbnailModel.path,
                 comicModel.thumbnailModel.extension
             )
         } else {
             loadModel(
-                characterModel.name,
                 characterModel.thumbnailModel.path,
                 characterModel.thumbnailModel.extension
             )
@@ -252,13 +269,11 @@ class DetailsFragment :
     }
 
     private fun loadModel(
-        title: String,
         imagePath: String,
         imageExtension: String,
     ) = with(binding) {
         viewModel.searchCharacter.observe(viewLifecycleOwner) {
-            val color = if (it) R.drawable.favorite_complete else R.drawable.favorite
-            imageFavorite.setImageResource(color)
+            imageFavorite.isSelected = it
             handleTabLayout()
             loadImage(
                 image,

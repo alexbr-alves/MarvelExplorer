@@ -5,6 +5,7 @@ import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -68,7 +69,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     override fun onBindViewHolder(holder : ComicsViewHolder, position : Int) {
         val comic = comicList[position]
         holder.binding.apply {
-            textName.text = comic.title.limitDescription(15)
+            textName.text = removeParenthesesOnTitle(comic.title).limitDescription(25)
             textComic.setGone()
             imageComic.setGone()
             textPeople.text = comic.characters.available.toString()

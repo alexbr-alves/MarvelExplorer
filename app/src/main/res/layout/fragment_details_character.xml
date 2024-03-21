@@ -18,24 +18,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="25dp"
+                android:layout_marginHorizontal="16dp"
+                app:strokeColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="5dp">
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/app_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/dark_purple"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image">
+                app:layout_constraintTop_toBottomOf="@id/card_details">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
@@ -69,15 +81,23 @@
 
                 </com.google.android.material.tabs.TabLayout>
 
-                <ImageView
-                    android:id="@+id/image_favorite"
+                <xyz.hanks.library.bang.SmallBangView
+                    android:id="@+id/imageViewAnimation"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="20dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/favorite"
                     app:layout_constraintBottom_toTopOf="@+id/viewPager2"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/image_favorite"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/selector_favorite" />
+
+                </xyz.hanks.library.bang.SmallBangView>
+
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager2"

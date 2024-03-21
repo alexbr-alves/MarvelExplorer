@@ -52,6 +52,16 @@ fun loadImage(
         .into(imageView)
 }
 
+fun removeParenthesesOnTitle(title: String): String {
+    val indexOpenParenthesis = title.indexOf('(')
+    val indexCloseParenthesis = title.indexOf(')')
+
+    return if (indexOpenParenthesis != -1 && indexCloseParenthesis != -1 && indexCloseParenthesis > indexOpenParenthesis) {
+        title.substring(0, indexOpenParenthesis).trim()
+    } else {
+        title
+    }
+}
 fun String.limitDescription(characters : Int) : String {
     if (this.length > characters) {
         val firstCharacter = 0

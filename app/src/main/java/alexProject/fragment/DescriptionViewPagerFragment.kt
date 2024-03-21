@@ -1,6 +1,7 @@
 package alexProject.fragment
 
 import alexProject.databinding.FragmentDescriptionCharacterBinding
+import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ class DescriptionViewPagerFragment(private val title : String, private val descr
     }
 
     private fun setupUI() = binding.run {
-        textTitle.text = title
+        textTitle.text = removeParenthesesOnTitle(title)
         if (description.isEmpty()) {
             textDescription.setGone()
         } else {
