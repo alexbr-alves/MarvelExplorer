@@ -5,6 +5,7 @@ import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -67,7 +68,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
             textPeople.text = event.characters.available.toString()
             textComic.text = event.comics.available.toString()
 
-            textName.text = event.title.limitDescription(15)
+            textName.text = removeParenthesesOnTitle(event.title).limitDescription(25)
             loadImage(
                 image,
                 event.thumbnailModel.path,

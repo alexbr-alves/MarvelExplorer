@@ -4,6 +4,7 @@ import alexProject.data.model.event.EventModel
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.removeParenthesesOnTitle
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -57,7 +58,7 @@ class EventDetailsAdapter : RecyclerView.Adapter<EventDetailsAdapter.EventViewHo
     override fun onBindViewHolder(holder : EventViewHolder, position : Int) {
         val event = events[position]
         holder.binding.apply {
-            textName.text = event.title.limitDescription(15)
+            textName.text = removeParenthesesOnTitle(event.title).limitDescription(15)
 
             loadImage(
                 image,

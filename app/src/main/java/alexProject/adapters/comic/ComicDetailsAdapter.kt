@@ -4,6 +4,7 @@ import alexProject.data.model.comic.ComicModel
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.removeParenthesesOnTitle
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -64,7 +65,7 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
     override fun onBindViewHolder(holder : ComicViewHolder, position : Int) {
         val comic = comics[position]
         holder.binding.apply {
-            textName.text = comic.title.limitDescription(15)
+            textName.text = removeParenthesesOnTitle(comic.title).limitDescription(15)
 
             loadImage(
                 image,

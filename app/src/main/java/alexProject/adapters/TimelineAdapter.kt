@@ -1,3 +1,4 @@
+
 package alexProject.adapters
 
 import alexProject.data.model.comic.ComicModel
@@ -5,6 +6,7 @@ import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
+import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -19,9 +21,6 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
 
     inner class TimelineViewHolder(val binding: LayoutTimelineBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    private val desireDataFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    private val desiredTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
         override fun areItemsTheSame(oldItem: ComicModel, newItem: ComicModel): Boolean {
@@ -62,10 +61,9 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
     }
 
     override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
-        val context = holder.itemView.context
         val timeline = timelineList[position]
         holder.binding.apply {
-            name.text = timeline.title.limitDescription(30)
+            name.text = removeParenthesesOnTitle(timeline.title).limitDescription(30)
             type.setGone()
 
             if (timeline.description.isNullOrEmpty()) {
