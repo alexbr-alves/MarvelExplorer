@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
@@ -69,7 +68,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
         with(viewModel) {
             fetch()
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as TvShowActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressbarSearch.setVisible(isLoading)

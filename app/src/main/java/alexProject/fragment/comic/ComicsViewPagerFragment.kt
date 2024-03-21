@@ -1,7 +1,8 @@
 package alexProject.fragment.comic
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.comic.ComicDetailsAdapter
-import alexProject.databinding.FragmentComicsCharapterBinding
+import alexProject.databinding.FragmentComicsViewPagerBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
 import alexProject.util.Constants
@@ -21,11 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ComicsViewPagerFragment(private val characterId: Int,private val origin: String) :
-    BaseFragment<FragmentComicsCharapterBinding, ComicsViewPagerViewModel>() {
+    BaseFragment<FragmentComicsViewPagerBinding, ComicsViewPagerViewModel>() {
 
     override val viewModel : ComicsViewPagerViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
@@ -34,8 +34,8 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentComicsCharapterBinding =
-        FragmentComicsCharapterBinding.inflate(inflater, container, false)
+    ) : FragmentComicsViewPagerBinding =
+        FragmentComicsViewPagerBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,8 +102,8 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
                     }
                 }
             }
-            observe(onError) {
-                Timber.e(it)
+            observe(onError) { onError ->
+                (activity as MainActivity).showError(onError)
             }
 
             observe(isLoading) {isLoading ->

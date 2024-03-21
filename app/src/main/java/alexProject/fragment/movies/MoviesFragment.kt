@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
-
 @AndroidEntryPoint
 class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
     override val viewModel: MoviesViewModel by viewModels()
@@ -63,7 +61,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
                 (activity as MoviesActivity).showProgressBar(isLoading)
             }
             observe(onError) { onError ->
-                Timber.e(onError)
+               (activity as MoviesActivity).showError(onError)
             }
             observe(listItems) { result ->
                 result.data?.movies.let { moviesResponseData ->

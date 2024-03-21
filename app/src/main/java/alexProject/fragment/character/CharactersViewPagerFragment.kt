@@ -1,8 +1,9 @@
 package alexProject.fragment.character
 
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.character.CharacterDetailsAdapter
-import alexProject.databinding.FragmentCharacterComicBinding
+import alexProject.databinding.FragmentCharacterViewPagerBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
 import alexProject.fragment.comic.ComicsViewPagerFragment
@@ -15,7 +16,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebStorage.Origin
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,11 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CharactersViewPagerFragment(private val comicId : Int, private val origin: String) :
-    BaseFragment<FragmentCharacterComicBinding, CharactersViewPagerViewModel>() {
+    BaseFragment<FragmentCharacterViewPagerBinding, CharactersViewPagerViewModel>() {
 
     override val viewModel : CharactersViewPagerViewModel by viewModels()
     private val characterDetailsAdapter by lazy { CharacterDetailsAdapter() }
@@ -37,8 +36,8 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentCharacterComicBinding =
-        FragmentCharacterComicBinding.inflate(inflater, container, false)
+    ) : FragmentCharacterViewPagerBinding =
+        FragmentCharacterViewPagerBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,7 +93,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
         with(viewModel) {
             fetchCharacterComic(comicId, origin)
             observe(onError) {onError ->
-                Timber.d(onError)
+                (activity as MainActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)

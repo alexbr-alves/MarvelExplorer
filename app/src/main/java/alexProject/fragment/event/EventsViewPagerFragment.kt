@@ -1,7 +1,8 @@
 package alexProject.fragment.event
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.event.EventDetailsAdapter
-import alexProject.databinding.FragmentEventsCharapterBinding
+import alexProject.databinding.FragmentEventsViewPagerBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
 import alexProject.util.Constants
@@ -21,11 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class EventsViewPagerFragment(private val characterId: Int, private val origin: String) :
-    BaseFragment<FragmentEventsCharapterBinding, EventsViewPagerViewModel>() {
+    BaseFragment<FragmentEventsViewPagerBinding, EventsViewPagerViewModel>() {
     private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
     override val viewModel : EventsViewPagerViewModel by viewModels()
     private var totalItems : Int = 0
@@ -33,8 +33,8 @@ class EventsViewPagerFragment(private val characterId: Int, private val origin: 
     override fun getViewBinding(
         inflater : LayoutInflater,
         container : ViewGroup?
-    ) : FragmentEventsCharapterBinding =
-        FragmentEventsCharapterBinding.inflate(inflater, container, false)
+    ) : FragmentEventsViewPagerBinding =
+        FragmentEventsViewPagerBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +69,7 @@ class EventsViewPagerFragment(private val characterId: Int, private val origin: 
         with(viewModel) {
             fetchEvent(characterId, origin)
             observe(onError) {onError ->
-                Timber.e(onError)
+                (activity as MainActivity).showError(onError)
             }
             observe(isLoading) {isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)

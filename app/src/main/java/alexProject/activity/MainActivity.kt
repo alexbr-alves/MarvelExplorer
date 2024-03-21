@@ -1,5 +1,6 @@
 package alexProject.activity
 
+import BottomSheetError
 import alexProject.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,6 +28,14 @@ class MainActivity : AppCompatActivity() {
         setupListener()
         supportActionBar?.hide()
         binding.toolbar.back.setOnClickListener { onBackPressed() }
+    }
+
+    fun showError(errorMessage: String?) {
+        val bottomSheetView = BottomSheetError(
+        message = errorMessage?:getString(R.string.bottom_sheet_error_message),
+            onRetryClick = { onBackPressed() }
+        )
+        bottomSheetView.show(supportFragmentManager, BottomSheetError.TAG)
     }
 
     fun setupToolbar(visible : Boolean, title : String = "") =
@@ -109,11 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     fun goToGamesActivity() {
         goToActivity(GamesActivity::class.java)
-    }
-
-    private fun hideToolbar() {
-        val toolbarInclude : View = findViewById(R.id.toolbar)
-        toolbarInclude.setGone()
     }
 
     private fun initViews(binding : ActivityMainBinding) {

@@ -2,12 +2,10 @@ package alexProject.fragment.games
 
 import alexProject.R
 import alexProject.activity.GamesActivity
-import alexProject.activity.MoviesActivity
 import alexProject.adapters.ItemSiteMarvelAdapter
 import alexProject.data.model.games.GamesResponseData
 import alexProject.databinding.FragmentGamesBinding
 import alexProject.fragment.BaseFragment
-import alexProject.fragment.movies.MoviesFragmentDirections
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.games.GamesViewModel
@@ -22,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>() {
@@ -57,7 +54,7 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>() {
                 binding.progressbarSearch.setVisible(isLoading)
             }
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as GamesActivity).showError(onError)
             }
             observe(listItems) { result ->
                 result.data?.movies.let { gamesResponseData ->
