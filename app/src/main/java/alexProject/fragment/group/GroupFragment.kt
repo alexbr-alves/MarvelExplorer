@@ -1,5 +1,6 @@
 package alexProject.fragment.group
 
+import alexProject.activity.GroupsActivity
 import alexProject.adapters.group.GroupAdapter
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.databinding.FragmentGroupBinding
@@ -18,7 +19,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
@@ -49,7 +49,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
         with(viewModel) {
             fetch()
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as GroupsActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressbarSearch.setVisible(isLoading)

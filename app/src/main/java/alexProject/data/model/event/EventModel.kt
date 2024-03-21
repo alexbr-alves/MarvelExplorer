@@ -2,7 +2,6 @@ package alexProject.data.model.event
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
-import alexProject.util.Constants
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

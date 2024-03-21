@@ -14,8 +14,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
 

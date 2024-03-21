@@ -3,11 +3,11 @@ package alexProject.fragment
 import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.data.model.character.CharacterModel
-import alexProject.databinding.FragmentDetailsCharacterBinding
 import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
+import alexProject.databinding.FragmentDetailsBinding
 import alexProject.util.Constants.CHARACTER
 import alexProject.util.Constants.CHARACTER_INVALID
 import alexProject.util.Constants.COMIC
@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -31,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailsFragment :
-    BaseFragment<FragmentDetailsCharacterBinding, DetailsViewModel>() {
+    BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
     override val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
     private lateinit var characterModel: CharacterModel
@@ -43,8 +42,8 @@ class DetailsFragment :
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentDetailsCharacterBinding =
-        FragmentDetailsCharacterBinding.inflate(inflater, container, false)
+    ): FragmentDetailsBinding =
+        FragmentDetailsBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

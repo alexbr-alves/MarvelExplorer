@@ -1,8 +1,7 @@
 package alexProject.fragment
 
-
-import alexProject.databinding.FragmentFavoriteCharacterBinding
 import alexProject.adapters.FavoriteAdapter
+import alexProject.databinding.FragmentFavoriteBinding
 import alexProject.viewModel.FavoriteViewModel
 import alexProject.state.ResourceState
 import alexProject.util.Constants
@@ -25,10 +24,16 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteFragment :
-    BaseFragment<FragmentFavoriteCharacterBinding, FavoriteViewModel>() {
+    BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
     override val viewModel: FavoriteViewModel by viewModels()
     private val favoriteAdapter by lazy { FavoriteAdapter() }
     private var converts = Converts()
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentFavoriteBinding =
+        FragmentFavoriteBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -120,9 +125,4 @@ class FavoriteFragment :
         }
     }
 
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentFavoriteCharacterBinding =
-        FragmentFavoriteCharacterBinding.inflate(inflater, container, false)
 }

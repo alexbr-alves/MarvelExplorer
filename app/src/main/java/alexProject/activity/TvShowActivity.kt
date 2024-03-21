@@ -1,5 +1,6 @@
 package alexProject.activity
 
+import BottomSheetError
 import alexProject.R
 import alexProject.databinding.ActivityTvShowBinding
 import alexProject.util.setGone
@@ -39,6 +40,14 @@ class TvShowActivity : AppCompatActivity() {
                     )
             }
         }
+    }
+
+    fun showError(errorMessage: String?) {
+        val bottomSheetView = BottomSheetError(
+            message = errorMessage?:getString(R.string.bottom_sheet_error_message),
+            onRetryClick = { onBackPressed() }
+        )
+        bottomSheetView.show(supportFragmentManager, BottomSheetError.TAG)
     }
 
     fun setupToolbar(textVisible: Boolean, title: String = "") =

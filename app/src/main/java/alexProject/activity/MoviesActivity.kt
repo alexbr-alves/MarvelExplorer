@@ -1,8 +1,8 @@
 package alexProject.activity
 
+import BottomSheetError
 import alexProject.R
 import alexProject.databinding.ActivityMoviesBinding
-import alexProject.state.ResourceState
 import alexProject.util.setGone
 import alexProject.util.setVisible
 import android.os.Bundle
@@ -38,6 +38,14 @@ class MoviesActivity : AppCompatActivity() {
     private fun initViews(binding: ActivityMoviesBinding) {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container_view_movies) as NavHostFragment
+    }
+
+    fun showError(errorMessage: String?) {
+        val bottomSheetView = BottomSheetError(
+            message = errorMessage?:getString(R.string.bottom_sheet_error_message),
+            onRetryClick = { onBackPressed() }
+        )
+        bottomSheetView.show(supportFragmentManager, BottomSheetError.TAG)
     }
 
     fun setupToolbar(textVisible: Boolean, title: String = "") =

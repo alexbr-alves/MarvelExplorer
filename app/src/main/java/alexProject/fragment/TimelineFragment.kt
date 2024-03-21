@@ -1,5 +1,6 @@
 package alexProject.fragment
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.TimelineAdapter
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.util.Constants
@@ -16,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
@@ -50,7 +50,7 @@ class TimelineFragment :
                 binding.progressbarSearch.setVisible(isLoading)
             }
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as MainActivity).showError(onError)
             }
             observe(listItems) { result ->
                 result.data?.data?.result?.let {

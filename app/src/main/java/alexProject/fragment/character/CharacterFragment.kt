@@ -1,6 +1,7 @@
 package alexProject.fragment.character
 
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.character.CharacterAdapter
 import alexProject.databinding.FragmentCharacterBinding
 import alexProject.fragment.BaseFragment
@@ -26,7 +27,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>() {
@@ -112,7 +112,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                 }
             }
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as MainActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressCircular.setVisible(isLoading)

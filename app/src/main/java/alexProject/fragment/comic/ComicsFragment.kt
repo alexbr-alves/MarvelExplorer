@@ -1,5 +1,6 @@
 package alexProject.fragment.comic
 
+import alexProject.activity.MainActivity
 import alexProject.adapters.comic.ComicsAdapter
 import alexProject.databinding.FragmentComicBinding
 import alexProject.fragment.BaseFragment
@@ -25,7 +26,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
@@ -104,7 +104,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         with(viewModel) {
             fetch(args.origem, args.id, offset = initialOffset)
             observe(onError) { onError ->
-                Timber.e(onError)
+                (activity as MainActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)

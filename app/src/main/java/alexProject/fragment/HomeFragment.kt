@@ -1,6 +1,5 @@
 package alexProject.fragment
 
-import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.MenuHomeAdapter
 import alexProject.data.model.DestinationHome

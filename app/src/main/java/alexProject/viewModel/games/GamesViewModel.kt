@@ -1,7 +1,6 @@
 package alexProject.viewModel.games
 
 import alexProject.data.model.games.GamesModelResponse
-import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel

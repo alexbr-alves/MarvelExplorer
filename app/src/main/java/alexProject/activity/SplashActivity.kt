@@ -5,10 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import alexProject.databinding.ActivitySplashBinding
 import android.content.Intent
-import android.view.View
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.widget.TextView
 import kotlin.random.Random
 
 class SplashActivity : AppCompatActivity() {

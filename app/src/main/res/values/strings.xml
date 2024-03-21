@@ -80,5 +80,8 @@
     <string name="fragment_tv_show_on_hulu">MARVEL ON HULU</string>
     <string name="fragment_tv_show_animation">ANIMATION</string>
 
+    <!-- Button navigation-->
+    <string name="bottom_sheet_error_understood">Understood</string>
+    <string name="bottom_sheet_error_message">Sorry, something wrong happened</string>
 
 </resources>
