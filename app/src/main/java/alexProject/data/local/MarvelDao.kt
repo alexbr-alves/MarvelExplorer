@@ -15,6 +15,9 @@ interface MarvelDao {
     @Query("SELECT * FROM favoriteModel ORDER BY id")
     fun getAll() : Flow<List<FavoriteModel>>
 
+    @Query("SELECT * FROM favoriteModel WHERE type = 'Character' ORDER BY insertionTime DESC")
+    fun getStory() : Flow<List<FavoriteModel>>
+
     @Delete
     suspend fun delete(characterModel : FavoriteModel)
 

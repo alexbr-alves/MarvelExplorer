@@ -1,9 +1,13 @@
 package alexProject.fragment
 
 import alexProject.activity.MainActivity
+import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
+import alexProject.data.model.comic.ComicModel
 import alexProject.databinding.FragmentTimelineBinding
+import alexProject.state.ResourceState
 import alexProject.util.Constants
+import alexProject.util.Converts
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
@@ -16,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -23,6 +28,8 @@ class TimelineFragment :
     BaseFragment<FragmentTimelineBinding, TimelineViewModel>() {
     override val viewModel: TimelineViewModel by viewModels()
     private val timelineAdapter by lazy { TimelineAdapter() }
+    private val storyAdapter by lazy { StoryAdapter() }
+    private val converts = Converts()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +48,16 @@ class TimelineFragment :
                 )
             findNavController().navigate(action)
         }
+
+        storyAdapter.setOnClickListener { favoriteModel ->
+            val action =
+                TimelineFragmentDirections.actionTimelineFragmentToDetailsFragment(
+                    comic = Constants.COMIC_INVALID,
+                    character = converts.favoriteToCharacter(favoriteModel),
+                    event = Constants.EVENT_INVALID
+                )
+            findNavController().navigate(action)
+        }
     }
 
     private fun collectObserve() = lifecycleScope.launch {
@@ -55,6 +72,16 @@ class TimelineFragment :
             observe(listItems) { result ->
                 result.data?.data?.result?.let {
                     timelineAdapter.timelineList = it.toList()
+                    binding.recycleStorys.setVisible()
+                }
+            }
+            storyList.collect { resource ->
+                when(resource) {
+                    is ResourceState.Success -> {
+                        resource.data?.let {
+                            storyAdapter.list = it.toList()
+                        }
+                    }
                 }
             }
         }
@@ -64,6 +91,10 @@ class TimelineFragment :
         recycleView.apply {
             adapter = timelineAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+        recycleStorys.apply {
+            adapter = storyAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
