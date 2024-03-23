@@ -3,7 +3,6 @@ package alexProject.fragment
 import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
-import alexProject.data.model.comic.ComicModel
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Constants
@@ -70,10 +69,8 @@ class TimelineFragment :
                 (activity as MainActivity).showError(onError)
             }
             observe(listItems) { result ->
-                result.data?.data?.result?.let {
-                    timelineAdapter.timelineList = it.toList()
-                    binding.recycleStorys.setVisible()
-                }
+                binding.recycleStorys.setVisible()
+                timelineAdapter.timelineList = result
             }
             storyList.collect { resource ->
                 when(resource) {
