@@ -22,7 +22,6 @@ class Converts {
             item1 = characterModel.comics.available ?: 0,
 
             item2 = characterModel.events.available ?: 0
-
         )
     }
 

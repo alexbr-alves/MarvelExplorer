@@ -69,8 +69,10 @@ class TimelineFragment :
                 (activity as MainActivity).showError(onError)
             }
             observe(listItems) { result ->
-                binding.recycleStorys.setVisible()
-                timelineAdapter.timelineList = result
+                result.data?.data?.result?.let {
+                    timelineAdapter.timelineList = it.toList()
+                    binding.recycleStorys.setVisible()
+                }
             }
             storyList.collect { resource ->
                 when(resource) {
