@@ -82,4 +82,9 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
         val viewPagerStory =  binding.viewPagerStory
         viewPagerStory.setCurrentItem(viewPagerStory.currentItem + 1, true)
     }
+
+    fun onPreviousPage() {
+        val viewPagerStory =  binding.viewPagerStory
+        viewPagerStory.setCurrentItem(viewPagerStory.currentItem - 1, true)
+    }
 }

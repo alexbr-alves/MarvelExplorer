@@ -9,6 +9,7 @@ import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -36,14 +37,34 @@ class StoryViewPagerFragment(
 
     private fun setupUI() = binding?.run {
         loadStory()
-        image.setOnClickListener {
-            if (currentComicIndex < MAX_INDEX) {
-                currentComicIndex++
-                loadStory()
-            } else {
-                (parentFragment as StoryFragment).onNextPage()
-                loadStory()
+        clickEvent()
+    }
+
+    private fun clickEvent() = binding?.run {
+        image.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    val rightSide = event.x > v.width / 2
+                    if (rightSide) {
+                        if (currentComicIndex < MAX_INDEX) {
+                            currentComicIndex++
+                            loadStory()
+                        } else {
+                            (parentFragment as StoryFragment).onNextPage()
+                            loadStory()
+                        }
+                    } else {
+                        if (currentComicIndex > 0) {
+                            currentComicIndex--
+                            loadStory()
+                        } else {
+                            (parentFragment as StoryFragment).onPreviousPage()
+                            loadStory()
+                        }
+                    }
+                }
             }
+            true
         }
     }
 
