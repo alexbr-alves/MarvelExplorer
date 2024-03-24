@@ -3,11 +3,13 @@ package alexProject.fragment
 import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
+import alexProject.data.model.StoryModelData
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
+import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
@@ -28,6 +30,7 @@ class TimelineFragment :
     override val viewModel: TimelineViewModel by viewModels()
     private val timelineAdapter by lazy { TimelineAdapter() }
     private val storyAdapter by lazy { StoryAdapter() }
+    private lateinit var list: StoryModelData
     private val converts = Converts()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +39,7 @@ class TimelineFragment :
         collectObserve()
         clickAdapter()
     }
+
 
     private fun clickAdapter() {
         timelineAdapter.setOnClickListener { comicModel ->
@@ -48,14 +52,15 @@ class TimelineFragment :
             findNavController().navigate(action)
         }
 
-        storyAdapter.setOnClickListener { favoriteModel ->
-            val action =
-                TimelineFragmentDirections.actionTimelineFragmentToDetailsFragment(
-                    comic = Constants.COMIC_INVALID,
-                    character = converts.favoriteToCharacter(favoriteModel),
-                    event = Constants.EVENT_INVALID
-                )
-            findNavController().navigate(action)
+        storyAdapter.setOnClickListener {
+            if (::list.isInitialized) {
+                val action =
+                    TimelineFragmentDirections.actionTimelineFragmentToStoryFragment(
+                        id = it.id,
+                        storyModel = list
+                    )
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -74,13 +79,26 @@ class TimelineFragment :
                     binding.recycleStorys.setVisible()
                 }
             }
+            observe(listStoryComics) {
+                list = it
+            }
             storyList.collect { resource ->
-                when(resource) {
+                when (resource) {
                     is ResourceState.Success -> {
                         resource.data?.let {
                             storyAdapter.list = it.toList()
                         }
                     }
+
+                    is ResourceState.Error -> {
+                        (activity as MainActivity).showError(resource.message)
+                    }
+
+                    is ResourceState.Loading -> {
+                        binding.progressbarSearch.setVisible()
+                    }
+
+                    else -> Unit
                 }
             }
         }

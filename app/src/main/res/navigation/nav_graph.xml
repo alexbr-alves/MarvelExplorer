@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_timelineFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_timelineFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -115,6 +118,18 @@
         <action
             android:id="@+id/action_eventFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="alexProject.fragment.StoryFragment"
+        tools:layout="@layout/fragment_story"
+        android:label="StoryFragment" >
+        <argument
+            android:name="storyModel"
+            app:argType="alexProject.data.model.StoryModelData" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

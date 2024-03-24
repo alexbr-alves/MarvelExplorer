@@ -38,14 +38,22 @@ abstract class BaseViewModel : ViewModel() {
     fun <T> handleFetchResponse(repository: Response<T>, item: MutableLiveData<ResourceState<T>>) {
         isLoading.value = true
         job = viewModelScope.launch(exceptionHandler) {
-            when (val response = handleResponse(repository)) {
-                is ResourceState.Success -> item.value = response
-                is ResourceState.Error -> onError.value = response.message
-                is ResourceState.Empty -> onError.value = response.message
+            try {
+                val response = handleResponse(repository)
+                when (response) {
+                    is ResourceState.Success -> item.value = response
+                    is ResourceState.Error -> onError.value = response.message
+                    is ResourceState.Empty -> onError.value = response.message
+                }
+            } catch (e: Exception) {
+                // Lidar com a exceção de forma adequada, por exemplo, definindo o estado de erro
+                onError.value = "Erro ao processar resposta da solicitação: ${e.message}"
+            } finally {
+                isLoading.value = false
             }
-            isLoading.value = false
         }
     }
+
 
     override fun onCleared() {
         super.onCleared()
