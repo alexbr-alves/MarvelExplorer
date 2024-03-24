@@ -1,7 +1,6 @@
 package alexProject.fragment
 
 import alexProject.data.model.StoryModel
-import alexProject.data.model.ThumbnailModel
 import alexProject.databinding.FragmentStoryViewPagerBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -16,7 +15,8 @@ import androidx.fragment.app.Fragment
 
 class StoryViewPagerFragment(
     private val storyModel: StoryModel,
-    private val id: Int
+    private val id: Int,
+    private val lastPosition: Boolean
 ) : Fragment() {
     private var binding: FragmentStoryViewPagerBinding? = null
     private var currentComicIndex = 0
@@ -48,19 +48,21 @@ class StoryViewPagerFragment(
                     if (rightSide) {
                         if (currentComicIndex < MAX_INDEX) {
                             currentComicIndex++
-                            loadStory()
                         } else {
-                            (parentFragment as StoryFragment).onNextPage()
-                            loadStory()
+                            if (lastPosition) {
+                                activity?.onBackPressed()
+                            } else {
+                                (parentFragment as StoryFragment).onNextPage()
+                            }
                         }
+                        loadStory()
                     } else {
                         if (currentComicIndex > 0) {
                             currentComicIndex--
-                            loadStory()
                         } else {
                             (parentFragment as StoryFragment).onPreviousPage()
-                            loadStory()
                         }
+                        loadStory()
                     }
                 }
             }

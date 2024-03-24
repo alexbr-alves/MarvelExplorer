@@ -1,7 +1,6 @@
 package alexProject.adapters
 
 import alexProject.data.model.StoryModelData
-import alexProject.data.model.ThumbnailModel
 import alexProject.fragment.StoryViewPagerFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -22,7 +21,7 @@ class StoryViewPagerAdapter(
         positionViewpager = position
         val storyData = storyModel.data[position]
         val fragmentId = storyData.id
-        return StoryViewPagerFragment(storyModel = storyData, id = fragmentId)
+        return StoryViewPagerFragment(storyModel = storyData, id = fragmentId, position == storyModel.data.size - 1)
     }
 
 }
