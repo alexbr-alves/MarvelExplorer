@@ -1,7 +1,7 @@
 package alexProject.adapters
 
 import alexProject.data.model.StoryModelData
-import alexProject.fragment.StoryFragment
+import alexProject.data.model.ThumbnailModel
 import alexProject.fragment.StoryViewPagerFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

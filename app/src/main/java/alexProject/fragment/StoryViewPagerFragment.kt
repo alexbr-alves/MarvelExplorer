@@ -1,13 +1,13 @@
 package alexProject.fragment
 
 import alexProject.data.model.StoryModel
-import alexProject.data.model.StoryModelData
+import alexProject.data.model.ThumbnailModel
 import alexProject.databinding.FragmentStoryViewPagerBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
+import alexProject.util.setGone
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,10 +40,10 @@ class StoryViewPagerFragment(
             if (currentComicIndex < MAX_INDEX) {
                 currentComicIndex++
                 loadStory()
-            }else {
+            } else {
                 (parentFragment as StoryFragment).onNextPage()
+                loadStory()
             }
-
         }
     }
 
@@ -57,6 +57,8 @@ class StoryViewPagerFragment(
         textTitle.text = removeParenthesesOnTitle(storyModel.title)
         if (!storyModel.description.isNullOrEmpty()) {
             textDescription.text = storyModel.description.limitDescription(200)
+        } else {
+            textDescription.setGone()
         }
 
         when (currentComicIndex) {

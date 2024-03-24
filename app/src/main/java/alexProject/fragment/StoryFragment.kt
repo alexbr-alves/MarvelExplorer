@@ -22,10 +22,7 @@ import kotlinx.coroutines.launch
 class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
     override val viewModel: StoryViewModel by viewModels()
     private val args: StoryFragmentArgs by navArgs()
-    private var currentComicIndex = 0
-    private var currentCharacterIndex = 0
     private var viewPager: ViewPager2? = null
-    private lateinit var gestureDetector: GestureDetector
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -34,8 +31,6 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        currentCharacterIndex = getIndexOfStory(args.storyModel.data, args.id)
-        viewModel.fetch(args.storyModel.data[currentCharacterIndex].id)
         setupUI()
         collectObserve()
     }
@@ -80,11 +75,6 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
             observe(onError) { onError ->
                 (activity as MoviesActivity).showError(onError)
             }
-            observe(listItems) { result ->
-                result.data?.data?.let { comicModelData ->
-
-                }
-            }
         }
     }
 
@@ -92,6 +82,4 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
         val viewPagerStory =  binding.viewPagerStory
         viewPagerStory.setCurrentItem(viewPagerStory.currentItem + 1, true)
     }
-
-
 }

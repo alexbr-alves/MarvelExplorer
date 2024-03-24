@@ -4,6 +4,7 @@ import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
 import alexProject.data.model.StoryModelData
+import alexProject.data.model.ThumbnailModel
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Constants
@@ -30,7 +31,6 @@ class TimelineFragment :
     override val viewModel: TimelineViewModel by viewModels()
     private val timelineAdapter by lazy { TimelineAdapter() }
     private val storyAdapter by lazy { StoryAdapter() }
-    private lateinit var list: StoryModelData
     private val converts = Converts()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +38,17 @@ class TimelineFragment :
         setupRecycleView()
         collectObserve()
         clickAdapter()
+    }
+
+    private fun onClickStoryAdapter(list: StoryModelData) {
+        storyAdapter.setOnClickListener {
+            val action =
+                TimelineFragmentDirections.actionTimelineFragmentToStoryFragment(
+                    id = it.id,
+                    storyModel = list
+                )
+            findNavController().navigate(action)
+        }
     }
 
 
@@ -52,16 +63,6 @@ class TimelineFragment :
             findNavController().navigate(action)
         }
 
-        storyAdapter.setOnClickListener {
-            if (::list.isInitialized) {
-                val action =
-                    TimelineFragmentDirections.actionTimelineFragmentToStoryFragment(
-                        id = it.id,
-                        storyModel = list
-                    )
-                findNavController().navigate(action)
-            }
-        }
     }
 
     private fun collectObserve() = lifecycleScope.launch {
@@ -79,8 +80,8 @@ class TimelineFragment :
                     binding.recycleStorys.setVisible()
                 }
             }
-            observe(listStoryComics) {
-                list = it
+            observe(listStoryComics) { storyList ->
+               onClickStoryAdapter(storyList)
             }
             storyList.collect { resource ->
                 when (resource) {

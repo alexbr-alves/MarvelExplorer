@@ -3,6 +3,7 @@ package alexProject.viewModel
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.StoryModel
 import alexProject.data.model.StoryModelData
+import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.repository.DatabaseRepository
 import alexProject.repository.MarvelRepository

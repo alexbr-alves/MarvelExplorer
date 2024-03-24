@@ -47,7 +47,8 @@ interface ServiceApi {
             encoded = true
         ) characterId : Int,
         @Query("limit") limit : Int? = 100,
-        @Query("offset") offset : Int? = 0
+        @Query("offset") offset : Int? = 0,
+        @Query("orderBy") orderBy : String = "-modified"
     ) : Response<ComicModelResponse>
 
     @GET("characters/{characterId}/events")

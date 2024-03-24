@@ -14,18 +14,4 @@ import javax.inject.Inject
 class StoryViewModel @Inject constructor(
     private val repository: MarvelRepository
 ) : BaseViewModel() {
-    val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
-
-
-    fun fetch(id: Int) = viewModelScope.launch {
-        safeFetch(id)
-    }
-
-    private suspend fun safeFetch(id: Int) = viewModelScope.launch {
-        isLoading.value = true
-        handleFetchResponse(
-            repository.getComicsCharacter(id?: 0, limit = 3, offset = 0),
-            listItems
-        )
-    }
 }
