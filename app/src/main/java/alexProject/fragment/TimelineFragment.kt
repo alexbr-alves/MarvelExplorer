@@ -15,6 +15,8 @@ import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +56,6 @@ class TimelineFragment :
     }
 
 
-
     private fun clickAdapter() {
         timelineAdapter.setOnClickListener { comicModel ->
             val action =
@@ -71,8 +72,8 @@ class TimelineFragment :
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
             fetch()
-            observe(isLoading) { isLoading ->
-                binding.progressbarSearch.setVisible(isLoading)
+            observe(isLoading) {
+                binding.progressbarSearch.setVisible()
             }
             observe(onError) { onError ->
                 (activity as MainActivity).showError(onError)
@@ -84,7 +85,7 @@ class TimelineFragment :
                 }
             }
             observe(listStoryComics) { storyList ->
-               onClickStoryAdapter(storyList)
+                onClickStoryAdapter(storyList)
             }
             storyList.collect { resource ->
                 when (resource) {
@@ -93,16 +94,6 @@ class TimelineFragment :
                             storyAdapter.list = it.toList()
                         }
                     }
-
-                    is ResourceState.Error -> {
-                        (activity as MainActivity).showError(resource.message)
-                    }
-
-                    is ResourceState.Loading -> {
-                        binding.progressbarSearch.setVisible()
-                    }
-
-                    else -> Unit
                 }
             }
         }

@@ -5,9 +5,13 @@ import alexProject.adapters.StoryViewPagerAdapter
 import alexProject.data.model.StoryModel
 import alexProject.databinding.FragmentStoryBinding
 import alexProject.util.observe
+import alexProject.util.setGone
+import alexProject.util.setVisible
 import alexProject.viewModel.StoryViewModel
 import android.animation.Animator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.View

@@ -43,16 +43,16 @@ class TimelineViewModel @Inject constructor(
 
     private suspend fun getStory() = viewModelScope.launch {
         dataRepository.getStory().collectLatest { characters ->
-            val list: MutableList<Int> = mutableListOf()
+            val idToThumbnailMap: MutableMap<Int, ThumbnailModel> = mutableMapOf()
             if (characters.isEmpty()) {
                 _storyList.value = ResourceState.Empty()
             } else {
                 _storyList.value = ResourceState.Success(characters)
+                characters.forEach {
+                    idToThumbnailMap[it.id] = it.thumbnailModel
+                }
+                fetchComicsForIds(idToThumbnailMap)
             }
-            characters.forEach {
-                list.add(it.id)
-            }
-            fetchComicsForIds(list)
         }
     }
 
@@ -68,16 +68,18 @@ class TimelineViewModel @Inject constructor(
 
     }
 
-    private suspend fun fetchComicsForIds(ids: List<Int>) {
+    private suspend fun fetchComicsForIds(idsWithThumbnails: Map<Int, ThumbnailModel>) {
         val storyComics: MutableList<StoryModel> = mutableListOf()
-        ids.forEach { id ->
+        idsWithThumbnails.forEach { (id, thumbnailModel) ->
             handleFetchResponse(
                 repository.getComicsCharacter(id, limit = 3, offset = 0),
                 listComics
             )
-            val storyModel = StoryModel (
+            val comics = listComics.value?.data?.data?.result ?: emptyList()
+            val storyModel = StoryModel(
                 id = id,
-                comics = listComics.value?.data?.data?.result!!
+                thumbnailModel = thumbnailModel,
+                comics = comics
             )
             storyComics.add(storyModel)
         }

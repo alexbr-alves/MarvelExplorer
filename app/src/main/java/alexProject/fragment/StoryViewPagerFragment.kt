@@ -6,18 +6,11 @@ import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 
 class StoryViewPagerFragment(
@@ -46,8 +39,6 @@ class StoryViewPagerFragment(
         loadStory()
         clickEvent()
     }
-
-
 
     private fun clickEvent() = binding?.run {
         image.setOnTouchListener { v, event ->
@@ -80,29 +71,32 @@ class StoryViewPagerFragment(
     }
 
     private fun loadStory() = binding?.run {
-        val storyModel = storyModel.comics[currentComicIndex]
+        val story = storyModel.comics[currentComicIndex]
         loadImage(
             image,
-            storyModel.thumbnailModel.path,
-            storyModel.thumbnailModel.extension
+            story.thumbnailModel.path,
+            story.thumbnailModel.extension
         )
-        textTitle.text = removeParenthesesOnTitle(storyModel.title)
-        if (!storyModel.description.isNullOrEmpty()) {
-            textDescription.text = storyModel.description.limitDescription(200)
+
+        textTitle.text = removeParenthesesOnTitle(story.title)
+        if (!story.description.isNullOrEmpty()) {
+            textDescription.text = story.description.limitDescription(200).lowercase()
         } else {
             textDescription.setGone()
         }
-        when(currentComicIndex) {
+        when (currentComicIndex) {
             0 -> {
                 progressBar1.progress = 100
                 progressBar2.progress = 0
                 progressBar3.progress = 0
             }
+
             1 -> {
                 progressBar1.progress = 100
                 progressBar2.progress = 100
                 progressBar3.progress = 0
             }
+
             2 -> {
                 progressBar1.progress = 100
                 progressBar2.progress = 100
@@ -110,7 +104,6 @@ class StoryViewPagerFragment(
             }
         }
     }
-
 
     companion object {
         const val MAX_INDEX = 2
