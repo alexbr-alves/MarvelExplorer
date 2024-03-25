@@ -28,7 +28,7 @@
         tools:text="Marvel"
         android:textColor="@color/white"
         android:textFontWeight="700"
-        android:fontFamily="@font/marvel"
+        android:fontFamily="sans-serif"
         android:textSize="15sp"
         android:textStyle="bold"
         android:paddingTop="10dp"
@@ -43,7 +43,7 @@
         tools:text="Marvel"
         android:textColor="@color/white"
         android:textFontWeight="700"
-        android:fontFamily="@font/marvel"
+        android:fontFamily="sans-serif"
         android:textSize="15sp"
         android:textStyle="bold"
         android:layout_margin="4dp" />

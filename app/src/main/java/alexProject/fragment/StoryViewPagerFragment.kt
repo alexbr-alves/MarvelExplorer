@@ -88,7 +88,7 @@ class StoryViewPagerFragment(
 
         textTitle.text = removeParenthesesOnTitle(story.title)
         if (!story.description.isNullOrEmpty()) {
-            textDescription.text = story.description.limitDescription(DESCRIPTION_MAX_LENGTH).lowercase()
+            textDescription.text = story.description.limitDescription(DESCRIPTION_MAX_LENGTH)
         } else {
             textDescription.setGone()
         }
@@ -107,7 +107,7 @@ class StoryViewPagerFragment(
         const val MIN_INDEX = 0
         const val PROGRESS_COMPLETED = 100
         const val PROGRESS_INITIAL = 0
-        const val DESCRIPTION_MAX_LENGTH = 200
+        const val DESCRIPTION_MAX_LENGTH = 300
         const val DIVISION_WIDTH = 2
     }
 }
