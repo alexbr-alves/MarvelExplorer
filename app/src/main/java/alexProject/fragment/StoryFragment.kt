@@ -45,7 +45,6 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
             activity?.onBackPressed()
         }
         handleViewPager()
-        viewPagerAnimatedStart()
     }
 
     private fun handleViewPager() {
@@ -92,24 +91,5 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
     fun onPreviousPage() {
         val viewPagerStory = binding.viewPagerStory
         viewPagerStory.setCurrentItem(viewPagerStory.currentItem - 1, true)
-    }
-
-    private fun viewPagerAnimatedStart() = binding.run {
-        viewPager?.setPageTransformer { page, position ->
-            val pageHeight = page.height
-            val duration = 500L
-            val currentPage = viewPager?.currentItem
-
-            when {
-                position == 0f && currentPage == 0 -> {
-                    page.translationY = pageHeight.toFloat()
-                    page.animate()
-                        .translationY(0f)
-                        .setDuration(duration)
-                        .start()
-                }
-                else -> page.translationY = 0f
-            }
-        }
     }
 }

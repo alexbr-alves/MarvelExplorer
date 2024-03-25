@@ -19,7 +19,7 @@ class StoryViewPagerFragment(
     private val lastPosition: Boolean
 ) : Fragment() {
     private var binding: FragmentStoryViewPagerBinding? = null
-    private var currentComicIndex = 0
+    private var currentComicIndex = MIN_INDEX
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,30 +44,38 @@ class StoryViewPagerFragment(
         image.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    val rightSide = event.x > v.width / 2
+                    val rightSide = event.x > v.width / DIVISION_WIDTH
                     if (rightSide) {
-                        if (currentComicIndex < MAX_INDEX) {
-                            currentComicIndex++
-                        } else {
-                            if (lastPosition) {
-                                activity?.onBackPressed()
-                            } else {
-                                (parentFragment as StoryFragment).onNextPage()
-                            }
-                        }
-                        loadStory()
+                        onRightSide()
                     } else {
-                        if (currentComicIndex > 0) {
-                            currentComicIndex--
-                        } else {
-                            (parentFragment as StoryFragment).onPreviousPage()
-                        }
-                        loadStory()
+                        onLeftSide()
                     }
                 }
             }
             true
         }
+    }
+
+    private fun onLeftSide() {
+        if (currentComicIndex > MIN_INDEX) {
+            currentComicIndex--
+        } else {
+            (parentFragment as StoryFragment).onPreviousPage()
+        }
+        loadStory()
+    }
+
+    private fun onRightSide() {
+        if (currentComicIndex < MAX_INDEX) {
+            currentComicIndex++
+        } else {
+            if (lastPosition) {
+                activity?.onBackPressed()
+            } else {
+                (parentFragment as StoryFragment).onNextPage()
+            }
+        }
+        loadStory()
     }
 
     private fun loadStory() = binding?.run {
@@ -80,33 +88,26 @@ class StoryViewPagerFragment(
 
         textTitle.text = removeParenthesesOnTitle(story.title)
         if (!story.description.isNullOrEmpty()) {
-            textDescription.text = story.description.limitDescription(200).lowercase()
+            textDescription.text = story.description.limitDescription(DESCRIPTION_MAX_LENGTH).lowercase()
         } else {
             textDescription.setGone()
         }
-        when (currentComicIndex) {
-            0 -> {
-                progressBar1.progress = 100
-                progressBar2.progress = 0
-                progressBar3.progress = 0
-            }
+        setupProgress()
+    }
 
-            1 -> {
-                progressBar1.progress = 100
-                progressBar2.progress = 100
-                progressBar3.progress = 0
-            }
-
-            2 -> {
-                progressBar1.progress = 100
-                progressBar2.progress = 100
-                progressBar3.progress = 100
-            }
+    private fun setupProgress() = binding?.run {
+        val progresses = listOf(PROGRESS_COMPLETED, PROGRESS_COMPLETED, PROGRESS_COMPLETED)
+        listOf(progressBar1, progressBar2, progressBar3).forEachIndexed { index, progressBar ->
+            progressBar.progress = if (index <= currentComicIndex) progresses[index] else PROGRESS_INITIAL
         }
     }
 
     companion object {
         const val MAX_INDEX = 2
-        const val DELAY_MILLIS = 15000L
+        const val MIN_INDEX = 0
+        const val PROGRESS_COMPLETED = 100
+        const val PROGRESS_INITIAL = 0
+        const val DESCRIPTION_MAX_LENGTH = 200
+        const val DIVISION_WIDTH = 2
     }
 }
