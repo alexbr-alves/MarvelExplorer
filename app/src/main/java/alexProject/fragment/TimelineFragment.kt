@@ -1,5 +1,6 @@
 package alexProject.fragment
 
+import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
@@ -19,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,6 +52,7 @@ class TimelineFragment :
             findNavController().navigate(action)
         }
     }
+
 
 
     private fun clickAdapter() {

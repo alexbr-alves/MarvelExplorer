@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        tools:layout="@layout/fragment_details"
         android:name="alexProject.fragment.DetailsFragment"
-        android:label="detailsFragment" >
+        android:label="detailsFragment"
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="character"
             app:argType="alexProject.data.model.character.CharacterModel" />
@@ -34,18 +34,18 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteCharacterFragment"
-        tools:layout="@layout/fragment_favorite"
         android:name="alexProject.fragment.FavoriteFragment"
-        android:label="FavoriteCharacterFragment" >
+        android:label="FavoriteCharacterFragment"
+        tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_favoriteCharacterFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/CharacterFragment"
-        tools:layout="@layout/fragment_character"
         android:name="alexProject.fragment.character.CharacterFragment"
-        android:label="ListCharacterFragment" >
+        android:label="ListCharacterFragment"
+        tools:layout="@layout/fragment_character">
         <argument
             android:name="origem"
             app:argType="string" />
@@ -59,9 +59,9 @@
     </fragment>
     <fragment
         android:id="@+id/timelineFragment"
-        tools:layout="@layout/fragment_timeline"
         android:name="alexProject.fragment.TimelineFragment"
-        android:label="SearchCharacterFragment" >
+        android:label="SearchCharacterFragment"
+        tools:layout="@layout/fragment_timeline">
         <action
             android:id="@+id/action_timelineFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -71,9 +71,9 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        tools:layout="@layout/fragment_home"
         android:name="alexProject.fragment.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
@@ -92,13 +92,14 @@
     </fragment>
     <fragment
         android:id="@+id/comicsFragment"
-        tools:layout="@layout/fragment_comic"
         android:name="alexProject.fragment.comic.ComicsFragment"
-        android:label="ComicsFragment" >
+        android:label="ComicsFragment"
+        tools:layout="@layout/fragment_comic">
         <argument
             android:name="origem"
             app:argType="string" />
-        <argument android:name="id"
+        <argument
+            android:name="id"
             app:argType="integer" />
         <action
             android:id="@+id/action_comicsFragment_to_detailsFragment"
@@ -106,9 +107,9 @@
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
-        tools:layout="@layout/fragment_event"
         android:name="alexProject.fragment.event.EventFragment"
-        android:label="EventFragment" >
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event">
         <argument
             android:name="verity"
             app:argType="string" />
@@ -122,8 +123,8 @@
     <fragment
         android:id="@+id/storyFragment"
         android:name="alexProject.fragment.StoryFragment"
-        tools:layout="@layout/fragment_story"
-        android:label="StoryFragment" >
+        android:label="StoryFragment"
+        tools:layout="@layout/fragment_story">
         <argument
             android:name="storyModel"
             app:argType="alexProject.data.model.StoryModelData" />

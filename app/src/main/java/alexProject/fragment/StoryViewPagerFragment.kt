@@ -6,11 +6,18 @@ import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 
 class StoryViewPagerFragment(
@@ -39,6 +46,8 @@ class StoryViewPagerFragment(
         loadStory()
         clickEvent()
     }
+
+
 
     private fun clickEvent() = binding?.run {
         image.setOnTouchListener { v, event ->
@@ -83,16 +92,28 @@ class StoryViewPagerFragment(
         } else {
             textDescription.setGone()
         }
-
-        when (currentComicIndex) {
-            0 -> progressBarComics.progress = 33
-            1 -> progressBarComics.progress = 66
-            2 -> progressBarComics.progress = 100
+        when(currentComicIndex) {
+            0 -> {
+                progressBar1.progress = 100
+                progressBar2.progress = 0
+                progressBar3.progress = 0
+            }
+            1 -> {
+                progressBar1.progress = 100
+                progressBar2.progress = 100
+                progressBar3.progress = 0
+            }
+            2 -> {
+                progressBar1.progress = 100
+                progressBar2.progress = 100
+                progressBar3.progress = 100
+            }
         }
     }
 
 
     companion object {
         const val MAX_INDEX = 2
+        const val DELAY_MILLIS = 15000L
     }
 }

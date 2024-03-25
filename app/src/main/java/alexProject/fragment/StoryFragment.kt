@@ -6,6 +6,7 @@ import alexProject.data.model.StoryModel
 import alexProject.databinding.FragmentStoryBinding
 import alexProject.util.observe
 import alexProject.viewModel.StoryViewModel
+import android.animation.Animator
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -40,6 +41,7 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
             activity?.onBackPressed()
         }
         handleViewPager()
+        viewPagerAnimatedStart()
     }
 
     private fun handleViewPager() {
@@ -79,12 +81,31 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
     }
 
     fun onNextPage() {
-        val viewPagerStory =  binding.viewPagerStory
+        val viewPagerStory = binding.viewPagerStory
         viewPagerStory.setCurrentItem(viewPagerStory.currentItem + 1, true)
     }
 
     fun onPreviousPage() {
-        val viewPagerStory =  binding.viewPagerStory
+        val viewPagerStory = binding.viewPagerStory
         viewPagerStory.setCurrentItem(viewPagerStory.currentItem - 1, true)
+    }
+
+    private fun viewPagerAnimatedStart() = binding.run {
+        viewPager?.setPageTransformer { page, position ->
+            val pageHeight = page.height
+            val duration = 500L
+            val currentPage = viewPager?.currentItem
+
+            when {
+                position == 0f && currentPage == 0 -> {
+                    page.translationY = pageHeight.toFloat()
+                    page.animate()
+                        .translationY(0f)
+                        .setDuration(duration)
+                        .start()
+                }
+                else -> page.translationY = 0f
+            }
+        }
     }
 }
