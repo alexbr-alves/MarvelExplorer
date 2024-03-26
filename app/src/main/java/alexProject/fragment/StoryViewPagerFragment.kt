@@ -79,16 +79,23 @@ class StoryViewPagerFragment(
     }
 
     private fun loadStory() = binding?.run {
-        val story = storyModel.comics[currentComicIndex]
+        val comicList = storyModel.comics[currentComicIndex]
         loadImage(
             image,
-            story.thumbnailModel.path,
-            story.thumbnailModel.extension
+            comicList.thumbnailModel.path,
+            comicList.thumbnailModel.extension
         )
 
-        textTitle.text = removeParenthesesOnTitle(story.title)
-        if (!story.description.isNullOrEmpty()) {
-            textDescription.text = story.description.limitDescription(DESCRIPTION_MAX_LENGTH)
+        loadImage(
+            imagePerfil,
+            storyModel.thumbnailModel.path,
+            storyModel.thumbnailModel.extension
+        )
+
+        textPerfil.text = storyModel.name
+        textTitle.text = removeParenthesesOnTitle(comicList.title)
+        if (!comicList.description.isNullOrEmpty()) {
+            textDescription.text = comicList.description.limitDescription(DESCRIPTION_MAX_LENGTH)
         } else {
             textDescription.setGone()
         }
@@ -107,7 +114,7 @@ class StoryViewPagerFragment(
         const val MIN_INDEX = 0
         const val PROGRESS_COMPLETED = 100
         const val PROGRESS_INITIAL = 0
-        const val DESCRIPTION_MAX_LENGTH = 300
+        const val DESCRIPTION_MAX_LENGTH = 250
         const val DIVISION_WIDTH = 2
     }
 }
