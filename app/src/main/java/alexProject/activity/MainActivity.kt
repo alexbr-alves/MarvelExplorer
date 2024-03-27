@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListener() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigation.setVisible()
             when (destination.id) {
                 R.id.homeFragment -> {
                     setupToolbar(false)
@@ -100,6 +101,10 @@ class MainActivity : AppCompatActivity() {
                     true,
                     getString(R.string.title_fragment_teams_and_groups)
                 )
+                R.id.storyFragment -> {
+                    binding.toolbar.mainConstraint.setGone()
+                    binding.bottomNavigation.setGone()
+                }
             }
         }
     }

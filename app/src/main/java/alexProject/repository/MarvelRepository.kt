@@ -6,8 +6,7 @@ import alexProject.data.remote.ServiceApi
 import javax.inject.Inject
 
 class MarvelRepository @Inject constructor(
-    private val api: ServiceApi,
-    private val dao: MarvelDao
+    private val api: ServiceApi
 ) {
     suspend fun characters(nameStartsWith: String? = null, limit: Int = 100, offset: Int? = 0) =
         api.characters(nameStartsWith, limit, offset)
@@ -22,7 +21,7 @@ class MarvelRepository @Inject constructor(
     suspend fun events() = api.events()
 
     //Character details
-    suspend fun getComicsCharacter(characterId: Int, limit: Int = 100, offset: Int? = 0) =
+    suspend fun getComicsCharacter(characterId: Int, limit: Int? = 100, offset: Int? = 0) =
         api.getComicsCharacter(characterId, limit, offset)
 
     suspend fun getEventsCharacter(characterId: Int, limit: Int = 100, offset: Int? = 0) =
@@ -45,14 +44,4 @@ class MarvelRepository @Inject constructor(
     //Timeline
     suspend fun getComicTimeline() = api.getComicTimeline()
 
-    //DAO
-    suspend fun insert(characterModel: FavoriteModel) = dao.insert(characterModel)
-    fun getAll() = dao.getAll()
-    suspend fun delete(characterModel: FavoriteModel) = dao.delete(characterModel)
-    suspend fun searchFavorite(id: Int) = dao.searchFavorite(id)
-
-    suspend fun getGroup() = api.getGroup()
-    suspend fun getMovies() = api.getMovies()
-    suspend fun getTvShow() = api.getTvShow()
-    suspend fun getGames() = api.getGames()
 }

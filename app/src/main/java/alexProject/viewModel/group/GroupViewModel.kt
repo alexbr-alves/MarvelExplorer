@@ -1,6 +1,7 @@
 package alexProject.viewModel.group
 
 import alexProject.data.model.group.GroupModelResponse
+import alexProject.repository.GithubRepository
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(
-    private val repository: MarvelRepository
+    private val repository: GithubRepository
 ) : BaseViewModel() {
     val listItems = MutableLiveData<ResourceState<GroupModelResponse>>()
 

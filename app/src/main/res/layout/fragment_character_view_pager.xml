@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
         android:text="@string/common_no_information"
         android:textColor="@color/white"
         android:visibility="gone"
@@ -28,25 +29,24 @@
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:nestedScrollingEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:spanCount="3"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/layout_mini_cards">
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/layout_mini_cards"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/text_see_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/bg_corner_see_more"
-        android:fontFamily="@font/marvel"
+        android:fontFamily="sans-serif"
         android:padding="10dp"
         android:text="@string/view_all"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:layout_marginBottom="10dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rvComics"
         app:layout_constraintEnd_toEndOf="parent"

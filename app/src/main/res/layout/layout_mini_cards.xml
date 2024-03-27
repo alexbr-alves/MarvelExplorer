@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:fontFamily="@font/marvel"
+                android:fontFamily="sans-serif"
                 android:letterSpacing="0.04"
                 android:lineHeight="21sp"
                 android:text="@string/tx_item_name"

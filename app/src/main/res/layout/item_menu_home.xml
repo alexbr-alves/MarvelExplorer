@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:textSize="25sp"
             android:textFontWeight="700"
-            android:fontFamily="@font/poppins_thin"
+            android:fontFamily="@font/marvel"
             android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="@string/app_name"

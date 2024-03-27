@@ -1,6 +1,7 @@
 package alexProject.viewModel.movies
 
 import alexProject.data.model.movies.MoviesModelResponse
+import alexProject.repository.GithubRepository
 import alexProject.repository.MarvelRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val repository: MarvelRepository
+    private val repository: GithubRepository
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<MoviesModelResponse>>()
