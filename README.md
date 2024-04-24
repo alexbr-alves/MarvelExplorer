@@ -4,9 +4,9 @@
 
 <br>
 
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/60194c18-380a-40b3-9541-f8fde67706a0" width="250"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/0d9bc50b-cf82-40e9-94d0-4203f9071bf2" width="250"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/d0cf833b-8743-4c4d-91a8-295ea7d4bae7" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/2c44de89-6cb0-4a4b-a5e2-08fb5be37327" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/a3a5af08-3f9b-4599-b54d-90bde684df4f" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/58641f96-71d0-4d0b-9d1f-8d9c1471f376" width="250"/>
 
 <br>
 
@@ -58,6 +58,21 @@
 
 ## 📷 Mais imagens
 
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/39cb76b3-2c05-49f9-8f2a-d68546878b13" width="250"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/b05bd448-4f5c-4f30-8fee-ebb8e2d960e7" width="250"/>
-<img src="https://github.com/alexbr-alves/Marvel-App-Android/assets/103543739/eafda058-405e-46be-8879-dda2fc3fc733" width="250"/>
+### Fluxo de personagens 
+
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/ce54616d-c643-40b7-8aa9-98233faebd99" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/2d74bb55-0b59-4f4b-bd98-987c9df36d97" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/d6f43ba1-6e7a-4eab-8ee0-bc9918628649" width="250"/>
+
+### Fluxo de stories 
+
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/c8f5419f-cd40-4837-a6ee-1b3efc269388" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/756b8c20-f03c-450b-8cbe-5639d91274f1" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/8f59587a-50d9-4d6e-bfe9-0cfbb56392eb" width="250"/>
+
+### Fluxo de Movies 
+
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/9bff7ae3-f13e-4eed-9387-6318a367b1f0" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/c58be3e9-c906-4c8c-ba49-9713443ee53d" width="250"/>
+<img src="https://github.com/alexbr-alves/MarvelExplorer/assets/103543739/4b042a6c-cbf1-4e22-b3cd-e3ec4e1bb984" width="250"/>
+
