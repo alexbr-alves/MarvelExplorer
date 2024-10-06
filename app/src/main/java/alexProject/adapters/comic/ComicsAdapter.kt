@@ -69,7 +69,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     override fun onBindViewHolder(holder : ComicsViewHolder, position : Int) {
         val comic = comicList[position]
         holder.binding.apply {
-            textName.text = removeParenthesesOnTitle(comic.title).limitDescription(25)
+            textName.text = removeParenthesesOnTitle(comic.title).limitDescription(15)
             textComic.setGone()
             imageComic.setGone()
             textPeople.text = comic.characters.available.toString()
