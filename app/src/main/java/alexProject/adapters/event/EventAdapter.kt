@@ -68,7 +68,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
             textPeople.text = event.characters.available.toString()
             textComic.text = event.comics.available.toString()
 
-            textName.text = removeParenthesesOnTitle(event.title).limitDescription(25)
+            textName.text = removeParenthesesOnTitle(event.title).limitDescription(15)
             loadImage(
                 image,
                 event.thumbnailModel.path,

@@ -65,7 +65,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
             textComic.text = character.comics.available.toString()
             textEvent.text = character.events.available.toString()
 
-            textName.text = removeParenthesesOnTitle(character.name).limitDescription(25)
+            textName.text = removeParenthesesOnTitle(character.name).limitDescription(15)
             loadImage(
                 image,
                 character.thumbnailModel.path,
