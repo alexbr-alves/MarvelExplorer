@@ -17,12 +17,13 @@ class ComicViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
+    var firshLoading = false
 
     fun fetch(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
-        limit: Int = 30,
+        limit: Int = 100,
         offset: Int
     ) = viewModelScope.launch {
         safeFetch(verify, id, titleStartsWith, limit, offset)
@@ -32,10 +33,11 @@ class ComicViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
-        limit: Int = 30,
+        limit: Int = 100,
         offset: Int
     ) {
-        isLoading.value = true
+        isLoading.value = firshLoading == false
+        firshLoading = true
         when (verify) {
             Constants.CHARACTER -> {
                 handleFetchResponse(

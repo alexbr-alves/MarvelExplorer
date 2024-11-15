@@ -22,7 +22,7 @@ class EventViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
-        limit: Int = 30,
+        limit: Int = 100,
         offset: Int
     ) = viewModelScope.launch {
         safeFetch(verify, id, limit, offset)
@@ -31,7 +31,7 @@ class EventViewModel @Inject constructor(
     private suspend fun safeFetch(
         verify: String? = null,
         id: Int? = null,
-        limit: Int = 30,
+        limit: Int = 100,
         offset: Int
     ) {
         isLoading.value = true

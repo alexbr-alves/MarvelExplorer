@@ -1,6 +1,7 @@
 package alexProject.adapters.character
 
 
+import alexProject.R
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
@@ -9,11 +10,13 @@ import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
@@ -38,14 +41,18 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
                     oldItem.comics.available == newItem.comics.available &&
                     oldItem.events.available == newItem.events.available
         }
-
     }
 
     private val differ = AsyncListDiffer(this, differCallback)
+    private val characterMutableList: MutableList<CharacterModel> = mutableListOf()
 
     var characters : List<CharacterModel>
-        get() = differ.currentList
-        set(value) = differ.submitList(value.filter { it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE })
+        get() = characterMutableList
+        set(value) {
+            characterMutableList.clear()
+            characterMutableList.addAll(value)
+            differ.submitList(value)
+        }
 
     override fun getItemCount() : Int = characters.size
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : CharacterViewHolder {
@@ -54,6 +61,13 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
                 LayoutInflater.from(parent.context), parent, false
             )
         )
+    }
+
+    fun addItems(items: List<CharacterModel>) {
+        val startPosition = characters.size
+        characters = characters + items
+        differ.submitList(characterMutableList)
+        notifyItemRangeInserted(startPosition, items.size)
     }
 
 
@@ -67,7 +81,8 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
                 character.thumbnailModel.extension
             )
         }
-        holder.itemView.setOnClickListener {
+        holder.itemView.findViewById<MaterialCardView>(R.id.card).setOnClickListener {
+            Log.i("Alex Brito", "onBindViewHolder: $character")
             onItemClickListener?.let {
                 it(character)
             }

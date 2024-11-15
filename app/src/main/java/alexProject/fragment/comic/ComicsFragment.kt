@@ -13,6 +13,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,6 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     private var isSearchExpanded = false
     private var totalItems: Int = 0
     private var initialOffset: Int = 0
-
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -108,12 +108,11 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             }
             observe(isLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)
-                binding.rvComicList.setVisible(!isLoading)
             }
             observe(listItems) { result ->
                 result.data?.data?.let { comicModelData ->
                     if (comicModelData.result.isNotEmpty()) {
-                        comicsAdapter.comicList = comicModelData.result.toList()
+                        comicsAdapter.addItems(comicModelData.result)
                         totalItems = comicModelData.total
                     }
                 }
@@ -121,10 +120,10 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         }
     }
 
+
     private fun setupRecycleView() = with(binding) {
         rvComicList.apply {
             adapter = comicsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
             layoutManager = GridLayoutManager(requireContext(), 3)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -136,15 +135,16 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 30) {
-                        textSeeMore.setVisible()
-                    } else {
-                        textSeeMore.setGone()
+                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount / 2) && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                        initialOffset += 100
+                        binding.progressBarDetail.setVisible(false)
+                        viewModel.fetch(args.origem, args.id, offset = initialOffset)
                     }
                 }
             })
         }
     }
+
 
     private fun clickAdapter() {
         comicsAdapter.setOnClickListener {
@@ -155,15 +155,6 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     event = Constants.EVENT_INVALID
                 )
             findNavController().navigate(action)
-        }
-        binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + 30)) {
-                initialOffset += 30
-                viewModel.fetch(args.origem, args.id, offset = initialOffset)
-                binding.rvComicList.smoothScrollToPosition(0)
-            } else {
-                binding.textSeeMore.setGone()
-            }
         }
     }
 

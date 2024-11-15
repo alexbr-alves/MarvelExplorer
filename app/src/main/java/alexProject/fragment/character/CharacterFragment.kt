@@ -10,6 +10,7 @@ import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
 import alexProject.util.setVisible
+import alexProject.util.toast
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +18,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -108,7 +110,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
             fetch(args.origem, args.id, offset = initialOffset)
             observe(listItem) { result ->
                 result.data?.data?.let { character ->
-                    characterAdapter.characters = character.results.toList()
+                    if (character.results.isNotEmpty()) {
+                        characterAdapter.addItems(character.results)
+                        totalItems = character.total
+                    }
                 }
             }
             observe(onError) { onError ->
@@ -130,16 +135,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                 )
             findNavController().navigate(action)
         }
-        binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + 30)) {
-                initialOffset += 30
-                viewModel.fetch(args.origem, args.id, offset = initialOffset)
-                binding.rvCharacterList.smoothScrollToPosition(0)
-            } else {
-                binding.textSeeMore.setGone()
-            }
-
-        }
     }
 
     private fun setupRecycleView() = with(binding) {
@@ -156,10 +151,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 30) {
-                        textSeeMore.setVisible()
-                    } else {
-                        textSeeMore.setGone()
+                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount / 2) && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                        initialOffset += 100
+                        viewModel.fetch(args.origem, args.id, offset = initialOffset)
                     }
                 }
             })

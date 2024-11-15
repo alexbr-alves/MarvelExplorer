@@ -4,7 +4,7 @@
     android:id="@+id/main_constraint"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/dark_purple">
+    android:background="@color/blue_yankees">
 
     <ImageView
         android:id="@+id/back"
