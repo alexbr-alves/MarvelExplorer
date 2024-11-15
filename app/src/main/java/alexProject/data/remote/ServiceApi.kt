@@ -22,14 +22,14 @@ interface ServiceApi {
     @GET("characters")
     suspend fun characters(
         @Query("nameStartsWith") nameStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0,
     ) : Response<CharacterModelResponse>
 
     @GET("comics")
     suspend fun comics(
         @Query("titleStartsWith") titleStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String? = null,
     ) : Response<ComicModelResponse>
@@ -46,7 +46,7 @@ interface ServiceApi {
             value = "characterId",
             encoded = true
         ) characterId : Int,
-        @Query("limit") limit : Int? = 100,
+        @Query("limit") limit : Int? = 30,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String = "-modified"
     ) : Response<ComicModelResponse>
@@ -57,7 +57,7 @@ interface ServiceApi {
             value = "characterId",
             encoded = true
         ) characterId : Int,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
@@ -69,7 +69,7 @@ interface ServiceApi {
             value = "comicId",
             encoded = true
         ) comicId : Int,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0
     ) : Response<CharacterModelResponse>
 
@@ -79,7 +79,7 @@ interface ServiceApi {
             value = "comicId",
             encoded = true
         ) comicId : Int,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0
     ) : Response<EventModelResponse>
 
@@ -91,7 +91,7 @@ interface ServiceApi {
             value = "eventId",
             encoded = true
         ) eventId : Int,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0
     ) : Response<CharacterModelResponse>
 
@@ -101,7 +101,7 @@ interface ServiceApi {
             value = "eventId",
             encoded = true
         ) eventId : Int,
-        @Query("limit") limit : Int = 100,
+        @Query("limit") limit : Int = 30,
         @Query("offset") offset : Int? = 0
     ) : Response<ComicModelResponse>
 

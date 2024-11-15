@@ -63,11 +63,6 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onBindViewHolder(holder : EventViewHolder, position : Int) {
         val event = eventList[position]
         holder.binding.apply {
-            textEvent.setGone()
-            imageEvent.setGone()
-            textPeople.text = event.characters.available.toString()
-            textComic.text = event.comics.available.toString()
-
             textName.text = removeParenthesesOnTitle(event.title).limitDescription(15)
             loadImage(
                 image,

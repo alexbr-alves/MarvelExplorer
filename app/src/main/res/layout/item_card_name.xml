@@ -1,115 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp"
-    android:checkable="true"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="1dp"
-    app:cardMaxElevation="4dp"
-    app:strokeColor="@color/black_raisin"
-    app:strokeWidth="1dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black_raisin"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.Media"
-            app:srcCompat="@drawable/marvel_logo" />
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardMaxElevation="4dp"
+        app:strokeColor="@color/black_raisin"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black_raisin"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="sans-serif"
-                android:letterSpacing="0.04"
-                android:lineHeight="21sp"
-                android:text="@string/tx_item_name"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:textFontWeight="700"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/layout_metrics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:visibility="visible"
-                android:layout_gravity="end"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/image_people"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/people" />
-
-                <TextView
-                    android:id="@+id/text_people"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="sans-serif"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/image_comic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/book" />
-
-                <TextView
-                    android:id="@+id/text_comic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:fontFamily="sans-serif"
-                    android:layout_marginEnd="5dp"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/image_event"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/event" />
-
-                <TextView
-                    android:id="@+id/text_event"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:fontFamily="sans-serif"
-                    android:layout_marginEnd="5dp"
-                    app:layout_constraintEnd_toEndOf="@+id/main_constraint"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.Media"
+                app:srcCompat="@drawable/marvel_logo" />
         </LinearLayout>
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Texto abaixo do card"
+        android:textColor="@color/white"
+        android:textFontWeight="700"
+        android:textSize="16sp" />
+
+</LinearLayout>

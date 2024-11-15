@@ -113,8 +113,8 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + 100)) {
-                initialOffset += 100
+            if (totalItems > (initialOffset + 30)) {
+                initialOffset += 30
                 viewModel.fetch(verify = args.verity, id = args.id, offset = initialOffset)
                 binding.rvEventList.smoothScrollToPosition(0)
             } else {
@@ -162,7 +162,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 30) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()

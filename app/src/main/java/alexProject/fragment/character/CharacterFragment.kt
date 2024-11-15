@@ -131,8 +131,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + 100)) {
-                initialOffset += 100
+            if (totalItems > (initialOffset + 30)) {
+                initialOffset += 30
                 viewModel.fetch(args.origem, args.id, offset = initialOffset)
                 binding.rvCharacterList.smoothScrollToPosition(0)
             } else {
@@ -146,7 +146,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         rvCharacterList.apply {
             adapter = characterAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 3)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -156,7 +156,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 30) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()

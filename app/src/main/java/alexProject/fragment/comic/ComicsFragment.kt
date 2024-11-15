@@ -108,6 +108,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             }
             observe(isLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)
+                binding.rvComicList.setVisible(!isLoading)
             }
             observe(listItems) { result ->
                 result.data?.data?.let { comicModelData ->
@@ -124,7 +125,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         rvComicList.apply {
             adapter = comicsAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 3)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -135,7 +136,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 30) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -156,8 +157,8 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
-            if (totalItems > (initialOffset + 100)) {
-                initialOffset += 100
+            if (totalItems > (initialOffset + 30)) {
+                initialOffset += 30
                 viewModel.fetch(args.origem, args.id, offset = initialOffset)
                 binding.rvComicList.smoothScrollToPosition(0)
             } else {

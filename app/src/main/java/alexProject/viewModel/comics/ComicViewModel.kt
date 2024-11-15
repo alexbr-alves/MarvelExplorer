@@ -22,7 +22,7 @@ class ComicViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
-        limit: Int = 100,
+        limit: Int = 30,
         offset: Int
     ) = viewModelScope.launch {
         safeFetch(verify, id, titleStartsWith, limit, offset)
@@ -32,7 +32,7 @@ class ComicViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
-        limit: Int = 100,
+        limit: Int = 30,
         offset: Int
     ) {
         isLoading.value = true

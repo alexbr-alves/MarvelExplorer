@@ -22,7 +22,7 @@ class CharacterViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         nameStartsWith: String? = null,
-        limit: Int = 100,
+        limit: Int = 30,
         offset: Int
     ) =
         viewModelScope.launch {
@@ -33,7 +33,7 @@ class CharacterViewModel @Inject constructor(
         verify: String? = null,
         id: Int? = null,
         nameStartsWith: String? = null,
-        limit: Int = 100,
+        limit: Int = 30,
         offset: Int
     ) {
         isLoading.value = true

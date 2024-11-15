@@ -70,10 +70,6 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
         val comic = comicList[position]
         holder.binding.apply {
             textName.text = removeParenthesesOnTitle(comic.title).limitDescription(15)
-            textComic.setGone()
-            imageComic.setGone()
-            textPeople.text = comic.characters.available.toString()
-            textEvent.text = comic.events.available.toString()
 
             loadImage(
                 image,

@@ -60,11 +60,6 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     override fun onBindViewHolder(holder : CharacterViewHolder, position : Int) {
         val character = characters[position]
         holder.binding.apply {
-            textPeople.setGone()
-            imagePeople.setGone()
-            textComic.text = character.comics.available.toString()
-            textEvent.text = character.events.available.toString()
-
             textName.text = removeParenthesesOnTitle(character.name).limitDescription(15)
             loadImage(
                 image,

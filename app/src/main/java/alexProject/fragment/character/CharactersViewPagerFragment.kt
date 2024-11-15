@@ -26,20 +26,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CharactersViewPagerFragment(private val comicId : Int, private val origin: String) :
+class CharactersViewPagerFragment(private val comicId: Int, private val origin: String) :
     BaseFragment<FragmentCharacterViewPagerBinding, CharactersViewPagerViewModel>() {
 
-    override val viewModel : CharactersViewPagerViewModel by viewModels()
+    override val viewModel: CharactersViewPagerViewModel by viewModels()
     private val characterDetailsAdapter by lazy { CharacterDetailsAdapter() }
-    private var totalItems : Int = 0
+    private var totalItems: Int = 0
+    private var initialOffset: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentCharacterViewPagerBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCharacterViewPagerBinding =
         FragmentCharacterViewPagerBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         collectObserver()
@@ -52,12 +53,12 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
                 comic = Constants.COMIC_INVALID,
                 character = characterModel,
                 event = Constants.EVENT_INVALID
-                )
+            )
             findNavController().navigate(action)
         }
         binding.textSeeMore.setOnClickListener {
             val action =
-            DetailsFragmentDirections.actionDetailsFragmentToCharacterFragment(
+                DetailsFragmentDirections.actionDetailsFragmentToCharacterFragment(
                     Constants.COMIC,
                     comicId
                 )
@@ -71,7 +72,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
             layoutManager = GridLayoutManager(requireContext(), SPAN_COUNT)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -79,7 +80,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= INITIAL_POSITION && totalItems > ComicsViewPagerFragment.MAX_SIZE) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= INITIAL_POSITION && totalItems > initialOffset + 30) {
                         textSeeMore.setVisible()
                     } else {
                         textSeeMore.setGone()
@@ -92,13 +93,13 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
             fetchCharacterComic(comicId, origin)
-            observe(onError) {onError ->
+            observe(onError) { onError ->
                 (activity as MainActivity).showError(onError)
             }
             observe(isLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)
             }
-            observe(comicCharacterList) {result ->
+            observe(comicCharacterList) { result ->
                 result.data?.data?.let { characterModels ->
                     if (characterModels.results.isEmpty()) {
                         binding.textEmpty.setVisible()
@@ -110,6 +111,7 @@ class CharactersViewPagerFragment(private val comicId : Int, private val origin:
             }
         }
     }
+
     companion object {
         const val SPAN_COUNT = 3
         const val MAX_SIZE = 30
