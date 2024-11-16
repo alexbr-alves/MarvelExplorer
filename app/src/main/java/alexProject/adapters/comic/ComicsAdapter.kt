@@ -64,7 +64,6 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
         val startPosition = comicMutableList.size
         comicMutableList.addAll(newItems)
         differ.submitList(comicMutableList)
-        Log.d("ComicsAdapter", "Items added: ${newItems.size}")
         notifyItemRangeInserted(startPosition, newItems.size)
         notifyDataSetChanged()
     }
