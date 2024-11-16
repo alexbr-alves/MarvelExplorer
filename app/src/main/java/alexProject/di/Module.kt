@@ -49,6 +49,9 @@ object Module {
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient().newBuilder()
+            .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .writeTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val request = chain.request()
                 val originalHttpUrl = request.url
