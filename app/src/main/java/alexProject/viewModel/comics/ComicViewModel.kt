@@ -17,7 +17,6 @@ class ComicViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
-    var firshLoading = false
 
     fun fetch(
         verify: String? = null,
@@ -36,8 +35,8 @@ class ComicViewModel @Inject constructor(
         limit: Int = 100,
         offset: Int
     ) {
-        isLoading.value = firshLoading == false
-        firshLoading = true
+        isLoading.value = true
+
         when (verify) {
             Constants.CHARACTER -> {
                 handleFetchResponse(

@@ -4,7 +4,9 @@ import alexProject.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import alexProject.databinding.ActivitySplashBinding
+import alexProject.util.setFullScreenMode
 import android.content.Intent
+import android.widget.RelativeLayout
 import kotlin.random.Random
 
 class SplashActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupSplash()
+        setFullScreenMode()
         supportActionBar?.hide()
     }
 

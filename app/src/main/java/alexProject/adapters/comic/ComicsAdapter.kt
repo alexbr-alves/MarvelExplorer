@@ -68,6 +68,12 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clearItems() {
+        comicMutableList.clear()
+        differ.submitList(null)
+        notifyDataSetChanged()
+    }
+
     private var onItemClickListener : ((ComicModel) -> Unit)? = null
 
     fun setOnClickListener(listener: (ComicModel) -> Unit) {

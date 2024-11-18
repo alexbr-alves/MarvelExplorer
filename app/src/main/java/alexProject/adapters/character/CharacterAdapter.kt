@@ -69,6 +69,12 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         differ.submitList(characterMutableList)
         notifyItemRangeInserted(startPosition, items.size)
     }
+    fun clearItems() {
+        characterMutableList.clear()
+        differ.submitList(null)
+        notifyDataSetChanged()
+    }
+
 
 
     override fun onBindViewHolder(holder : CharacterViewHolder, position : Int) {

@@ -43,6 +43,10 @@ abstract class BaseViewModel : ViewModel() {
         return ResourceState.Error(response.message())
     }
 
+    fun cancelRequest() {
+        job?.cancel()
+    }
+
 
     fun <T> handleFetchResponse(
         repository: Response<T>,

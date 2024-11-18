@@ -31,7 +31,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>() {
+class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>(),
+    MainActivity.SearchListener {
     override val viewModel: CharacterViewModel by viewModels()
     private val characterAdapter by lazy { CharacterAdapter() }
     private val args: CharacterFragmentArgs by navArgs()
@@ -50,59 +51,20 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         setupRecycleView()
         clickAdapter()
         collectObserve()
-        handleSearchAnimation()
-        searchInit()
-        setupUI()
+        mainActivityObserver()
     }
 
-    private fun setupUI() {
-        if (args.origem == Constants.HOME) {
-            binding.searchIcon.setVisible()
-        } else {
-            binding.searchIcon.setGone()
-        }
-    }
-
-    private fun handleSearchAnimation() = binding.run {
-        searchIcon.setOnClickListener {
-            if (isSearchExpanded) {
-                collapseSearchBar()
-            } else {
-                expandSearchBar()
+    private fun mainActivityObserver() = (activity as? MainActivity)?.run {
+        observe(searchQueryLiveData) { query ->
+            query?.let {
+                performSearch(it)
             }
         }
-    }
-
-    private fun expandSearchBar() = binding.run {
-        val animator = ValueAnimator.ofFloat(0f, 1f)
-        animator.addUpdateListener { valueAnimator ->
-            val fraction = valueAnimator.animatedValue as Float
-            val params = searchEditText.layoutParams as ConstraintLayout.LayoutParams
-            params.matchConstraintPercentWidth = fraction
-            searchEditText.layoutParams = params
+        observe(closedSearchLiveData) { isClosed ->
+            if (isClosed) {
+                updateCharacterList()
+            }
         }
-        animator.duration = 300
-        animator.start()
-
-        searchEditText.visibility = View.VISIBLE
-        searchEditText.requestFocus()
-
-        isSearchExpanded = true
-    }
-
-    private fun collapseSearchBar() = binding.run {
-        val animator = ValueAnimator.ofFloat(1f, 0f)
-        animator.addUpdateListener { valueAnimator ->
-            val fraction = valueAnimator.animatedValue as Float
-            val params = searchEditText.layoutParams as ConstraintLayout.LayoutParams
-            params.matchConstraintPercentWidth = fraction
-            searchEditText.layoutParams = params
-        }
-        animator.duration = 300
-        animator.start()
-
-        searchEditText.visibility = View.GONE
-        isSearchExpanded = false
     }
 
     private fun collectObserve() = lifecycleScope.launch {
@@ -111,6 +73,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
             observe(listItem) { result ->
                 result.data?.data?.let { character ->
                     if (character.results.isNotEmpty()) {
+                        if (initialOffset == 0) {
+                            characterAdapter.clearItems()
+                        }
                         characterAdapter.addItems(character.results)
                         totalItems = character.total
                     }
@@ -160,36 +125,28 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
     }
 
-    private fun searchInit(query: String? = null) = with(binding) {
-        searchEditText.setText(query)
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                char: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                char: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (char.toString().isEmpty()) {
-                    updateCharacterList()
-                } else {
-                    updateCharacterList(char.toString())
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
     private fun updateCharacterList(query: String? = null) {
         viewModel.fetch(nameStartsWith = query, offset = initialOffset)
+    }
+
+    override fun onSearchQueryChanged(query: String?) {
+        query?.let { performSearch(it) }
+    }
+
+    private fun performSearch(query: String) {
+        initialOffset = 0
+        characterAdapter.clearItems()
+        updateCharacterList(query)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.setSearchListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.setSearchListener(null)
     }
 
 }

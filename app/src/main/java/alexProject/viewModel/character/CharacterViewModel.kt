@@ -37,8 +37,7 @@ class CharacterViewModel @Inject constructor(
         limit: Int = 100,
         offset: Int
     ) {
-        isLoading.value = firshLoading == false
-        firshLoading = true
+        isLoading.value = true
         when (verify) {
             Constants.COMIC -> {
                 handleFetchResponse(

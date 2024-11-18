@@ -6,18 +6,12 @@ import alexProject.databinding.FragmentComicBinding
 import alexProject.fragment.BaseFragment
 import alexProject.util.Constants
 import alexProject.util.observe
-import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.comics.ComicViewModel
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
+class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), MainActivity.SearchListener {
     override val viewModel: ComicViewModel by viewModels()
     private val comicsAdapter by lazy { ComicsAdapter() }
     private val args: ComicsFragmentArgs by navArgs()
@@ -44,62 +38,22 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecycleView()
         collectObserver()
-        clickAdapter()
-        searchInit()
-        handleSearchAnimation()
         setupUI()
+        mainActivityObserver()
     }
-
-    private fun setupUI() {
-        if (args.origem == Constants.HOME) {
-            binding.searchIcon.setVisible()
-        } else {
-            binding.searchIcon.setGone()
+    private fun mainActivityObserver() = (activity as? MainActivity)?.run {
+        observe(searchQueryLiveData) { query ->
+            query?.let {
+                performSearch(it)
+            }
         }
-    }
-
-    private fun handleSearchAnimation() = binding.run {
-        searchIcon.setOnClickListener {
-            if (isSearchExpanded) {
-                collapseSearchBar()
-            } else {
-                expandSearchBar()
+        observe(closedSearchLiveData) { isClosed ->
+            if (isClosed) {
+                updateComicList()
             }
         }
     }
-
-    private fun expandSearchBar() = binding.run {
-        val animator = ValueAnimator.ofFloat(0f, 1f)
-        animator.addUpdateListener { valueAnimator ->
-            val fraction = valueAnimator.animatedValue as Float
-            val params = searchEditText.layoutParams as ConstraintLayout.LayoutParams
-            params.matchConstraintPercentWidth = fraction
-            searchEditText.layoutParams = params
-        }
-        animator.duration = 300
-        animator.start()
-        searchEditText.visibility = View.VISIBLE
-        searchEditText.requestFocus()
-        isSearchExpanded = true
-    }
-
-    private fun collapseSearchBar() = binding.run {
-        val animator = ValueAnimator.ofFloat(1f, 0f)
-        animator.addUpdateListener { valueAnimator ->
-            val fraction = valueAnimator.animatedValue as Float
-            val params = searchEditText.layoutParams as ConstraintLayout.LayoutParams
-            params.matchConstraintPercentWidth = fraction
-            searchEditText.layoutParams = params
-        }
-        animator.duration = 300
-        animator.start()
-
-        searchEditText.visibility = View.GONE
-        isSearchExpanded = false
-    }
-
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
             fetch(args.origem, args.id, offset = initialOffset)
@@ -112,6 +66,9 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
             observe(listItems) { result ->
                 result.data?.data?.let { comicModelData ->
                     if (comicModelData.result.isNotEmpty()) {
+                        if (initialOffset == 0) {
+                            comicsAdapter.clearItems()
+                        }
                         comicsAdapter.addItems(comicModelData.result)
                         totalItems = comicModelData.total
                     }
@@ -146,7 +103,8 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
     }
 
 
-    private fun clickAdapter() {
+    private fun setupUI() {
+        setupRecycleView()
         comicsAdapter.setOnClickListener {
             val action = ComicsFragmentDirections
                 .actionComicsFragmentToDetailsFragment(
@@ -158,35 +116,27 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>() {
         }
     }
 
-    private fun searchInit(query: String? = null) = with(binding) {
-        searchEditText.setText(query)
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                char: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                char: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (char.toString().isEmpty()) {
-                    updateComicList()
-                } else {
-                    updateComicList(char.toString())
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
     private fun updateComicList(query: String? = null) {
         viewModel.fetch(titleStartsWith = query, offset = initialOffset)
     }
+    override fun onSearchQueryChanged(query: String?) {
+        query?.let { performSearch(it) }
+    }
+
+    private fun performSearch(query: String) {
+        initialOffset = 0
+        comicsAdapter.clearItems()
+        updateComicList(query)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.setSearchListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? MainActivity)?.setSearchListener(null)
+    }
+
 }
