@@ -84,4 +84,8 @@
     <string name="bottom_sheet_error_understood">Understood</string>
     <string name="bottom_sheet_error_message">Sorry, something wrong happened</string>
 
+    <!-- Hilt Search Titles-->
+    <string name="character_fragment_hilt_search">Search for a Character</string>
+    <string name="comics_fragment_hilt_search">Search for a Comic</string>
+
 </resources>
