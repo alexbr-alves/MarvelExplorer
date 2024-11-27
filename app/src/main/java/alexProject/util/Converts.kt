@@ -2,8 +2,8 @@ package alexProject.util
 
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.ThumbnailModel
-import alexProject.data.model.character.CharacterModel
 import alexProject.data.model.SizeItens
+import alexProject.data.model.character.CharacterModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
 

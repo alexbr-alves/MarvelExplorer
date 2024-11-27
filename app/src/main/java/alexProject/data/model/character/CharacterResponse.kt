@@ -7,6 +7,18 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+data class CharacterResponse(
+    @SerializedName("data")
+    val data : CharacterModelData
+)
+
+data class CharacterModelData(
+    @SerializedName("total")
+    val total: Int,
+    @SerializedName("results")
+    val results : List<CharacterModel>
+) : Serializable
+
 
 @Entity(tableName = "characterModel")
 data class CharacterModel(
@@ -23,4 +35,4 @@ data class CharacterModel(
     val comics : SizeItens,
     @SerializedName("events")
     val events : SizeItens
-    ) : Serializable
+) : Serializable

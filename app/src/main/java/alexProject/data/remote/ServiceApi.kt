@@ -1,7 +1,7 @@
 package alexProject.data.remote
 
 import alexProject.data.model.group.GroupModelResponse
-import alexProject.data.model.character.CharacterModelResponse
+import alexProject.data.model.character.CharacterResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
@@ -12,6 +12,7 @@ import alexProject.util.KeyGithub.RF_MARVEL_GAMES
 import alexProject.util.KeyGithub.RF_MARVEL_GROUPS
 import alexProject.util.KeyGithub.RF_MARVEL_MOVEIS
 import alexProject.util.KeyGithub.RF_MARVEL_TV_SHOW
+import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,11 +21,11 @@ import retrofit2.http.Query
 interface ServiceApi {
 
     @GET("characters")
-    suspend fun characters(
+    fun characters(
         @Query("nameStartsWith") nameStartsWith : String? = null,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
-    ) : Response<CharacterModelResponse>
+    ) : Observable<CharacterResponse>
 
     @GET("comics")
     suspend fun comics(
@@ -71,7 +72,7 @@ interface ServiceApi {
         ) comicId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<CharacterModelResponse>
+    ) : Response<CharacterResponse>
 
     @GET("comics/{comicId}/events")
     suspend fun getEventComics(
@@ -93,7 +94,7 @@ interface ServiceApi {
         ) eventId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<CharacterModelResponse>
+    ) : Response<CharacterResponse>
 
     @GET("events/{eventId}/comics")
     suspend fun getComicEvent(

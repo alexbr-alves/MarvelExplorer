@@ -5,6 +5,7 @@ import alexProject.activity.MainActivity
 import alexProject.adapters.character.CharacterAdapter
 import alexProject.databinding.FragmentCharacterBinding
 import alexProject.fragment.BaseFragment
+import alexProject.network.response.ErrorResponse
 import alexProject.viewModel.character.CharacterViewModel
 import alexProject.util.Constants
 import alexProject.util.observe
@@ -33,7 +34,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>(),
     MainActivity.SearchListener {
-    override val viewModel: CharacterViewModel by viewModels()
+    override val viewModel by viewModels<CharacterViewModel>()
     private val characterAdapter by lazy { CharacterAdapter() }
     private val args: CharacterFragmentArgs by navArgs()
     private var isSearchExpanded = false
@@ -67,11 +68,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
     }
 
-    private fun collectObserve() = lifecycleScope.launch {
+    private fun collectObserve() =
         with(viewModel) {
             fetch(args.origem, args.id, offset = initialOffset)
             observe(listItem) { result ->
-                result.data?.data?.let { character ->
+                result.data.let { character ->
                     if (character.results.isNotEmpty()) {
                         if (initialOffset == 0) {
                             characterAdapter.clearItems()
@@ -82,13 +83,12 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                 }
             }
             observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
+                (activity as MainActivity).showError(onError.message)
             }
-            observe(isLoading) { isLoading ->
+            observe(onLoading) { isLoading ->
                 binding.progressCircular.setVisible(isLoading)
             }
         }
-    }
 
     private fun clickAdapter() {
         characterAdapter.setOnClickListener { characterModel ->

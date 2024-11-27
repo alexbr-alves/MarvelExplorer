@@ -13,6 +13,9 @@ object Constants {
     const val HASH = "hash"
     const val TS = "ts"
 
+    const val GENERIC_TITLE_ERROR = "Algo de errado aconteceu!"
+    const val GENERIC_MESSAGE_ERROR = "Tente novamente mais tarde!"
+
     const val IMAGE_NOT_AVAILABLE =
         "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 

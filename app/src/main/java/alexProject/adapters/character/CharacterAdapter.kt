@@ -4,11 +4,9 @@ package alexProject.adapters.character
 import alexProject.R
 import alexProject.data.model.character.CharacterModel
 import alexProject.databinding.ItemCardNameBinding
-import alexProject.util.Constants
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
-import alexProject.util.setGone
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater

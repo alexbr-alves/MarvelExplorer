@@ -1,13 +1,15 @@
 package alexProject.domain.repository
 
+import alexProject.data.model.character.CharacterResponse
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.MarvelRepository
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class MarvelRepositoryImpl @Inject constructor(
     private val api: ServiceApi
 ): MarvelRepository {
-    override suspend fun characters(nameStartsWith: String?, limit: Int, offset: Int?) =
+    override fun characters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<CharacterResponse> =
         api.characters(nameStartsWith, limit, offset)
 
     override suspend fun comics(

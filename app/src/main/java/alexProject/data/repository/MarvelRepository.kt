@@ -1,16 +1,17 @@
 package alexProject.data.repository
 
-import alexProject.data.model.character.CharacterModelResponse
+import alexProject.data.model.character.CharacterResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
+import io.reactivex.Observable
 import retrofit2.Response
 
 interface MarvelRepository {
-    suspend fun characters(
+    fun characters(
         nameStartsWith: String? = null,
         limit: Int = 100,
         offset: Int? = 0
-    ): Response<CharacterModelResponse>
+    ): Observable<CharacterResponse>
 
     suspend fun comics(
         titleStartsWith: String? = null,
@@ -33,12 +34,12 @@ interface MarvelRepository {
         offset: Int? = 0
     ): Response<EventModelResponse>
 
-    suspend fun getCharacterComics(comicId: Int, limit: Int = 100, offset: Int? = 0) : Response<CharacterModelResponse>
+    suspend fun getCharacterComics(comicId: Int, limit: Int = 100, offset: Int? = 0) : Response<CharacterResponse>
 
     suspend fun getEventComics(comicId: Int, limit: Int = 100, offset: Int? = 0) : Response<EventModelResponse>
 
     //Events details
-    suspend fun getCharacterEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Response<CharacterModelResponse>
+    suspend fun getCharacterEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Response<CharacterResponse>
 
     suspend fun getComicEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Response<ComicModelResponse>
 

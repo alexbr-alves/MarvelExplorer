@@ -2,9 +2,9 @@ package alexProject.fragment
 
 import alexProject.R
 import alexProject.activity.MainActivity
-import alexProject.data.model.character.CharacterModel
 import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
+import alexProject.data.model.character.CharacterModel
 import alexProject.data.model.comic.ComicModel
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentDetailsBinding
