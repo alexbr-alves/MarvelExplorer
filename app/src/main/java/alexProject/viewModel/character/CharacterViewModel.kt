@@ -17,6 +17,7 @@ class CharacterViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val listItem = MutableLiveData<ResourceState<CharacterModelResponse>>()
+    var firshLoading = false
 
     fun fetch(
         verify: String? = null,

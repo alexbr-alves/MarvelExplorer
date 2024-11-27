@@ -4,7 +4,7 @@
     android:id="@+id/main_constraint"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/dark_purple">
+    android:background="@color/blue_yankees">
 
     <ImageView
         android:id="@+id/back"
@@ -31,10 +31,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        app:searchHintIcon="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/gray_300"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:iconifiedByDefault="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

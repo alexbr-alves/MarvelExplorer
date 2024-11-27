@@ -2,10 +2,22 @@ package alexProject.util
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 
@@ -68,5 +80,35 @@ fun String.limitDescription(characters : Int) : String {
         return "${this.substring(firstCharacter, characters)}..."
     }
     return this
+}
+fun FragmentActivity.setStatusBarColor(color: Int, isLight: Boolean = false) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        window.statusBarColor = ContextCompat.getColor(this@setStatusBarColor, color)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val insetsController = WindowInsetsControllerCompat(window, window.decorView)
+            insetsController.isAppearanceLightStatusBars = isLight
+        }
+    }
+}
+
+fun FragmentActivity.setFullScreenMode() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        // Para Android 11+ (API 30+)
+        window.insetsController?.let { controller ->
+            controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    } else {
+        // Para versões anteriores
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+    }
 }

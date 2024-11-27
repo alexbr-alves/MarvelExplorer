@@ -36,6 +36,7 @@ class ComicViewModel @Inject constructor(
         offset: Int
     ) {
         isLoading.value = true
+
         when (verify) {
             Constants.CHARACTER -> {
                 handleFetchResponse(

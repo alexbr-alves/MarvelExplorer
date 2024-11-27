@@ -1,40 +1,53 @@
 package alexProject.fragment
 
 import alexProject.activity.MainActivity
-import alexProject.adapters.MenuHomeAdapter
-import alexProject.data.model.DestinationHome
 import alexProject.data.model.MenuHomeModel
 import alexProject.databinding.FragmentHomeBinding
 import alexProject.util.Constants
-import alexProject.util.observe
 import alexProject.viewModel.HomeViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val viewModel: HomeViewModel by viewModels()
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
-    private val menuAdapter by lazy { MenuHomeAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clickEvents()
-        collectObserve()
+        setupUI()
     }
 
-    private fun collectObserve() = lifecycleScope.launch {
-        with(viewModel) {
-            observe(list) {
-                setupRecyclerView(it)
-            }
+    private fun setupUI() = binding.run {
+        contraintCharacters.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToCharacterFragment(
+                    Constants.HOME,
+                    0
+                )
+            findNavController().navigate(action)
+        }
+        contraintComics.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
+            findNavController().navigate(action)
+        }
+        contraintMoveis.setOnClickListener {
+            mainActivity.goToMoviesActivity()
+        }
+        contraintTvshow.setOnClickListener {
+            mainActivity.goToTvShow()
+        }
+        contraintGames.setOnClickListener {
+            mainActivity.goToGamesActivity()
+        }
+        contraintTeams.setOnClickListener {
+            mainActivity.goToGroupActivity()
         }
     }
 
@@ -43,38 +56,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
-
-    private fun clickEvents() {
-        menuAdapter.setOnItemClickListener {
-            when (it.destination) {
-                DestinationHome.COMIC -> {
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToComicsFragment(Constants.HOME, 0)
-                    findNavController().navigate(action)
-                }
-
-                DestinationHome.CHARACTERS -> {
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(
-                            Constants.HOME,
-                            0
-                        )
-                    findNavController().navigate(action)
-                }
-
-                DestinationHome.MOVIES -> mainActivity.goToMoviesActivity()
-                DestinationHome.TV_SHOW -> mainActivity.goToTvShow()
-                DestinationHome.GAMES -> mainActivity.goToGamesActivity()
-                DestinationHome.TEAMS -> mainActivity.goToGroupActivity()
-            }
-        }
-    }
-
-    private fun setupRecyclerView(list: List<MenuHomeModel>) = with(binding) {
-        recycleMenu.apply {
-            adapter = menuAdapter
-            menuAdapter.list = list
-        }
-    }
 
 }

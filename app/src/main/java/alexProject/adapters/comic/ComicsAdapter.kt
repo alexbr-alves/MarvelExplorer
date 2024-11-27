@@ -1,5 +1,6 @@
 package alexProject.adapters.comic
 
+import alexProject.R
 import alexProject.data.model.comic.ComicModel
 import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.Constants
@@ -8,11 +9,14 @@ import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 
 class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
@@ -21,7 +25,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
         override fun areItemsTheSame(oldItem : ComicModel, newItem : ComicModel) : Boolean {
-            return true
+            return oldItem.id == newItem.id
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -29,59 +33,64 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
             oldItem : ComicModel,
             newItem : ComicModel
         ) : Boolean {
-            return oldItem.id == newItem.id &&
-                    oldItem.title == newItem.title &&
-                    oldItem.description == newItem.description &&
-                    oldItem.thumbnailModel.path == newItem.thumbnailModel.path &&
-                    oldItem.thumbnailModel.extension == newItem.thumbnailModel.extension &&
-                    oldItem.characters.available == newItem.characters.available &&
-                    oldItem.events.available == newItem.events.available
+            return oldItem == newItem
         }
 
     }
 
     private val differ = AsyncListDiffer(this, differCallback)
+    private val comicMutableList: MutableList<ComicModel> = mutableListOf()
 
-    var comicList : List<ComicModel>
+    var comicList: List<ComicModel>
         get() = differ.currentList
-        set(value) = differ.submitList(value.filter {
-            it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
-        })
+        set(value) {
+            comicMutableList.clear()
+            comicMutableList.addAll(value)
+            differ.submitList(comicMutableList)
+        }
 
-    override fun getItemCount() : Int {
+    override fun getItemCount(): Int {
         return comicList.size
     }
 
-    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ComicsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicsViewHolder {
         return ComicsViewHolder(
             ItemCardNameBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
+    fun addItems(newItems: List<ComicModel>) {
+        val startPosition = comicMutableList.size
+        comicMutableList.addAll(newItems)
+        differ.submitList(comicMutableList)
+        notifyItemRangeInserted(startPosition, newItems.size)
+        notifyDataSetChanged()
+    }
+
+    fun clearItems() {
+        comicMutableList.clear()
+        differ.submitList(null)
+        notifyDataSetChanged()
+    }
 
     private var onItemClickListener : ((ComicModel) -> Unit)? = null
 
-    fun setOnClickListener(listener : (ComicModel) -> Unit) {
+    fun setOnClickListener(listener: (ComicModel) -> Unit) {
         onItemClickListener = listener
     }
 
-    override fun onBindViewHolder(holder : ComicsViewHolder, position : Int) {
+    override fun onBindViewHolder(holder: ComicsViewHolder, position: Int) {
         val comic = comicList[position]
         holder.binding.apply {
             textName.text = removeParenthesesOnTitle(comic.title).limitDescription(15)
-            textComic.setGone()
-            imageComic.setGone()
-            textPeople.text = comic.characters.available.toString()
-            textEvent.text = comic.events.available.toString()
-
             loadImage(
                 image,
                 comic.thumbnailModel.path,
                 comic.thumbnailModel.extension
             )
         }
-        holder.itemView.setOnClickListener {
+        holder.itemView.findViewById<MaterialCardView>(R.id.card).setOnClickListener {
             onItemClickListener?.let {
                 it(comic)
             }
