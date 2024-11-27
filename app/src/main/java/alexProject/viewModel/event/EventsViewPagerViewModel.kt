@@ -1,7 +1,7 @@
 package alexProject.viewModel.event
 
 import alexProject.data.model.event.EventModelResponse
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.viewModel.BaseViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventsViewPagerViewModel @Inject constructor(
-    val repository: MarvelRepository
+    val repository: MarvelRepositoryImpl
 ) : BaseViewModel() {
     val eventList = MutableLiveData<ResourceState<EventModelResponse>>()
 

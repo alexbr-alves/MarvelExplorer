@@ -5,8 +5,8 @@ import alexProject.data.model.StoryModel
 import alexProject.data.model.StoryModelData
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.comic.ComicModelResponse
-import alexProject.repository.DatabaseRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.DatabaseRepository
+import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TimelineViewModel @Inject constructor(
-    private val repository: MarvelRepository,
+    private val repository: MarvelRepositoryImpl,
     private val dataRepository: DatabaseRepository
 ) : BaseViewModel() {
 

@@ -1,4 +1,4 @@
-package alexProject.repository
+package alexProject.domain.repository
 
 import alexProject.data.remote.ServiceApi
 import javax.inject.Inject

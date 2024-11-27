@@ -1,7 +1,7 @@
 package alexProject.viewModel.comics
 
 import alexProject.data.model.comic.ComicModelResponse
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.viewModel.BaseViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicViewModel @Inject constructor(
-    private val repository: MarvelRepository
+    private val repository: MarvelRepositoryImpl
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()

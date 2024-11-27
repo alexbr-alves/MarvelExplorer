@@ -1,4 +1,4 @@
-package alexProject.repository
+package alexProject.domain.repository
 
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel

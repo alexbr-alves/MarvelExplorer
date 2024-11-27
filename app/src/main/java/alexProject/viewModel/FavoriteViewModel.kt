@@ -1,8 +1,7 @@
 package alexProject.viewModel
 
 import alexProject.data.model.FavoriteModel
-import alexProject.repository.DatabaseRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.DatabaseRepository
 import alexProject.state.ResourceState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

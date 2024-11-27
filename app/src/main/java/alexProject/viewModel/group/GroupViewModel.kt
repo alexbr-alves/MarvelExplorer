@@ -1,8 +1,7 @@
 package alexProject.viewModel.group
 
 import alexProject.data.model.group.GroupModelResponse
-import alexProject.repository.GithubRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.GithubRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
 import androidx.lifecycle.MutableLiveData

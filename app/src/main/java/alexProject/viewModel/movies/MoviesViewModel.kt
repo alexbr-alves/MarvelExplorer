@@ -1,8 +1,7 @@
 package alexProject.viewModel.movies
 
 import alexProject.data.model.movies.MoviesModelResponse
-import alexProject.repository.GithubRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.repository.GithubRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
 import androidx.lifecycle.MutableLiveData
