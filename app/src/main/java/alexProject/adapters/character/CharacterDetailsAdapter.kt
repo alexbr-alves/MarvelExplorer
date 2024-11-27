@@ -1,6 +1,6 @@
 package alexProject.adapters.character
 
-import alexProject.data.model.character.CharacterModel
+import alexProject.network.response.CharacterModel
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage

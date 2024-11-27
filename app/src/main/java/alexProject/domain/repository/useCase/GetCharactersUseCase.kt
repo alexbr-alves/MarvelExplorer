@@ -1,6 +1,6 @@
 package alexProject.domain.repository.useCase
 
-import alexProject.data.model.character.CharacterResponse
+import alexProject.network.response.CharacterResponse
 import alexProject.data.repository.MarvelRepository
 import alexProject.network.response.AsyncResult
 import alexProject.util.toAsyncResult

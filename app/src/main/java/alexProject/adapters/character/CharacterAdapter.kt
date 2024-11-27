@@ -2,7 +2,7 @@ package alexProject.adapters.character
 
 
 import alexProject.R
-import alexProject.data.model.character.CharacterModel
+import alexProject.network.response.CharacterModel
 import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage

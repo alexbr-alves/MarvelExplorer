@@ -1,6 +1,6 @@
 package alexProject.domain.repository
 
-import alexProject.data.model.character.CharacterResponse
+import alexProject.network.response.CharacterResponse
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.MarvelRepository
 import io.reactivex.Observable

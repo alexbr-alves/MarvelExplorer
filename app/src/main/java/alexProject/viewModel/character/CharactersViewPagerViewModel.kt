@@ -1,6 +1,6 @@
 package alexProject.viewModel.character
 
-import alexProject.data.model.character.CharacterResponse
+import alexProject.network.response.CharacterResponse
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants

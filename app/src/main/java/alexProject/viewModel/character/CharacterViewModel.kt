@@ -1,6 +1,6 @@
 package alexProject.viewModel.character
 
-import alexProject.data.model.character.CharacterResponse
+import alexProject.network.response.CharacterResponse
 import alexProject.domain.repository.useCase.GetCharactersUseCase
 import alexProject.state.SingleLiveEvent
 import alexProject.viewModel.MarvelViewModel

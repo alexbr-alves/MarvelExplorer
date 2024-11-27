@@ -1,6 +1,6 @@
 package alexProject.data.repository
 
-import alexProject.data.model.character.CharacterResponse
+import alexProject.network.response.CharacterResponse
 import alexProject.data.model.comic.ComicModelResponse
 import alexProject.data.model.event.EventModelResponse
 import io.reactivex.Observable

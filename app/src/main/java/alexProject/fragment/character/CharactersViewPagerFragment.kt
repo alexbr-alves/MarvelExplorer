@@ -6,7 +6,6 @@ import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterViewPagerBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
-import alexProject.fragment.comic.ComicsViewPagerFragment
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
@@ -100,11 +99,11 @@ class CharactersViewPagerFragment(private val comicId: Int, private val origin: 
                 binding.progressBarDetail.setVisible(isLoading)
             }
             observe(comicCharacterList) { result ->
-                result.data?.data?.let { characterModels ->
-                    if (characterModels.results.isEmpty()) {
+                result.data?.apiResponse?.let { characterModels ->
+                    if (characterModels.entityList.isEmpty()) {
                         binding.textEmpty.setVisible()
                     } else {
-                        characterDetailsAdapter.characters = characterModels.results.toList()
+                        characterDetailsAdapter.characters = characterModels.entityList.toList()
                         totalItems = characterModels.total
                     }
                 }

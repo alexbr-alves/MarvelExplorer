@@ -1,4 +1,4 @@
-package alexProject.data.model.character
+package alexProject.network.response
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
@@ -9,14 +9,14 @@ import java.io.Serializable
 
 data class CharacterResponse(
     @SerializedName("data")
-    val data : CharacterModelData
+    val apiResponse : CharacterModelData
 )
 
 data class CharacterModelData(
     @SerializedName("total")
     val total: Int,
     @SerializedName("results")
-    val results : List<CharacterModel>
+    val entityList : List<CharacterModel>
 ) : Serializable
 
 
