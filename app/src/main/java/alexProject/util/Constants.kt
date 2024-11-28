@@ -3,7 +3,7 @@ package alexProject.util
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
 import alexProject.network.response.ComicModel
-import alexProject.network.response.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 
 object Constants {
@@ -43,7 +43,7 @@ object Constants {
         )
     )
 
-    val CHARACTER_INVALID = CharacterModel(
+    val CHARACTER_INVALID = CharacterResponse(
         id = 0,
         name = "",
         description = "",

@@ -1,10 +1,12 @@
 package alexProject.viewModel.character
 
+import alexProject.domain.repository.useCase.character.GetCharacterComicsUseCase
+import alexProject.domain.repository.useCase.character.GetCharacterEventsUseCase
+import alexProject.domain.repository.useCase.character.GetCharactersUseCase
 import alexProject.network.response.CharacterResponse
-import alexProject.domain.repository.useCase.GetCharactersUseCase
-import alexProject.network.response.CharacterModel
 import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
+import alexProject.util.Constants
 import alexProject.viewModel.MarvelViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,10 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
+    private val getCharacterEventsUseCase: GetCharacterEventsUseCase,
+    private val getCharacterComicsUseCase: GetCharacterComicsUseCase
 ) : MarvelViewModel() {
 
-    val listItem = SingleLiveEvent<GenericResponse<CharacterModel>>()
-    var firshLoading = false
+    val characterList = SingleLiveEvent<GenericResponse<CharacterResponse>>()
     fun fetch(
         verify: String? = null,
         id: Int? = null,
@@ -25,27 +28,45 @@ class CharacterViewModel @Inject constructor(
     ) {
         when (
             verify) {
-//            Constants.COMIC -> {
-//                handleFetchResponse(
-//                    repository.getCharacterComics(id ?: 0, limit, offset),
-//                    listItem
-//                )
-//            }
-//
-//            Constants.EVENT -> {
-//                handleFetchResponse(
-//                    repository.getCharacterEvent(id ?: 0, limit, offset),
-//                    listItem
-//                )
-//            }
+            Constants.COMIC -> {
+                getCharacterComic(id ?: 0, limit, offset)
+            }
+
+            Constants.EVENT -> {
+                getCharacterEvent(id ?: 0, limit, offset)
+            }
 
             else -> {
-                handleObservable(getCharactersUseCase(nameStartsWith, limit, offset),
-                    successHandler = {
-                    listItem.value = it
-                })
+                getCharacter(nameStartsWith, limit, offset)
             }
         }
+    }
+
+    private fun getCharacter(nameStartsWith: String?, limit: Int, offset: Int?) {
+        handleObservable(
+            observable = getCharactersUseCase(nameStartsWith, limit, offset),
+            successHandler = {
+                characterList.value = it
+            }
+        )
+    }
+
+    private fun getCharacterEvent(characterId: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getCharacterEventsUseCase(characterId, limit = limit, offset),
+            successHandler = {
+                characterList.value = it
+            }
+        )
+    }
+
+    private fun getCharacterComic(characterId: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getCharacterComicsUseCase(characterId, limit = limit, offset),
+            successHandler = {
+                characterList.value = it
+            }
+        )
     }
 
 }

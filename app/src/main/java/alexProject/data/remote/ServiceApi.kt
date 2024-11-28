@@ -1,13 +1,12 @@
 package alexProject.data.remote
 
 import alexProject.data.model.group.GroupModelResponse
-import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
-import alexProject.network.response.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.network.response.GenericResponse
 import alexProject.util.KeyGithub.GITHUB_BASE_URL
 import alexProject.util.KeyGithub.RF_MARVEL_GAMES
@@ -27,7 +26,7 @@ interface ServiceApi {
         @Query("nameStartsWith") nameStartsWith : String? = null,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
-    ) : Observable<GenericResponse<CharacterModel>>
+    ) : Observable<GenericResponse<CharacterResponse>>
 
     @GET("comics")
     suspend fun comics(
@@ -67,14 +66,14 @@ interface ServiceApi {
     //Comic details
 
     @GET("comics/{comicId}/characters")
-    suspend fun getCharacterComics(
+    fun getCharacterComics(
         @Path(
             value = "comicId",
             encoded = true
         ) comicId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<CharacterResponse>
+    ) : Observable<GenericResponse<CharacterResponse>>
 
     @GET("comics/{comicId}/events")
     suspend fun getEventComics(
@@ -89,14 +88,14 @@ interface ServiceApi {
     //Event details
 
     @GET("events/{eventId}/characters")
-    suspend fun getCharacterEvent(
+    fun getCharacterEvent(
         @Path(
             value = "eventId",
             encoded = true
         ) eventId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<CharacterResponse>
+    ) : Observable<GenericResponse<CharacterResponse>>
 
     @GET("events/{eventId}/comics")
     suspend fun getComicEvent(

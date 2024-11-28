@@ -60,7 +60,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
 
     private fun collectObserve() = with(viewModel) {
         fetch(args.origem, args.id, offset = initialOffset)
-        observe(listItem) { result ->
+        observe(characterList) { result ->
             result.apiResponse.let { character ->
                 if (character.entityList.isNotEmpty()) {
                     if (initialOffset == 0) {

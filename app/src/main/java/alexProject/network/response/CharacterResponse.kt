@@ -7,21 +7,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class CharacterResponse(
-    @SerializedName("data")
-    val apiResponse : CharacterModelData
-)
-
-data class CharacterModelData(
-    @SerializedName("total")
-    val total: Int,
-    @SerializedName("results")
-    val entityList : List<CharacterModel>
-) : Serializable
-
-
 @Entity(tableName = "characterModel")
-data class CharacterModel(
+data class CharacterResponse(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id : Int,

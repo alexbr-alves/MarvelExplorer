@@ -2,7 +2,7 @@ package alexProject.domain.repository
 
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.MarvelRepository
-import alexProject.network.response.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.network.response.GenericResponse
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MarvelRepositoryImpl @Inject constructor(
     private val api: ServiceApi
 ): MarvelRepository {
-    override fun getCharacters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<GenericResponse<CharacterModel>> =
+    override fun getCharacters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<GenericResponse<CharacterResponse>> =
         api.getCharacters(nameStartsWith, limit, offset)
 
     override suspend fun comics(
@@ -30,14 +30,14 @@ class MarvelRepositoryImpl @Inject constructor(
         api.getEventsCharacter(characterId, limit, offset)
 
     //Comic details
-    override suspend fun getCharacterComics(comicId: Int, limit: Int, offset: Int?) =
+    override fun getCharacterComics(comicId: Int, limit: Int, offset: Int?) =
         api.getCharacterComics(comicId, limit, offset)
 
     override suspend fun getEventComics(comicId: Int, limit: Int, offset: Int?) =
         api.getEventComics(comicId, limit, offset)
 
     //Events details
-    override suspend fun getCharacterEvent(eventId: Int, limit: Int, offset: Int?) =
+    override fun getCharacterEvent(eventId: Int, limit: Int, offset: Int?) =
         api.getCharacterEvent(eventId, limit, offset)
 
     override suspend fun getComicEvent(eventId: Int, limit: Int, offset: Int?) =

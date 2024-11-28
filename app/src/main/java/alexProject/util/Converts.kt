@@ -4,29 +4,29 @@ import alexProject.data.model.FavoriteModel
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.SizeItens
 import alexProject.network.response.ComicModel
-import alexProject.network.response.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 
 class Converts {
 
-    fun characterToFavorite(characterModel : CharacterModel) : FavoriteModel {
+    fun characterToFavorite(characterResponse : CharacterResponse) : FavoriteModel {
         return FavoriteModel(
-            characterModel.id,
-            characterModel.name,
-            characterModel.description ?: "",
+            characterResponse.id,
+            characterResponse.name,
+            characterResponse.description ?: "",
             Constants.CHARACTER,
             thumbnailModel = ThumbnailModel(
-                path = characterModel.thumbnailModel.path,
-                extension = characterModel.thumbnailModel.extension
+                path = characterResponse.thumbnailModel.path,
+                extension = characterResponse.thumbnailModel.extension
             ),
-            item1 = characterModel.comics.available ?: 0,
+            item1 = characterResponse.comics.available ?: 0,
 
-            item2 = characterModel.events.available ?: 0
+            item2 = characterResponse.events.available ?: 0
         )
     }
 
-    fun favoriteToCharacter(favoriteModel : FavoriteModel) : CharacterModel {
-        return CharacterModel(
+    fun favoriteToCharacter(favoriteModel : FavoriteModel) : CharacterResponse {
+        return CharacterResponse(
             favoriteModel.id,
             favoriteModel.title,
             favoriteModel.description ?: "",

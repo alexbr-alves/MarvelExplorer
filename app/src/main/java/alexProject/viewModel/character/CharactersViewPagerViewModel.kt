@@ -1,42 +1,49 @@
 package alexProject.viewModel.character
 
+import alexProject.domain.repository.useCase.character.GetCharacterComicsUseCase
+import alexProject.domain.repository.useCase.character.GetCharacterEventsUseCase
 import alexProject.network.response.CharacterResponse
-import alexProject.domain.repository.MarvelRepositoryImpl
-import alexProject.state.ResourceState
+import alexProject.network.response.GenericResponse
+import alexProject.state.SingleLiveEvent
 import alexProject.util.Constants
-import alexProject.viewModel.BaseViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import alexProject.viewModel.MarvelViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewPagerViewModel @Inject constructor(
-    private val repository: MarvelRepositoryImpl
-) : BaseViewModel() {
-    val comicCharacterList = MutableLiveData<ResourceState<CharacterResponse>>()
+    private val getCharacterEventsUseCase: GetCharacterEventsUseCase,
+    private val getCharacterComicsUseCase: GetCharacterComicsUseCase,
+) : MarvelViewModel() {
+    val comicCharacterList = SingleLiveEvent<GenericResponse<CharacterResponse>>()
 
-    fun fetchCharacterComic(comicId: Int, origin: String) = viewModelScope.launch {
-        safeFetchCharacterComic(comicId, origin)
-    }
-
-    private suspend fun safeFetchCharacterComic(characterId: Int, origin: String) {
-        isLoading.value = true
+    fun getCharacter(characterId: Int, origin: String) {
         when (origin) {
             Constants.COMIC -> {
-                handleFetchResponse(
-                    repository.getCharacterComics(characterId, limit = 30),
-                    comicCharacterList
-                )
+                getCharacterComic(characterId, limit = 30)
             }
 
             Constants.EVENT -> {
-                handleFetchResponse(
-                    repository.getCharacterEvent(characterId, limit = 30),
-                    comicCharacterList
-                )
+                getCharacterEvent(characterId, limit = 30)
             }
         }
+    }
+
+    private fun getCharacterEvent(characterId: Int, limit: Int) {
+        handleObservable(
+            observable = getCharacterEventsUseCase(characterId, limit = limit),
+            successHandler = {
+                comicCharacterList.value = it
+            }
+        )
+    }
+
+    private fun getCharacterComic(characterId: Int, limit: Int) {
+        handleObservable(
+            observable = getCharacterComicsUseCase(characterId, limit = limit),
+            successHandler = {
+                comicCharacterList.value = it
+            }
+        )
     }
 }
