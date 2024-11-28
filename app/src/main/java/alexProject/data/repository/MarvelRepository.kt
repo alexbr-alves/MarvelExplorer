@@ -3,15 +3,17 @@ package alexProject.data.repository
 import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicResponse
 import alexProject.data.model.event.EventModelResponse
+import alexProject.network.response.CharacterModel
+import alexProject.network.response.GenericResponse
 import io.reactivex.Observable
 import retrofit2.Response
 
 interface MarvelRepository {
-    fun characters(
+    fun getCharacters(
         nameStartsWith: String? = null,
         limit: Int = 100,
         offset: Int? = 0
-    ): Observable<CharacterResponse>
+    ): Observable<GenericResponse<CharacterModel>>
 
     suspend fun comics(
         titleStartsWith: String? = null,

@@ -7,6 +7,8 @@ import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
+import alexProject.network.response.CharacterModel
+import alexProject.network.response.GenericResponse
 import alexProject.util.KeyGithub.GITHUB_BASE_URL
 import alexProject.util.KeyGithub.RF_MARVEL_GAMES
 import alexProject.util.KeyGithub.RF_MARVEL_GROUPS
@@ -21,11 +23,11 @@ import retrofit2.http.Query
 interface ServiceApi {
 
     @GET("characters")
-    fun characters(
+    fun getCharacters(
         @Query("nameStartsWith") nameStartsWith : String? = null,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
-    ) : Observable<CharacterResponse>
+    ) : Observable<GenericResponse<CharacterModel>>
 
     @GET("comics")
     suspend fun comics(

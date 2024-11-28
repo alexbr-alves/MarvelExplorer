@@ -2,6 +2,8 @@ package alexProject.viewModel.character
 
 import alexProject.network.response.CharacterResponse
 import alexProject.domain.repository.useCase.GetCharactersUseCase
+import alexProject.network.response.CharacterModel
+import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
 import alexProject.viewModel.MarvelViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +14,7 @@ class CharacterViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
 ) : MarvelViewModel() {
 
-    val listItem = SingleLiveEvent<CharacterResponse>()
+    val listItem = SingleLiveEvent<GenericResponse<CharacterModel>>()
     var firshLoading = false
     fun fetch(
         verify: String? = null,
@@ -21,7 +23,8 @@ class CharacterViewModel @Inject constructor(
         limit: Int = 100,
         offset: Int
     ) {
-        when (verify) {
+        when (
+            verify) {
 //            Constants.COMIC -> {
 //                handleFetchResponse(
 //                    repository.getCharacterComics(id ?: 0, limit, offset),

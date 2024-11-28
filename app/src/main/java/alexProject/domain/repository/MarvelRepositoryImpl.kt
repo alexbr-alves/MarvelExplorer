@@ -1,16 +1,17 @@
 package alexProject.domain.repository
 
-import alexProject.network.response.CharacterResponse
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.MarvelRepository
+import alexProject.network.response.CharacterModel
+import alexProject.network.response.GenericResponse
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class MarvelRepositoryImpl @Inject constructor(
     private val api: ServiceApi
 ): MarvelRepository {
-    override fun characters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<CharacterResponse> =
-        api.characters(nameStartsWith, limit, offset)
+    override fun getCharacters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<GenericResponse<CharacterModel>> =
+        api.getCharacters(nameStartsWith, limit, offset)
 
     override suspend fun comics(
         titleStartsWith: String?,

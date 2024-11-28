@@ -42,13 +42,13 @@ private fun getErrorResponse(throwable: Throwable): AsyncResult.Failure {
                 code = statusCode
             )
         )
-        failureResult.error.message = if (genericResponse?.result != null) {
+        failureResult.error.message = if (genericResponse?.apiResponse != null) {
             genericResponse.error?.message
         } else {
             GENERIC_MESSAGE_ERROR
         }
 
-        failureResult.error.title = if (genericResponse?.result != null) {
+        failureResult.error.title = if (genericResponse?.apiResponse != null) {
             genericResponse.error?.title
         } else {
             GENERIC_TITLE_ERROR
