@@ -9,11 +9,15 @@ import javax.inject.Inject
 
 class MarvelRepositoryImpl @Inject constructor(
     private val api: ServiceApi
-): MarvelRepository {
-    override fun getCharacters(nameStartsWith: String?, limit: Int, offset: Int?): Observable<GenericResponse<CharacterResponse>> =
+) : MarvelRepository {
+    override fun getCharacters(
+        nameStartsWith: String?,
+        limit: Int,
+        offset: Int?
+    ): Observable<GenericResponse<CharacterResponse>> =
         api.getCharacters(nameStartsWith, limit, offset)
 
-    override suspend fun comics(
+    override fun getComics(
         titleStartsWith: String?,
         limit: Int,
         offset: Int?,
@@ -23,7 +27,7 @@ class MarvelRepositoryImpl @Inject constructor(
     override suspend fun events() = api.events()
 
     //Character details
-    override suspend fun getComicsCharacter(characterId: Int, limit: Int?, offset: Int?) =
+    override fun getComicsCharacter(characterId: Int, limit: Int?, offset: Int?) =
         api.getComicsCharacter(characterId, limit, offset)
 
     override suspend fun getEventsCharacter(characterId: Int, limit: Int, offset: Int?) =
@@ -40,7 +44,7 @@ class MarvelRepositoryImpl @Inject constructor(
     override fun getCharacterEvent(eventId: Int, limit: Int, offset: Int?) =
         api.getCharacterEvent(eventId, limit, offset)
 
-    override suspend fun getComicEvent(eventId: Int, limit: Int, offset: Int?) =
+    override fun getComicEvent(eventId: Int, limit: Int, offset: Int?) =
         api.getComicEvent(eventId, limit, offset)
 
     //Timeline

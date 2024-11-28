@@ -3,6 +3,7 @@ package alexProject.data.repository
 import alexProject.network.response.ComicResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.network.response.CharacterResponse
+import alexProject.network.response.ComicModel
 import alexProject.network.response.GenericResponse
 import io.reactivex.Observable
 import retrofit2.Response
@@ -14,20 +15,20 @@ interface MarvelRepository {
         offset: Int? = 0
     ): Observable<GenericResponse<CharacterResponse>>
 
-    suspend fun comics(
+    fun getComics(
         titleStartsWith: String? = null,
         limit: Int = 100,
         offset: Int? = 0,
         orderBy: String? = null
-    ): Response<ComicResponse>
+    ): Observable<GenericResponse<ComicModel>>
 
     suspend fun events(): Response<EventModelResponse>
 
-    suspend fun getComicsCharacter(
+    fun getComicsCharacter(
         characterId: Int,
         limit: Int? = 100,
         offset: Int? = 0
-    ): Response<ComicResponse>
+    ): Observable<GenericResponse<ComicModel>>
 
     suspend fun getEventsCharacter(
         characterId: Int,
@@ -42,7 +43,7 @@ interface MarvelRepository {
     //Events details
     fun getCharacterEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Observable<GenericResponse<CharacterResponse>>
 
-    suspend fun getComicEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Response<ComicResponse>
+    fun getComicEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Observable<GenericResponse<ComicModel>>
 
     //Timeline
     suspend fun getComicTimeline() : Response<ComicResponse>

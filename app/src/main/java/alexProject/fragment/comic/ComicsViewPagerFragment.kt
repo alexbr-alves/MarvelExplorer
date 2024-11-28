@@ -24,20 +24,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ComicsViewPagerFragment(private val characterId: Int,private val origin: String) :
+class ComicsViewPagerFragment(private val characterId: Int, private val origin: String) :
     BaseFragment<FragmentComicsViewPagerBinding, ComicsViewPagerViewModel>() {
 
-    override val viewModel : ComicsViewPagerViewModel by viewModels()
+    override val viewModel: ComicsViewPagerViewModel by viewModels()
     private val comicDetailsAdapter by lazy { ComicDetailsAdapter() }
-    private var totalItems : Int = 0
+    private var totalItems: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentComicsViewPagerBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentComicsViewPagerBinding =
         FragmentComicsViewPagerBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
         collectObserver()
@@ -71,7 +71,7 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
             layoutManager = GridLayoutManager(context, SPAN_COUNT)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -89,28 +89,28 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
         }
     }
 
-    private fun collectObserver() = lifecycleScope.launch {
-        with(viewModel) {
-            fetchComic(characterId, origin)
-            observe(comicList) { result ->
-                result.data?.apiResponse?.let { comicModelData ->
-                    if (comicModelData.entityList.isNotEmpty()) {
-                        comicDetailsAdapter.comics = comicModelData.entityList.toList()
-                        totalItems = comicModelData.total
-                    } else {
-                        binding.textEmpty.setVisible()
-                    }
+    private fun collectObserver() = with(viewModel) {
+        getComics(characterId, origin)
+        observe(comicList) { result ->
+            result?.apiResponse?.let { comicModelData ->
+                if (comicModelData.entityList.isNotEmpty()) {
+                    comicDetailsAdapter.comics = comicModelData.entityList.toList()
+                    totalItems = comicModelData.total
+                } else {
+                    binding.textEmpty.setVisible()
                 }
             }
-            observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
-            }
-
-            observe(isLoading) {isLoading ->
-                binding.progressBarDetail.setVisible(isLoading)
-            }
         }
+        observe(onError) { onError ->
+            (activity as MainActivity).showError(onError.message)
+        }
+
+        observe(onLoading) { isLoading ->
+            binding.progressBarDetail.setVisible(isLoading)
+        }
+
     }
+
     companion object {
         const val SPAN_COUNT = 3
         const val MAX_SIZE = 30

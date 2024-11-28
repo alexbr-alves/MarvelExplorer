@@ -56,15 +56,15 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
     }
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
-            fetch(args.origem, args.id, offset = initialOffset)
+            getComics(args.origem, args.id, offset = initialOffset)
             observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
+                (activity as MainActivity).showError(onError.message)
             }
-            observe(isLoading) { isLoading ->
+            observe(onLoading) { isLoading ->
                 binding.progressBarDetail.setVisible(isLoading)
             }
-            observe(listItems) { result ->
-                result.data?.apiResponse?.let { comicModelData ->
+            observe(comicList) { result ->
+                result?.apiResponse?.let { comicModelData ->
                     if (comicModelData.entityList.isNotEmpty()) {
                         if (initialOffset == 0) {
                             comicsAdapter.clearItems()
@@ -95,7 +95,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
                     if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount / 2) && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
                         initialOffset += 100
                         binding.progressBarDetail.setVisible(false)
-                        viewModel.fetch(args.origem, args.id, offset = initialOffset)
+                        viewModel.getComics(args.origem, args.id, offset = initialOffset)
                     }
                 }
             })
@@ -117,7 +117,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
     }
 
     private fun updateComicList(query: String? = null) {
-        viewModel.fetch(titleStartsWith = query, offset = initialOffset)
+        viewModel.getComics(titleStartsWith = query, offset = initialOffset)
     }
     override fun onSearchQueryChanged(query: String?) {
         query?.let { performSearch(it) }

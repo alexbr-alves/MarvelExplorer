@@ -1,11 +1,13 @@
 package alexProject.viewModel.comics
 
-import alexProject.network.response.ComicResponse
-import alexProject.domain.repository.MarvelRepositoryImpl
-import alexProject.state.ResourceState
+import alexProject.domain.repository.useCase.comic.GetComicCharactersUseCase
+import alexProject.domain.repository.useCase.comic.GetComicEventsUseCase
+import alexProject.domain.repository.useCase.comic.GetComicsUseCase
+import alexProject.network.response.ComicModel
+import alexProject.network.response.GenericResponse
+import alexProject.state.SingleLiveEvent
 import alexProject.util.Constants
-import alexProject.viewModel.BaseViewModel
-import androidx.lifecycle.MutableLiveData
+import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,51 +15,59 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicViewModel @Inject constructor(
-    private val repository: MarvelRepositoryImpl
-) : BaseViewModel() {
+    private val getComicsUseCase: GetComicsUseCase,
+    private val getComicEventsUseCase: GetComicEventsUseCase,
+    private val getComicCharactersUseCase: GetComicCharactersUseCase,
+) : MarvelViewModel() {
 
-    val listItems = MutableLiveData<ResourceState<ComicResponse>>()
+    val comicList = SingleLiveEvent<GenericResponse<ComicModel>>()
 
-    fun fetch(
-        verify: String? = null,
-        id: Int? = null,
-        titleStartsWith: String? = null,
-        limit: Int = 100,
-        offset: Int
-    ) = viewModelScope.launch {
-        safeFetch(verify, id, titleStartsWith, limit, offset)
-    }
-
-    private suspend fun safeFetch(
+    fun getComics(
         verify: String? = null,
         id: Int? = null,
         titleStartsWith: String? = null,
         limit: Int = 100,
         offset: Int
     ) {
-        isLoading.value = true
-
         when (verify) {
             Constants.CHARACTER -> {
-                handleFetchResponse(
-                    repository.getComicsCharacter(id ?: 0, limit, offset),
-                    listItems
-                )
+                getComicsCharacter(id ?: 0, limit, offset)
             }
 
             Constants.EVENT -> {
-                handleFetchResponse(
-                    repository.getComicEvent(id ?: 0, limit, offset),
-                    listItems
-                )
+                getComimicsEvent(id ?: 0, limit, offset)
             }
 
             else -> {
-                handleFetchResponse(
-                    repository.comics(titleStartsWith, limit, offset),
-                    listItems
-                )
+                getComics(titleStartsWith, limit, offset)
             }
         }
+    }
+
+    private fun getComics(titleStartsWith: String?, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getComicsUseCase(titleStartsWith, limit, offset),
+            successHandler = {
+                comicList.value = it
+            }
+        )
+    }
+
+    private fun getComicsCharacter(id: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getComicCharactersUseCase(id, limit, offset),
+            successHandler = {
+                comicList.value = it
+            }
+        )
+    }
+
+    private fun getComimicsEvent(id: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getComicEventsUseCase(id, limit, offset),
+            successHandler = {
+                comicList.value = it
+            }
+        )
     }
 }

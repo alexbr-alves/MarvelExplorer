@@ -7,6 +7,7 @@ import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.network.response.CharacterResponse
+import alexProject.network.response.ComicModel
 import alexProject.network.response.GenericResponse
 import alexProject.util.KeyGithub.GITHUB_BASE_URL
 import alexProject.util.KeyGithub.RF_MARVEL_GAMES
@@ -29,12 +30,12 @@ interface ServiceApi {
     ) : Observable<GenericResponse<CharacterResponse>>
 
     @GET("comics")
-    suspend fun comics(
+    fun comics(
         @Query("titleStartsWith") titleStartsWith : String? = null,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String? = null,
-    ) : Response<ComicResponse>
+    ) : Observable<GenericResponse<ComicModel>>
 
     @GET("events")
     suspend fun events(
@@ -43,7 +44,7 @@ interface ServiceApi {
     //Character details
 
     @GET("characters/{characterId}/comics")
-    suspend fun getComicsCharacter(
+    fun getComicsCharacter(
         @Path(
             value = "characterId",
             encoded = true
@@ -51,7 +52,7 @@ interface ServiceApi {
         @Query("limit") limit : Int? = 100,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String = "-modified"
-    ) : Response<ComicResponse>
+    ) : Observable<GenericResponse<ComicModel>>
 
     @GET("characters/{characterId}/events")
     suspend fun getEventsCharacter(
@@ -98,14 +99,14 @@ interface ServiceApi {
     ) : Observable<GenericResponse<CharacterResponse>>
 
     @GET("events/{eventId}/comics")
-    suspend fun getComicEvent(
+    fun getComicEvent(
         @Path(
             value = "eventId",
             encoded = true
         ) eventId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<ComicResponse>
+    ) : Observable<GenericResponse<ComicModel>>
 
     // Timeline
     @GET("comics")
