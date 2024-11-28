@@ -1,7 +1,7 @@
 package alexProject.viewModel.comics
 
 
-import alexProject.data.model.comic.ComicResponse
+import alexProject.network.response.ComicResponse
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants

@@ -4,7 +4,7 @@ import alexProject.data.model.FavoriteModel
 import alexProject.data.model.StoryModel
 import alexProject.data.model.StoryModelData
 import alexProject.data.model.ThumbnailModel
-import alexProject.data.model.comic.ComicResponse
+import alexProject.network.response.ComicResponse
 import alexProject.domain.repository.DatabaseRepository
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState

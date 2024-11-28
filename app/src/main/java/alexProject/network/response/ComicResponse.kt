@@ -1,4 +1,4 @@
-package alexProject.data.model.comic
+package alexProject.network.response
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel

@@ -1,7 +1,7 @@
 package alexProject.data.repository
 
 import alexProject.network.response.CharacterResponse
-import alexProject.data.model.comic.ComicResponse
+import alexProject.network.response.ComicResponse
 import alexProject.data.model.event.EventModelResponse
 import io.reactivex.Observable
 import retrofit2.Response

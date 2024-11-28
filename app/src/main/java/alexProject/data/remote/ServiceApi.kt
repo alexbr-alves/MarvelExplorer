@@ -2,7 +2,7 @@ package alexProject.data.remote
 
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.network.response.CharacterResponse
-import alexProject.data.model.comic.ComicResponse
+import alexProject.network.response.ComicResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
