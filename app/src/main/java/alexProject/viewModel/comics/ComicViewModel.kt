@@ -1,6 +1,6 @@
 package alexProject.viewModel.comics
 
-import alexProject.data.model.comic.ComicModelResponse
+import alexProject.data.model.comic.ComicResponse
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants
@@ -16,7 +16,7 @@ class ComicViewModel @Inject constructor(
     private val repository: MarvelRepositoryImpl
 ) : BaseViewModel() {
 
-    val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
+    val listItems = MutableLiveData<ResourceState<ComicResponse>>()
 
     fun fetch(
         verify: String? = null,

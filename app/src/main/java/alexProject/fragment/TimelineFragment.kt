@@ -1,28 +1,22 @@
 package alexProject.fragment
 
-import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
 import alexProject.data.model.StoryModelData
-import alexProject.data.model.ThumbnailModel
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
-import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,7 +73,7 @@ class TimelineFragment :
                 (activity as MainActivity).showError(onError)
             }
             observe(listItems) { result ->
-                result.data?.data?.result?.let {
+                result.data?.apiResponse?.entityList?.let {
                     timelineAdapter.timelineList = it.toList()
                     binding.recycleStorys.setVisible()
                 }

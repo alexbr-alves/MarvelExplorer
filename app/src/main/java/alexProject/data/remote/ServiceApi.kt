@@ -2,7 +2,7 @@ package alexProject.data.remote
 
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.network.response.CharacterResponse
-import alexProject.data.model.comic.ComicModelResponse
+import alexProject.data.model.comic.ComicResponse
 import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
@@ -33,7 +33,7 @@ interface ServiceApi {
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String? = null,
-    ) : Response<ComicModelResponse>
+    ) : Response<ComicResponse>
 
     @GET("events")
     suspend fun events(
@@ -50,7 +50,7 @@ interface ServiceApi {
         @Query("limit") limit : Int? = 100,
         @Query("offset") offset : Int? = 0,
         @Query("orderBy") orderBy : String = "-modified"
-    ) : Response<ComicModelResponse>
+    ) : Response<ComicResponse>
 
     @GET("characters/{characterId}/events")
     suspend fun getEventsCharacter(
@@ -104,7 +104,7 @@ interface ServiceApi {
         ) eventId : Int,
         @Query("limit") limit : Int = 100,
         @Query("offset") offset : Int? = 0
-    ) : Response<ComicModelResponse>
+    ) : Response<ComicResponse>
 
     // Timeline
     @GET("comics")
@@ -112,7 +112,7 @@ interface ServiceApi {
         @Query("orderBy") orderBy : String? = "-modified",
         @Query("limit") limit : Int?  = 60,
         @Query("offset") offset : Int? = 0,
-    ) : Response<ComicModelResponse>
+    ) : Response<ComicResponse>
 
     //GITHUB API
     @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)

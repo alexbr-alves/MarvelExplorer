@@ -4,8 +4,8 @@ import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
-import alexProject.network.response.CharacterModel
 import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.CharacterModel
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentDetailsBinding
 import alexProject.util.Constants.CHARACTER

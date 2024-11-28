@@ -4,7 +4,7 @@ import alexProject.data.model.FavoriteModel
 import alexProject.data.model.StoryModel
 import alexProject.data.model.StoryModelData
 import alexProject.data.model.ThumbnailModel
-import alexProject.data.model.comic.ComicModelResponse
+import alexProject.data.model.comic.ComicResponse
 import alexProject.domain.repository.DatabaseRepository
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
@@ -23,8 +23,8 @@ class TimelineViewModel @Inject constructor(
     private val dataRepository: DatabaseRepository
 ) : BaseViewModel() {
 
-    val listItems = MutableLiveData<ResourceState<ComicModelResponse>>()
-    val listComics = MutableLiveData<ResourceState<ComicModelResponse>>()
+    val listItems = MutableLiveData<ResourceState<ComicResponse>>()
+    val listComics = MutableLiveData<ResourceState<ComicResponse>>()
     val listStoryComics = MutableLiveData<StoryModelData>()
 
     private val _storyList =
@@ -76,7 +76,7 @@ class TimelineViewModel @Inject constructor(
                 repository.getComicsCharacter(id, limit = 3, offset = 0),
                 listComics
             )
-            val comics = listComics.value?.data?.data?.result ?: emptyList()
+            val comics = listComics.value?.data?.apiResponse?.entityList ?: emptyList()
             val storyModel = StoryModel(
                 id = id,
                 thumbnailModel = thumbnailModel,

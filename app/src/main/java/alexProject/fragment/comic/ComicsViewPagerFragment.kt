@@ -93,9 +93,9 @@ class ComicsViewPagerFragment(private val characterId: Int,private val origin: S
         with(viewModel) {
             fetchComic(characterId, origin)
             observe(comicList) { result ->
-                result.data?.data?.let { comicModelData ->
-                    if (comicModelData.result.isNotEmpty()) {
-                        comicDetailsAdapter.comics = comicModelData.result.toList()
+                result.data?.apiResponse?.let { comicModelData ->
+                    if (comicModelData.entityList.isNotEmpty()) {
+                        comicDetailsAdapter.comics = comicModelData.entityList.toList()
                         totalItems = comicModelData.total
                     } else {
                         binding.textEmpty.setVisible()

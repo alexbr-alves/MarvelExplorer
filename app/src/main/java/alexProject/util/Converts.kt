@@ -3,8 +3,8 @@ package alexProject.util
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.SizeItens
-import alexProject.network.response.CharacterModel
 import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.CharacterModel
 import alexProject.data.model.event.EventModel
 
 class Converts {

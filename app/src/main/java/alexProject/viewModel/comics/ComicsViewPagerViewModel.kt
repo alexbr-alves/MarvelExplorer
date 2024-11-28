@@ -1,7 +1,7 @@
 package alexProject.viewModel.comics
 
 
-import alexProject.data.model.comic.ComicModelResponse
+import alexProject.data.model.comic.ComicResponse
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.state.ResourceState
 import alexProject.util.Constants
@@ -17,7 +17,7 @@ class ComicsViewPagerViewModel @Inject constructor(
     private val repository: MarvelRepositoryImpl
 ) : BaseViewModel() {
 
-    val comicList = MutableLiveData<ResourceState<ComicModelResponse>>()
+    val comicList = MutableLiveData<ResourceState<ComicResponse>>()
 
     fun fetchComic(characterId: Int, origin: String) = viewModelScope.launch {
         safeFetchComic(characterId, origin)

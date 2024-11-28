@@ -64,12 +64,12 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
                 binding.progressBarDetail.setVisible(isLoading)
             }
             observe(listItems) { result ->
-                result.data?.data?.let { comicModelData ->
-                    if (comicModelData.result.isNotEmpty()) {
+                result.data?.apiResponse?.let { comicModelData ->
+                    if (comicModelData.entityList.isNotEmpty()) {
                         if (initialOffset == 0) {
                             comicsAdapter.clearItems()
                         }
-                        comicsAdapter.addItems(comicModelData.result)
+                        comicsAdapter.addItems(comicModelData.entityList)
                         totalItems = comicModelData.total
                     }
                 }
