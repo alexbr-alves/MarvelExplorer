@@ -1,19 +1,21 @@
-package alexProject.domain.repository.useCase.comic
+package alexProject.domain.useCase.comic
 
+import alexProject.data.repository.ComicRepository
 import alexProject.data.repository.MarvelRepository
 import alexProject.network.response.AsyncResult
+import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicModel
 import alexProject.network.response.GenericResponse
 import alexProject.util.toAsyncResult
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetComicsUseCase @Inject constructor(val repository: MarvelRepository) {
+class GetComicEventsUseCase @Inject constructor(val repository: ComicRepository) {
     operator fun invoke(
-        nameStartsWith: String?,
+        eventId: Int,
         limit: Int,
-        offset: Int?
+        offset: Int? = 0
     ): Observable<AsyncResult<GenericResponse<ComicModel>>> {
-        return repository.getComics(nameStartsWith, limit, offset).toAsyncResult()
+        return repository.getComicEvent(eventId, limit, offset).toAsyncResult()
     }
 }

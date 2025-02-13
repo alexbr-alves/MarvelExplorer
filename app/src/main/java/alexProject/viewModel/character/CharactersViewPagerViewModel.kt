@@ -1,7 +1,7 @@
 package alexProject.viewModel.character
 
-import alexProject.domain.repository.useCase.character.GetCharacterComicsUseCase
-import alexProject.domain.repository.useCase.character.GetCharacterEventsUseCase
+import alexProject.domain.useCase.character.GetCharacterComicsUseCase
+import alexProject.domain.useCase.character.GetCharacterEventsUseCase
 import alexProject.network.response.CharacterResponse
 import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent

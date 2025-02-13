@@ -58,13 +58,13 @@ class TimelineViewModel @Inject constructor(
 
     private suspend fun safeFetch() = viewModelScope.launch {
         isLoading.value = true
-        handleFetchResponse(
-            repository.comics(
-                orderBy = "-modified",
-                limit = MAX_COMICS
-            ),
-            listItems
-        )
+//        handleFetchResponse(
+//            repository.getComics(
+//                orderBy = "-modified",
+//                limit = MAX_COMICS
+//            ),
+//            listItems
+//        )
 
     }
 
@@ -72,10 +72,10 @@ class TimelineViewModel @Inject constructor(
         val storyComics: MutableList<StoryModel> = mutableListOf()
         idsWithThumbnails.forEach { (id, thumbnailWithName) ->
             val (thumbnailModel, name) = thumbnailWithName
-            handleFetchResponse(
-                repository.getComicsCharacter(id, limit = 3, offset = 0),
-                listComics
-            )
+//            handleFetchResponse(
+//                repository.getComicsCharacter(id, limit = 3, offset = 0),
+//                listComics
+//            )
             val comics = listComics.value?.data?.apiResponse?.entityList ?: emptyList()
             val storyModel = StoryModel(
                 id = id,

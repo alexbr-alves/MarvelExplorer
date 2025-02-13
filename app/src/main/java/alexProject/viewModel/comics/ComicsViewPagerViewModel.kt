@@ -1,16 +1,14 @@
 package alexProject.viewModel.comics
 
 
-import alexProject.domain.repository.useCase.comic.GetComicCharactersUseCase
-import alexProject.domain.repository.useCase.comic.GetComicEventsUseCase
+import alexProject.domain.useCase.comic.GetComicCharactersUseCase
+import alexProject.domain.useCase.comic.GetComicEventsUseCase
 import alexProject.network.response.ComicModel
 import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
 import alexProject.util.Constants
 import alexProject.viewModel.MarvelViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,5 +1,6 @@
-package alexProject.domain.repository.useCase.character
+package alexProject.domain.useCase.character
 
+import alexProject.data.repository.CharacterRepository
 import alexProject.data.repository.MarvelRepository
 import alexProject.network.response.AsyncResult
 import alexProject.network.response.CharacterResponse
@@ -8,12 +9,12 @@ import alexProject.util.toAsyncResult
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetCharacterComicsUseCase @Inject constructor(val repository: MarvelRepository) {
+class GetCharacterEventsUseCase @Inject constructor(val repository: CharacterRepository) {
     operator fun invoke(
-        comicId: Int,
+        eventId: Int,
         limit: Int,
         offset: Int? = 0
     ): Observable<AsyncResult<GenericResponse<CharacterResponse>>> {
-        return repository.getCharacterComics(comicId, limit, offset).toAsyncResult()
+        return repository.getCharacterEvent(eventId, limit, offset).toAsyncResult()
     }
 }
