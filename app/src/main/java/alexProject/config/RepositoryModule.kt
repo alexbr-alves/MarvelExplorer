@@ -3,9 +3,11 @@ package alexProject.config
 import alexProject.data.repository.CharacterRepository
 import alexProject.data.repository.ComicRepository
 import alexProject.data.repository.MarvelRepository
+import alexProject.data.repository.TimelineRepository
 import alexProject.domain.repository.CharacterRepositoryImpl
 import alexProject.domain.repository.ComicRepositoryImpl
 import alexProject.domain.repository.MarvelRepositoryImpl
+import alexProject.domain.repository.TimelineRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +31,9 @@ interface RepositoryModule {
     fun bindsCharacterRepository(
         repository: CharacterRepositoryImpl
     ): CharacterRepository
+
+    @Binds
+    fun bindsTimelineRepository(
+        repository: TimelineRepositoryImpl
+    ): TimelineRepository
 }

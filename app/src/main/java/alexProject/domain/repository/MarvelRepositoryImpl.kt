@@ -24,6 +24,5 @@ class MarvelRepositoryImpl @Inject constructor(
     //Events details
 
     //Timeline
-    override suspend fun getComicTimeline() = api.getComicTimeline()
 
 }

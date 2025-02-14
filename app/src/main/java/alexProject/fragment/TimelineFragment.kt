@@ -65,30 +65,23 @@ class TimelineFragment :
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
-            observe(isLoading) {
+            observe(onLoading) {
                 binding.progressbarSearch.setVisible()
             }
             observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
+                (activity as MainActivity).showError(onError.message)
             }
             observe(listItems) { result ->
-                result.data?.apiResponse?.entityList?.let {
-                    timelineAdapter.timelineList = it.toList()
+                result?.apiResponse?.let {
+                    timelineAdapter.timelineList = it.entityList
                     binding.recycleStorys.setVisible()
                 }
             }
             observe(listStoryComics) { storyList ->
                 onClickStoryAdapter(storyList)
             }
-            storyList.collect { resource ->
-                when (resource) {
-                    is ResourceState.Success -> {
-                        resource.data?.let {
-                            storyAdapter.list = it.toList()
-                        }
-                    }
-                }
+            observe(storyList) {
+                storyAdapter.list = it.toList()
             }
         }
     }

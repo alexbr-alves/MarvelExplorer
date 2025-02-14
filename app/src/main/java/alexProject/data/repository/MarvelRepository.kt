@@ -25,5 +25,4 @@ interface MarvelRepository {
     //Events details
 
     //Timeline
-    suspend fun getComicTimeline() : Response<ComicResponse>
 }

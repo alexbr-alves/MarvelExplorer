@@ -4,10 +4,16 @@ import alexProject.data.model.FavoriteModel
 import alexProject.data.model.StoryModel
 import alexProject.data.model.StoryModelData
 import alexProject.data.model.ThumbnailModel
-import alexProject.network.response.ComicResponse
 import alexProject.domain.repository.DatabaseRepository
 import alexProject.domain.repository.MarvelRepositoryImpl
+import alexProject.domain.useCase.timeline.GetComicsCharacterUseCase
+import alexProject.domain.useCase.timeline.GetComicsUseCase
+import alexProject.domain.useCase.timeline.GetStoryUseCase
+import alexProject.network.response.ComicModel
+import alexProject.network.response.GenericResponse
 import alexProject.state.ResourceState
+import alexProject.state.SingleLiveEvent
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,18 +25,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TimelineViewModel @Inject constructor(
-    private val repository: MarvelRepositoryImpl,
-    private val dataRepository: DatabaseRepository
-) : BaseViewModel() {
-
-    val listItems = MutableLiveData<ResourceState<ComicResponse>>()
-    val listComics = MutableLiveData<ResourceState<ComicResponse>>()
-    val listStoryComics = MutableLiveData<StoryModelData>()
-
-    private val _storyList =
-        MutableStateFlow<ResourceState<List<FavoriteModel>>>(ResourceState.Empty())
-    val storyList: StateFlow<ResourceState<List<FavoriteModel>>> = _storyList
-
+    private val getComicsUseCase: GetComicsUseCase,
+    private val getComicsCharacterUseCase: GetComicsCharacterUseCase,
+    private val getStoryUseCase: GetStoryUseCase
+) : MarvelViewModel() {
 
     init {
         fetch()
@@ -38,52 +36,55 @@ class TimelineViewModel @Inject constructor(
 
     fun fetch() = viewModelScope.launch {
         getStory()
-        safeFetch()
+        getComics()
     }
 
-    private suspend fun getStory() = viewModelScope.launch {
-        dataRepository.getStory().collectLatest { characters ->
-            val idToThumbnailMap: MutableMap<Int, Pair<ThumbnailModel, String>> = mutableMapOf()
-            if (characters.isEmpty()) {
-                _storyList.value = ResourceState.Empty()
-            } else {
-                _storyList.value = ResourceState.Success(characters)
-                characters.forEach {
-                    idToThumbnailMap[it.id] = Pair(it.thumbnailModel, it.title)
-                }
-                fetchComicsForIds(idToThumbnailMap)
+    val listItems = SingleLiveEvent<GenericResponse<ComicModel>>()
+    val listComics = SingleLiveEvent<List<ComicModel>>()
+    val listStoryComics = MutableLiveData<StoryModelData>()
+
+    val storyList = SingleLiveEvent<List<FavoriteModel>>()
+
+    private fun getStory() = viewModelScope.launch {
+        val idToThumbnailMap: MutableMap<Int, Pair<ThumbnailModel, String>> = mutableMapOf()
+        val story = getStoryUseCase()
+        if (story.isNotEmpty()) {
+            storyList.value = story
+            story.forEach {
+                idToThumbnailMap[it.id] = Pair(it.thumbnailModel, it.title)
             }
+            fetchComicsForIds(idToThumbnailMap)
         }
     }
 
-    private suspend fun safeFetch() = viewModelScope.launch {
-        isLoading.value = true
-//        handleFetchResponse(
-//            repository.getComics(
-//                orderBy = "-modified",
-//                limit = MAX_COMICS
-//            ),
-//            listItems
-//        )
+    fun getComics() {
+        handleObservable(
+            observable = getComicsUseCase(),
+            successHandler = {
+                listItems.value = it
+            }
+        )
 
     }
 
-    private suspend fun fetchComicsForIds(idsWithThumbnails: Map<Int, Pair<ThumbnailModel, String>>) {
+    private fun fetchComicsForIds(idsWithThumbnails: Map<Int, Pair<ThumbnailModel, String>>) = viewModelScope.launch {
         val storyComics: MutableList<StoryModel> = mutableListOf()
         idsWithThumbnails.forEach { (id, thumbnailWithName) ->
             val (thumbnailModel, name) = thumbnailWithName
-//            handleFetchResponse(
-//                repository.getComicsCharacter(id, limit = 3, offset = 0),
-//                listComics
-//            )
-            val comics = listComics.value?.data?.apiResponse?.entityList ?: emptyList()
-            val storyModel = StoryModel(
-                id = id,
-                thumbnailModel = thumbnailModel,
-                name = name,
-                comics = comics
+            handleObservable(
+                observable = getComicsCharacterUseCase(id, limit = 3, offset = 0),
+                successHandler = {
+                    if (it.apiResponse.entityList.isNotEmpty()) {
+                        val storyModel = StoryModel(
+                            id = id,
+                            thumbnailModel = thumbnailModel,
+                            name = name,
+                            comics = it.apiResponse.entityList
+                        )
+                        storyComics.add(storyModel)
+                    }
+                }
             )
-            storyComics.add(storyModel)
         }
         listStoryComics.value = StoryModelData(storyComics)
     }

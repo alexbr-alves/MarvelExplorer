@@ -110,11 +110,11 @@ interface ServiceApi {
 
     // Timeline
     @GET("comics")
-    suspend fun getComicTimeline(
-        @Query("orderBy") orderBy : String? = "-modified",
-        @Query("limit") limit : Int?  = 60,
-        @Query("offset") offset : Int? = 0,
-    ) : Response<ComicResponse>
+    fun getComicTimeline(
+        @Query("orderBy") orderBy : String = "-modified",
+        @Query("limit") limit : Int  = 60,
+        @Query("offset") offset : Int = 0,
+    ) : Observable<GenericResponse<ComicModel>>
 
     //GITHUB API
     @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)
