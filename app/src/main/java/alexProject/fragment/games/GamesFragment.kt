@@ -49,15 +49,15 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesViewModel>() {
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
-            observe(isLoading) { isLoading ->
+            getGames()
+            observe(onLoading) { isLoading ->
                 binding.progressbarSearch.setVisible(isLoading)
             }
             observe(onError) { onError ->
-                (activity as GamesActivity).showError(onError)
+                (activity as GamesActivity).showError(onError.message)
             }
             observe(listItems) { result ->
-                result.data?.movies.let { gamesResponseData ->
+                result?.movies.let { gamesResponseData ->
                     gamesResponseData?.let { games ->
                         loadPage(games)
                         setupRecycleView(games)

@@ -2,10 +2,12 @@ package alexProject.config
 
 import alexProject.data.repository.CharacterRepository
 import alexProject.data.repository.ComicRepository
+import alexProject.data.repository.GithubRepository
 import alexProject.data.repository.MarvelRepository
 import alexProject.data.repository.TimelineRepository
 import alexProject.domain.repository.CharacterRepositoryImpl
 import alexProject.domain.repository.ComicRepositoryImpl
+import alexProject.domain.repository.GithubRepositoryImpl
 import alexProject.domain.repository.MarvelRepositoryImpl
 import alexProject.domain.repository.TimelineRepositoryImpl
 import dagger.Binds
@@ -36,4 +38,9 @@ interface RepositoryModule {
     fun bindsTimelineRepository(
         repository: TimelineRepositoryImpl
     ): TimelineRepository
+
+    @Binds
+    fun bindsGithubRepository(
+        repository: GithubRepositoryImpl
+    ): GithubRepository
 }

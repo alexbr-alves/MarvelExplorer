@@ -1,7 +1,6 @@
 package alexProject.viewModel.tvShow
 
 import alexProject.data.model.tv_show.TvShowModelResponse
-import alexProject.domain.repository.GithubRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TvShowViewModel @Inject constructor(
-    private val repository: GithubRepository
+    //private val repository: GithubRepository
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<TvShowModelResponse>>()
@@ -27,9 +26,9 @@ class TvShowViewModel @Inject constructor(
 
     private suspend fun safeFetch() = viewModelScope.launch {
         isLoading.value = true
-        handleFetchResponse(
-            repository.getTvShow(),
-            listItems
-        )
+//        handleFetchResponse(
+//            repository.getTvShow(),
+//            listItems
+//        )
     }
 }

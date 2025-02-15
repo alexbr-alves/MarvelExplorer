@@ -1,7 +1,6 @@
 package alexProject.viewModel.group
 
 import alexProject.data.model.group.GroupModelResponse
-import alexProject.domain.repository.GithubRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(
-    private val repository: GithubRepository
+    //private val repository: GithubRepository
 ) : BaseViewModel() {
     val listItems = MutableLiveData<ResourceState<GroupModelResponse>>()
 
@@ -26,9 +25,9 @@ class GroupViewModel @Inject constructor(
 
     private suspend fun safeFetch() = viewModelScope.launch {
         isLoading.value = true
-        handleFetchResponse(
-            repository.getGroup(),
-            listItems
-        )
+//        handleFetchResponse(
+//            repository.getGroup(),
+//            listItems
+//        )
     }
 }

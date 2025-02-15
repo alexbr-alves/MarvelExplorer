@@ -1,7 +1,6 @@
 package alexProject.viewModel.movies
 
 import alexProject.data.model.movies.MoviesModelResponse
-import alexProject.domain.repository.GithubRepository
 import alexProject.state.ResourceState
 import alexProject.viewModel.BaseViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val repository: GithubRepository
+    //private val repository: GithubRepository
 ) : BaseViewModel() {
 
     val listItems = MutableLiveData<ResourceState<MoviesModelResponse>>()
@@ -27,7 +26,7 @@ class MoviesViewModel @Inject constructor(
 
     private suspend fun safeFetch() = viewModelScope.launch {
         isLoading.value = true
-        handleFetchResponse(repository.getMovies(), listItems)
+       // handleFetchResponse(repository.getMovies(), listItems)
     }
 
 }
