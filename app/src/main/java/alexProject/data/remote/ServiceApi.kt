@@ -124,7 +124,7 @@ interface ServiceApi {
     suspend fun getMovies() : Response<MoviesModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_TV_SHOW)
-    suspend fun getTvShow() : Response<TvShowModelResponse>
+    fun getTvShow() : Observable<TvShowModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_GAMES)
     fun getGames() : Observable<GamesModelResponse>
