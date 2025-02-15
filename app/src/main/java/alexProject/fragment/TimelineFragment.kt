@@ -12,6 +12,7 @@ import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,6 +66,8 @@ class TimelineFragment :
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
+            getStory()
+            getComics()
             observe(onLoading) {
                 binding.progressbarSearch.setVisible()
             }

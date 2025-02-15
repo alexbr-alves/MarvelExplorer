@@ -29,7 +29,7 @@ class TimelineRepositoryImpl @Inject constructor(
         return api.getComicsCharacter(id, limit, offset)
     }
 
-    override suspend fun getStory(): List<FavoriteModel> {
-        return dao.getStory().first()
+    override fun getStory(): Flow<List<FavoriteModel>> {
+        return dao.getStory()
     }
 }

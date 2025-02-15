@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface TimelineRepository {
     fun getComics() : Observable<GenericResponse<ComicModel>>
     fun getComicsCharacter(id: Int, limit: Int, offset: Int?) : Observable<GenericResponse<ComicModel>>
-    suspend fun getStory() : List<FavoriteModel>
+    fun getStory() : Flow<List<FavoriteModel>>
 }

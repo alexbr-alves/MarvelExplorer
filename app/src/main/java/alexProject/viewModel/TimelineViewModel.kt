@@ -30,41 +30,32 @@ class TimelineViewModel @Inject constructor(
     private val getStoryUseCase: GetStoryUseCase
 ) : MarvelViewModel() {
 
-    init {
-        fetch()
-    }
-
-    fun fetch() = viewModelScope.launch {
-        getStory()
-        getComics()
-    }
-
     val listItems = SingleLiveEvent<GenericResponse<ComicModel>>()
     val listComics = SingleLiveEvent<List<ComicModel>>()
-    val listStoryComics = MutableLiveData<StoryModelData>()
+    val listStoryComics = SingleLiveEvent<StoryModelData>()
 
     val storyList = SingleLiveEvent<List<FavoriteModel>>()
 
-    private fun getStory() = viewModelScope.launch {
-        val idToThumbnailMap: MutableMap<Int, Pair<ThumbnailModel, String>> = mutableMapOf()
-        val story = getStoryUseCase()
-        if (story.isNotEmpty()) {
-            storyList.value = story
-            story.forEach {
-                idToThumbnailMap[it.id] = Pair(it.thumbnailModel, it.title)
+    fun getStory() = viewModelScope.launch {
+        getStoryUseCase().collectLatest { characters ->
+            val idToThumbnailMap: MutableMap<Int, Pair<ThumbnailModel, String>> = mutableMapOf()
+            if (characters.isNotEmpty()) {
+                storyList.value = characters
+                characters.forEach { result ->
+                    idToThumbnailMap[result.id] = Pair(result.thumbnailModel, result.title)
+                }
+                fetchComicsForIds(idToThumbnailMap)
             }
-            fetchComicsForIds(idToThumbnailMap)
         }
     }
 
-    fun getComics() {
+    fun getComics() = viewModelScope.launch {
         handleObservable(
             observable = getComicsUseCase(),
             successHandler = {
                 listItems.value = it
             }
         )
-
     }
 
     private fun fetchComicsForIds(idsWithThumbnails: Map<Int, Pair<ThumbnailModel, String>>) = viewModelScope.launch {
@@ -89,9 +80,7 @@ class TimelineViewModel @Inject constructor(
         listStoryComics.value = StoryModelData(storyComics)
     }
 
-
     companion object {
         private const val MAX_COMICS = 60
     }
-
 }
