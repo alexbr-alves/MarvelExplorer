@@ -121,7 +121,7 @@ interface ServiceApi {
     suspend fun getGroup() : Response<GroupModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_MOVEIS)
-    suspend fun getMovies() : Response<MoviesModelResponse>
+    fun getMovies() : Observable<MoviesModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_TV_SHOW)
     fun getTvShow() : Observable<TvShowModelResponse>

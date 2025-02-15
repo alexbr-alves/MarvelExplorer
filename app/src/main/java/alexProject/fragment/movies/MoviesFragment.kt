@@ -56,15 +56,15 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MoviesViewModel>() {
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
-            observe(isLoading) { isLoading ->
+            getMovies()
+            observe(onLoading) { isLoading ->
                 (activity as MoviesActivity).showProgressBar(isLoading)
             }
             observe(onError) { onError ->
-               (activity as MoviesActivity).showError(onError)
+               (activity as MoviesActivity).showError(onError.message)
             }
             observe(listItems) { result ->
-                result.data?.movies.let { moviesResponseData ->
+                result?.movies.let { moviesResponseData ->
                     moviesResponseData?.let { movies ->
                         loadPage(movies)
                         setupRecycleView(movies)

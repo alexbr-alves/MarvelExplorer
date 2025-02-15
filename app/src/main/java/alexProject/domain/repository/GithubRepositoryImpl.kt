@@ -1,6 +1,7 @@
 package alexProject.domain.repository
 
 import alexProject.data.model.games.GamesModelResponse
+import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.GithubRepository
@@ -12,7 +13,7 @@ class GithubRepositoryImpl @Inject constructor(
     private val api: ServiceApi
 ) : GithubRepository {
     suspend fun getGroup() = api.getGroup()
-    suspend fun getMovies() = api.getMovies()
+    override fun getMovies(): Observable<MoviesModelResponse> = api.getMovies()
     override fun getTvShow(): Observable<TvShowModelResponse> = api.getTvShow()
     override fun getGames(): Observable<GamesModelResponse> = api.getGames()
 }
