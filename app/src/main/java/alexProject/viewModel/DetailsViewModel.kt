@@ -1,7 +1,7 @@
 package alexProject.viewModel
 
 import alexProject.data.model.FavoriteModel
-import alexProject.domain.repository.DatabaseRepository
+import alexProject.data.local.DatabaseRepository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -6,6 +6,7 @@ import alexProject.viewModel.FavoriteViewModel
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
+import alexProject.util.observe
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
 import android.os.Bundle
@@ -42,22 +43,13 @@ class FavoriteFragment :
         observer()
     }
 
-    private fun observer() = lifecycleScope.launch {
-        viewModel.favorites.collect { resource ->
-            when (resource) {
-                is ResourceState.Success -> {
-                    resource.data?.let {
-                        binding.tvEmptyList.setInvisible()
-                        favoriteAdapter.favorites = it.toList()
-                    }
-                }
-
-                is ResourceState.Empty -> {
-                    binding.tvEmptyList.setVisible()
-                }
-
-                else -> {}
-            }
+    private fun observer() = with(viewModel) {
+        observe(favorites) {
+            binding.tvEmptyList.setInvisible()
+            favoriteAdapter.favorites = it.toList()
+        }
+        observe(onEmptyList) {
+            binding.tvEmptyList.setVisible()
         }
     }
 
