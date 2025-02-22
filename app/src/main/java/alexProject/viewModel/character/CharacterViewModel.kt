@@ -45,8 +45,11 @@ class CharacterViewModel @Inject constructor(
     private fun getCharacter(nameStartsWith: String?, limit: Int, offset: Int?) {
         handleObservable(
             observable = getCharactersUseCase(nameStartsWith, limit, offset),
-            successHandler = {
-                characterList.value = it
+            successHandler = {response ->
+                val filteredList = response.apiResponse.entityList.filter { characterResponse ->
+                    characterResponse.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
+                }
+                characterList.value = response.copy(apiResponse = response.apiResponse.copy(entityList = filteredList))
             }
         )
     }

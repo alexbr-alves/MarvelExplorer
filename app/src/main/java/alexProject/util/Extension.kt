@@ -1,5 +1,7 @@
 package alexProject.util
 
+import alexProject.R
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -20,6 +22,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 
 fun Fragment.toast(message : String, duration : Int = Toast.LENGTH_LONG) {
     Toast.makeText(
@@ -54,6 +58,7 @@ fun <T> Fragment.observe(liveData: LiveData<T>, observer: (T) -> Unit) {
     liveData.observe(viewLifecycleOwner, observer)
 }
 
+@SuppressLint("ResourceType")
 fun loadImage(
     imageView : ImageView,
     path : String,
@@ -61,6 +66,7 @@ fun loadImage(
 ) {
     Glide.with(imageView)
         .load("$path.$extension")
+        .placeholder(R.drawable.background_gradient_rounded)
         .into(imageView)
 }
 

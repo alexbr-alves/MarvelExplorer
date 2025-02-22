@@ -45,8 +45,11 @@ class ComicViewModel @Inject constructor(
     private fun getComics(titleStartsWith: String?, limit: Int, offset: Int) {
         handleObservable(
             observable = getComicsUseCase(titleStartsWith, limit, offset),
-            successHandler = {
-                comicList.value = it
+            successHandler = { response ->
+                val listFilter = response.apiResponse.entityList.filter { characterResponse ->
+                    characterResponse.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
+                }
+                comicList.value = response.copy(apiResponse =  response.apiResponse.copy(entityList = listFilter))
             }
         )
     }
