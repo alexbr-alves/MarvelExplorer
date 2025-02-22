@@ -1,6 +1,5 @@
 package alexProject.domain.repository
 
-import alexProject.data.local.DatabaseRepository
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel
 import alexProject.data.repository.FavoriteRepository

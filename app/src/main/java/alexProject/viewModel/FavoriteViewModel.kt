@@ -1,7 +1,6 @@
 package alexProject.viewModel
 
 import alexProject.data.model.FavoriteModel
-import alexProject.data.local.DatabaseRepository
 import alexProject.domain.useCase.favorite.DeleteFavoriteUseCase
 import alexProject.domain.useCase.favorite.GetAllFatoritesUseCase
 import alexProject.state.ResourceState

@@ -1,7 +1,10 @@
 package alexProject.viewModel
 
 import alexProject.data.model.FavoriteModel
-import alexProject.data.local.DatabaseRepository
+import alexProject.domain.useCase.details.GetFavoriteUseCase
+import alexProject.domain.useCase.details.InsertFavoriteUseCase
+import alexProject.domain.useCase.favorite.DeleteFavoriteUseCase
+import alexProject.state.SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,24 +15,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val repository : DatabaseRepository
+    private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
+    private val insertFavoriteUseCase: InsertFavoriteUseCase,
+    private val getFavoriteUseCase: GetFavoriteUseCase
 ) : ViewModel() {
 
-    private val _searchCharacter =
-        MutableLiveData<Boolean>()
-    val searchCharacter : LiveData<Boolean> = _searchCharacter
+    val searchCharacter  =  SingleLiveEvent<Boolean>()
 
     fun insert(characterModel : FavoriteModel) = viewModelScope.launch {
-        repository.insert(characterModel)
+        insertFavoriteUseCase(characterModel)
     }
 
     fun delete(characterModel : FavoriteModel) = viewModelScope.launch {
-        repository.delete(characterModel)
+        deleteFavoriteUseCase(characterModel)
     }
 
     fun searchFavorite(id : Int) = viewModelScope.launch {
-        val response = repository.searchFavorite(id)
-        _searchCharacter.value = response
+        val response = getFavoriteUseCase(id)
+        searchCharacter.value = response
     }
 
 }

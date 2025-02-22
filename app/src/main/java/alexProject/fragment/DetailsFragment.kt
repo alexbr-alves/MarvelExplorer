@@ -17,6 +17,7 @@ import alexProject.util.Constants.EVENT_INVALID
 import alexProject.util.Converts
 import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
+import alexProject.util.observe
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -271,7 +272,7 @@ class DetailsFragment :
         imagePath: String,
         imageExtension: String,
     ) = with(binding) {
-        viewModel.searchCharacter.observe(viewLifecycleOwner) {
+        observe(viewModel.searchCharacter) {
             imageFavorite.isSelected = it
             handleTabLayout()
             loadImage(

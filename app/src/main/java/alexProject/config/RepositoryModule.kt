@@ -2,12 +2,14 @@ package alexProject.config
 
 import alexProject.data.repository.CharacterRepository
 import alexProject.data.repository.ComicRepository
+import alexProject.data.repository.DetailsRepository
 import alexProject.data.repository.FavoriteRepository
 import alexProject.data.repository.GithubRepository
 import alexProject.data.repository.MarvelRepository
 import alexProject.data.repository.TimelineRepository
 import alexProject.domain.repository.CharacterRepositoryImpl
 import alexProject.domain.repository.ComicRepositoryImpl
+import alexProject.domain.repository.DetailsRepositoryImpl
 import alexProject.domain.repository.FavotiteRepositoryImpl
 import alexProject.domain.repository.GithubRepositoryImpl
 import alexProject.domain.repository.MarvelRepositoryImpl
@@ -50,4 +52,9 @@ interface RepositoryModule {
     fun bindsFavoriteRepository(
         repository: FavotiteRepositoryImpl
     ): FavoriteRepository
+
+    @Binds
+    fun bindsDetailsRepository(
+        repository: DetailsRepositoryImpl
+    ): DetailsRepository
 }
