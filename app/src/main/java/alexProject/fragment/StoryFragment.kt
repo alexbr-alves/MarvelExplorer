@@ -78,7 +78,7 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>() {
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
             observe(onError) { onError ->
-                (activity as MoviesActivity).showError(onError)
+                (activity as MoviesActivity).showError(onError.message)
             }
         }
     }

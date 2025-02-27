@@ -4,7 +4,6 @@ import alexProject.data.model.games.GamesModelResponse
 import alexProject.domain.useCase.GetGamesUseCase
 import alexProject.state.ResourceState
 import alexProject.state.SingleLiveEvent
-import alexProject.viewModel.BaseViewModel
 import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope

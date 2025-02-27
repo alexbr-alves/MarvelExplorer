@@ -1,6 +1,5 @@
 package alexProject.domain.useCase.timeline
 
-import alexProject.data.repository.MarvelRepository
 import alexProject.data.repository.TimelineRepository
 import alexProject.network.response.AsyncResult
 import alexProject.network.response.ComicModel

@@ -1,8 +1,8 @@
 package alexProject.data.remote
 
+import alexProject.data.model.event.EventModel
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.network.response.ComicResponse
-import alexProject.data.model.event.EventModelResponse
 import alexProject.data.model.games.GamesModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
@@ -24,22 +24,22 @@ interface ServiceApi {
 
     @GET("characters")
     fun getCharacters(
-        @Query("nameStartsWith") nameStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0,
-    ) : Observable<GenericResponse<CharacterResponse>>
+        @Query("nameStartsWith") nameStartsWith: String? = null,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0,
+    ): Observable<GenericResponse<CharacterResponse>>
 
     @GET("comics")
     fun comics(
-        @Query("titleStartsWith") titleStartsWith : String? = null,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0,
-        @Query("orderBy") orderBy : String? = null,
-    ) : Observable<GenericResponse<ComicModel>>
+        @Query("titleStartsWith") titleStartsWith: String? = null,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0,
+        @Query("orderBy") orderBy: String? = null,
+    ): Observable<GenericResponse<ComicModel>>
 
     @GET("events")
-    suspend fun events(
-    ) : Response<EventModelResponse>
+    fun events(
+    ): Observable<GenericResponse<EventModel>>
 
     //Character details
 
@@ -48,21 +48,21 @@ interface ServiceApi {
         @Path(
             value = "characterId",
             encoded = true
-        ) characterId : Int,
-        @Query("limit") limit : Int? = 100,
-        @Query("offset") offset : Int? = 0,
-        @Query("orderBy") orderBy : String = "-modified"
-    ) : Observable<GenericResponse<ComicModel>>
+        ) characterId: Int,
+        @Query("limit") limit: Int? = 100,
+        @Query("offset") offset: Int? = 0,
+        @Query("orderBy") orderBy: String = "-modified"
+    ): Observable<GenericResponse<ComicModel>>
 
     @GET("characters/{characterId}/events")
-    suspend fun getEventsCharacter(
+    fun getEventsCharacter(
         @Path(
             value = "characterId",
             encoded = true
-        ) characterId : Int,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
-    ) : Response<EventModelResponse>
+        ) characterId: Int,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0
+    ): Observable<GenericResponse<EventModel>>
 
     //Comic details
 
@@ -71,20 +71,20 @@ interface ServiceApi {
         @Path(
             value = "comicId",
             encoded = true
-        ) comicId : Int,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
-    ) : Observable<GenericResponse<CharacterResponse>>
+        ) comicId: Int,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0
+    ): Observable<GenericResponse<CharacterResponse>>
 
     @GET("comics/{comicId}/events")
-    suspend fun getEventComics(
+    fun getEventComics(
         @Path(
             value = "comicId",
             encoded = true
-        ) comicId : Int,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
-    ) : Response<EventModelResponse>
+        ) comicId: Int,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0
+    ): Observable<GenericResponse<EventModel>>
 
     //Event details
 
@@ -93,39 +93,39 @@ interface ServiceApi {
         @Path(
             value = "eventId",
             encoded = true
-        ) eventId : Int,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
-    ) : Observable<GenericResponse<CharacterResponse>>
+        ) eventId: Int,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0
+    ): Observable<GenericResponse<CharacterResponse>>
 
     @GET("events/{eventId}/comics")
     fun getComicEvent(
         @Path(
             value = "eventId",
             encoded = true
-        ) eventId : Int,
-        @Query("limit") limit : Int = 100,
-        @Query("offset") offset : Int? = 0
-    ) : Observable<GenericResponse<ComicModel>>
+        ) eventId: Int,
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int? = 0
+    ): Observable<GenericResponse<ComicModel>>
 
     // Timeline
     @GET("comics")
     fun getComicTimeline(
-        @Query("orderBy") orderBy : String = "-modified",
-        @Query("limit") limit : Int  = 60,
-        @Query("offset") offset : Int = 0,
-    ) : Observable<GenericResponse<ComicModel>>
+        @Query("orderBy") orderBy: String = "-modified",
+        @Query("limit") limit: Int = 60,
+        @Query("offset") offset: Int = 0,
+    ): Observable<GenericResponse<ComicModel>>
 
     //GITHUB API
     @GET(GITHUB_BASE_URL + RF_MARVEL_GROUPS)
-    fun getGroup() : Observable<GroupModelResponse>
+    fun getGroup(): Observable<GroupModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_MOVEIS)
-    fun getMovies() : Observable<MoviesModelResponse>
+    fun getMovies(): Observable<MoviesModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_TV_SHOW)
-    fun getTvShow() : Observable<TvShowModelResponse>
+    fun getTvShow(): Observable<TvShowModelResponse>
 
     @GET(GITHUB_BASE_URL + RF_MARVEL_GAMES)
-    fun getGames() : Observable<GamesModelResponse>
+    fun getGames(): Observable<GamesModelResponse>
 }

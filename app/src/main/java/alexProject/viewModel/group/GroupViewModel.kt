@@ -4,7 +4,6 @@ import alexProject.data.model.group.GroupModelResponse
 import alexProject.domain.useCase.GetGroupUseCase
 import alexProject.state.ResourceState
 import alexProject.state.SingleLiveEvent
-import alexProject.viewModel.BaseViewModel
 import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope

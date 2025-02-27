@@ -1,7 +1,6 @@
 package alexProject.domain.useCase.comic
 
 import alexProject.data.repository.ComicRepository
-import alexProject.data.repository.MarvelRepository
 import alexProject.network.response.AsyncResult
 import alexProject.network.response.ComicModel
 import alexProject.network.response.GenericResponse

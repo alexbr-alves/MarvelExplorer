@@ -3,7 +3,6 @@ package alexProject.domain.repository
 import alexProject.data.local.MarvelDao
 import alexProject.data.model.FavoriteModel
 import alexProject.data.repository.FavoriteRepository
-import alexProject.data.repository.MarvelRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

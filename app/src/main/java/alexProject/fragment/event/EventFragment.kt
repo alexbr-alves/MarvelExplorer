@@ -2,7 +2,7 @@ package alexProject.fragment.event
 
 import alexProject.activity.MainActivity
 import alexProject.adapters.event.EventAdapter
-import alexProject.data.model.event.EventModelResponse
+import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentEventBinding
 import alexProject.fragment.BaseFragment
 import alexProject.state.ResourceState
@@ -49,7 +49,6 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         collectObserver()
         setupRecycleView()
         clickAdapter()
-        searchInit()
         handleSearchAnimation()
         setupUI()
     }
@@ -127,10 +126,10 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         with(viewModel) {
             fetch(args.verity, args.id, offset = initialOffset)
             observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
+                (activity as MainActivity).showError(onError.message)
             }
-            observe(isLoading) { isLoading ->
-                binding.progressBar.setVisible(isLoading)
+            observe(onLoading) { onLoading ->
+                binding.progressBar.setVisible(onLoading)
             }
             observe(listItems) { result ->
                 handleList(result)
@@ -139,11 +138,11 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         }
     }
 
-    private fun handleList(result: ResourceState<EventModelResponse>) {
-        result.data?.data?.let { eventModelData ->
-            if (eventModelData.result.isNotEmpty()) {
-                eventAdapter.eventList = eventModelData.result.toList()
-                totalItems = eventModelData.total
+    private fun handleList(result: List<EventModel>) {
+        result.let { eventModelData ->
+            if (eventModelData.isNotEmpty()) {
+                eventAdapter.eventList = eventModelData
+                totalItems = eventModelData.count()
             }
         }
     }
@@ -170,37 +169,5 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
                 }
             })
         }
-    }
-
-    private fun searchInit(query: String? = null) = with(binding) {
-        searchEditText.setText(query)
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                char: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                char: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (char.toString().isEmpty()) {
-                    updateEventList()
-                } else {
-                    updateEventList(char.toString())
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
-    private fun updateEventList(query: String? = null) {
-        viewModel.fetch(titleStartsWith = query, offset = initialOffset)
     }
 }

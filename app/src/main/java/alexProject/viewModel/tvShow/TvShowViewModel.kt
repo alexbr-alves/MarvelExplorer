@@ -4,7 +4,6 @@ import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.domain.useCase.GetTvShowUseCase
 import alexProject.state.ResourceState
 import alexProject.state.SingleLiveEvent
-import alexProject.viewModel.BaseViewModel
 import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
