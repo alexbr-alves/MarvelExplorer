@@ -1,5 +1,6 @@
 package alexProject.domain.repository
 
+import alexProject.data.local.MarvelDao
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.CharacterRepository
 import alexProject.network.response.CharacterResponse
@@ -8,7 +9,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
-    private val api: ServiceApi
+    private val api: ServiceApi,
+    private val dao: MarvelDao
 ) : CharacterRepository {
 
     override fun getCharacters(
@@ -23,5 +25,11 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override fun getCharacterComics(comicId: Int, limit: Int, offset: Int?) =
         api.getCharacterComics(comicId, limit, offset)
+
+    override fun getCharacterDao(): List<CharacterResponse> =
+        dao.getCharacters()
+
+    override fun insertCharacterDao(character: List<CharacterResponse>): Unit =
+        dao.insertCharacter(character)
 
 }

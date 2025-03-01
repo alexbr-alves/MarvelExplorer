@@ -32,5 +32,5 @@ interface MarvelDao {
     fun getCharacters(): List<CharacterResponse>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(character: List<CharacterResponse>)
+    fun insertCharacter(character: List<CharacterResponse>)
 }

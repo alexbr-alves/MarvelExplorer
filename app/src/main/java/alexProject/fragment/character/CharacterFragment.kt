@@ -3,7 +3,6 @@ package alexProject.fragment.character
 
 import alexProject.activity.MainActivity
 import alexProject.adapters.character.CharacterAdapter
-import alexProject.data.SharedPreferences
 import alexProject.databinding.FragmentCharacterBinding
 import alexProject.fragment.BaseFragment
 import alexProject.viewModel.character.CharacterViewModel
@@ -11,7 +10,6 @@ import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setVisible
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,13 +52,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
         observe(closedSearchLiveData) { isClosed ->
             if (isClosed) {
-                viewModel.fetch(args.origem, args.id, offset = initialOffset)
+                viewModel.getCharacter(args.origem, args.id, offset = initialOffset)
             }
         }
     }
 
     private fun collectObserve() = with(viewModel) {
-        fetch(args.origem, args.id, offset = initialOffset)
+        getCharacter(args.origem, args.id, offset = initialOffset)
         observe(characterList) { result ->
             result.let { character ->
                 if (character.isNotEmpty()) {
@@ -108,7 +105,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                     if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount - 3) && firstVisibleItemPosition >= 0) {
-                        viewModel.refreshScroll()
+                        viewModel.loadMoreCharacters()
                     }
                 }
             })
