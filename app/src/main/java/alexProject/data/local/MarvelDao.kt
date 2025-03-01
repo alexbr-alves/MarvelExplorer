@@ -1,7 +1,9 @@
 package alexProject.data.local
 
 import alexProject.data.model.FavoriteModel
+import alexProject.network.response.CharacterResponse
 import alexProject.network.response.GenericResponse
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -26,4 +28,9 @@ interface MarvelDao {
     @Query("Select COUNT(*) from favoriteModel WHERE id = :characterId")
     suspend fun searchFavorite(characterId : Int) : Boolean
 
+    @Query("SELECT * FROM characterModel ORDER BY name")
+    fun getCharacters(): List<CharacterResponse>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCharacter(character: List<CharacterResponse>)
 }
