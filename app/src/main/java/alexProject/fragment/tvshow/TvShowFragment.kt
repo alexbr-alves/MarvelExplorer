@@ -66,11 +66,11 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
+            getTvShow()
             observe(onError) { onError ->
-                (activity as TvShowActivity).showError(onError)
+                (activity as TvShowActivity).showError(onError.message)
             }
-            observe(isLoading) { isLoading ->
+            observe(onLoading) { isLoading ->
                 binding.progressbarSearch.setVisible(isLoading)
             }
             observe(listItems) { result ->
@@ -79,8 +79,8 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding, TvShowViewModel>() {
         }
     }
 
-    private fun handleList(result: ResourceState<TvShowModelResponse>) {
-        result.data?.tvShows?.let { tvShowResponseData ->
+    private fun handleList(result: TvShowModelResponse) {
+        result.tvShows.let { tvShowResponseData ->
             tvShowResponseData.let {
                 loadPage(it)
                 setupRecyclerView(it)

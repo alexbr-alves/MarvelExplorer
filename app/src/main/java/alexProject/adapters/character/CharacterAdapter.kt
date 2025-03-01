@@ -2,16 +2,18 @@ package alexProject.adapters.character
 
 
 import alexProject.R
-import alexProject.data.model.character.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.databinding.ItemCardNameBinding
-import alexProject.util.Constants
+import alexProject.util.Constants.IMAGE_NOT_AVAILABLE
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
 import alexProject.util.setGone
+import alexProject.util.setVisible
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -23,15 +25,15 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     inner class CharacterViewHolder(val binding : ItemCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<CharacterModel>() {
-        override fun areItemsTheSame(oldItem : CharacterModel, newItem : CharacterModel) : Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<CharacterResponse>() {
+        override fun areItemsTheSame(oldItem : CharacterResponse, newItem : CharacterResponse) : Boolean {
             return true
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem : CharacterModel,
-            newItem : CharacterModel
+            oldItem : CharacterResponse,
+            newItem : CharacterResponse
         ) : Boolean {
             return oldItem.id == newItem.id &&
                     oldItem.name == newItem.name &&
@@ -44,9 +46,9 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     }
 
     private val differ = AsyncListDiffer(this, differCallback)
-    private val characterMutableList: MutableList<CharacterModel> = mutableListOf()
+    private val characterMutableList: MutableList<CharacterResponse> = mutableListOf()
 
-    var characters : List<CharacterModel>
+    var characters : List<CharacterResponse>
         get() = characterMutableList
         set(value) {
             characterMutableList.clear()
@@ -63,7 +65,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         )
     }
 
-    fun addItems(items: List<CharacterModel>) {
+    fun addItems(items: List<CharacterResponse>) {
         val startPosition = characters.size
         characters = characters + items
         differ.submitList(characterMutableList)
@@ -88,16 +90,15 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
             )
         }
         holder.itemView.findViewById<MaterialCardView>(R.id.card).setOnClickListener {
-            Log.i("Alex Brito", "onBindViewHolder: $character")
             onItemClickListener?.let {
                 it(character)
             }
         }
     }
 
-    private var onItemClickListener : ((CharacterModel) -> Unit)? = null
+    private var onItemClickListener : ((CharacterResponse) -> Unit)? = null
 
-    fun setOnClickListener(listener : (CharacterModel) -> Unit) {
+    fun setOnClickListener(listener : (CharacterResponse) -> Unit) {
         onItemClickListener = listener
     }
 }

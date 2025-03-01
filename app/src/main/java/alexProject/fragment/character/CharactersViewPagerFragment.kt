@@ -6,7 +6,6 @@ import alexProject.adapters.character.CharacterDetailsAdapter
 import alexProject.databinding.FragmentCharacterViewPagerBinding
 import alexProject.fragment.BaseFragment
 import alexProject.fragment.DetailsFragmentDirections
-import alexProject.fragment.comic.ComicsViewPagerFragment
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
@@ -90,23 +89,21 @@ class CharactersViewPagerFragment(private val comicId: Int, private val origin: 
         }
     }
 
-    private fun collectObserver() = lifecycleScope.launch {
-        with(viewModel) {
-            fetchCharacterComic(comicId, origin)
-            observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
-            }
-            observe(isLoading) { isLoading ->
-                binding.progressBarDetail.setVisible(isLoading)
-            }
-            observe(comicCharacterList) { result ->
-                result.data?.data?.let { characterModels ->
-                    if (characterModels.results.isEmpty()) {
-                        binding.textEmpty.setVisible()
-                    } else {
-                        characterDetailsAdapter.characters = characterModels.results.toList()
-                        totalItems = characterModels.total
-                    }
+    private fun collectObserver() = with(viewModel) {
+        getCharacter(comicId, origin)
+        observe(onError) { onError ->
+            (activity as MainActivity).showError(onError.message)
+        }
+        observe(onLoading) { isLoading ->
+            binding.progressBarDetail.setVisible(isLoading)
+        }
+        observe(comicCharacterList) { result ->
+            result?.apiResponse?.let { characterModels ->
+                if (characterModels.entityList.isEmpty()) {
+                    binding.textEmpty.setVisible()
+                } else {
+                    characterDetailsAdapter.characters = characterModels.entityList.toList()
+                    totalItems = characterModels.total
                 }
             }
         }

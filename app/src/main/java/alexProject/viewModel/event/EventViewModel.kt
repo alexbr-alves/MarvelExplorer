@@ -1,10 +1,12 @@
 package alexProject.viewModel.event
 
-import alexProject.data.model.event.EventModelResponse
-import alexProject.repository.MarvelRepository
+import alexProject.data.model.event.EventModel
+import alexProject.domain.useCase.events.GetEventsCharacterUseCase
+import alexProject.domain.useCase.events.GetEventsComicsUseCase
+import alexProject.domain.useCase.events.GetEventsUseCase
 import alexProject.state.ResourceState
 import alexProject.util.Constants
-import alexProject.viewModel.BaseViewModel
+import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,15 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EventViewModel @Inject constructor(
-    private val repository: MarvelRepository
-) : BaseViewModel() {
+    private val getEventsUseCase: GetEventsUseCase,
+    private val getEventsCharacterUseCase: GetEventsCharacterUseCase,
+    private val getEventsComicsUseCase: GetEventsComicsUseCase
+) : MarvelViewModel() {
 
-    val listItems = MutableLiveData<ResourceState<EventModelResponse>>()
+    val listItems = MutableLiveData<List<EventModel>>()
 
     fun fetch(
         verify: String? = null,
         id: Int? = null,
-        titleStartsWith: String? = null,
         limit: Int = 100,
         offset: Int
     ) = viewModelScope.launch {
@@ -34,26 +37,32 @@ class EventViewModel @Inject constructor(
         limit: Int = 100,
         offset: Int
     ) {
-        isLoading.value = true
+
         when (verify) {
             Constants.EVENT -> {
-                handleFetchResponse(
-                    repository.getEventsCharacter(id ?: 0, limit, offset),
-                    listItems
+                handleObservable(
+                    observable = getEventsCharacterUseCase(id ?: 0, limit, offset),
+                    successHandler = {
+                        listItems.value = it.apiResponse.entityList
+                    }
                 )
             }
 
             Constants.COMIC -> {
-                handleFetchResponse(
-                    repository.getEventComics(id ?: 0, limit, offset),
-                    listItems
+                handleObservable(
+                    observable = getEventsComicsUseCase(id ?: 0, limit, offset),
+                    successHandler = {
+                        listItems.value = it.apiResponse.entityList
+                    }
                 )
             }
 
             else -> {
-                handleFetchResponse(
-                    repository.events(),
-                    listItems
+                handleObservable(
+                    observable = getEventsUseCase(),
+                    successHandler = {
+                        listItems.value = it.apiResponse.entityList
+                    }
                 )
             }
         }

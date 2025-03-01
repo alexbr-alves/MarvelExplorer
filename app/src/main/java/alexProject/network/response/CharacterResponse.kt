@@ -1,4 +1,4 @@
-package alexProject.data.model.character
+package alexProject.network.response
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
@@ -7,9 +7,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-
 @Entity(tableName = "characterModel")
-data class CharacterModel(
+data class CharacterResponse(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id : Int,
@@ -23,4 +22,4 @@ data class CharacterModel(
     val comics : SizeItens,
     @SerializedName("events")
     val events : SizeItens
-    ) : Serializable
+) : Serializable

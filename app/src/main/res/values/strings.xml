@@ -4,53 +4,40 @@
     <!--    Splash Activity -->
     <string name="marvel">MARVEL</string>
 
+    <!--  Home Fragment   -->
+    <string name="home_fragment_character_title">CHARACTERS</string>
+    <string name="home_fragment_character_description">Find out the connection and mistry about the induvidual.</string>
+    <string name="home_fragment_comic_title">COMICS</string>
+    <string name="home_fragment_comic_description">Read all marvel comics in one place.</string>
+    <string name="home_fragment_movies_title">MOVIES</string>
+    <string name="home_fragment_movies_description">Watch all marvel movies in one place.</string>
+    <string name="home_fragment_tv_show_title">TV-SHOWS</string>
+    <string name="home_fragment_tv_show_description">Watch all marvel TV-Series in one place.</string>
+    <string name="home_fragment_games_title">GAMES</string>
+    <string name="home_fragment_games_description">Play all marvel games in one place.</string>
+    <string name="home_fragment_teams_title">TEAMS</string>
+    <string name="home_fragment_teams_description">See all marvel teams in one place.</string>
+
     <!--    Item character and Item comic -->
     <string name="tx_item_name">Nome</string>
     <string name="tv_item_description">O sucesso nasce do querer, da determinação e persistência em se chegar a um objetivo.</string>
     <string name="text_description_empty">Esse personagem não possui descrição.</string>
     <string name="comics">Comics</string>
 
-    <!--    Details Character Fragment -->
-    <string name="empty_list_comics">Esse personagem não possui comics</string>
-    <string name="close_dialog">Fechar</string>
-
-    <!--    Search Character Fragment -->
-    <string name="search_character">Pesquise um personagem</string>
-    <string name="search_comic">Pesquise um HQ</string>
-
-    <!--    Home Fragment -->
-    <string name="home_fragment_title_top">Top Characters</string>
-    <string name="home_fragment_title_categories">Categories</string>
-
-    <!--    Dialog delete -->
-    <string name="dialog_title_text">DELETAR</string>
-    <string name="dialog_message_text">Deseja realmente deletar esse personagem?</string>
-    <string name="dialog_positive_text">Deletar</string>
-    <string name="dialog_negative_text">Cancelar</string>
-
     <!--    Favorite Character Fragment -->
-    <string name="message_delete_character">Deletado com sucesso!</string>
     <string name="tv_empty_text">Nada aqui.</string>
 
-
-    <!--    Toast messages -->
-    <string name="saved_successfully">Salvo com sucesso!</string>
-
     <!--    Error -->
-    <string name="error_internet_connection">Erro de conexão com a internet!</string>
     <string name="error_data_conversion_failure">Falha na conversão dos dados!</string>
 
     <!--    title fragments -->
     <string name="title_fragment_comic">Comics</string>
     <string name="title_fragment_favorites">Favorites</string>
-    <string name="title_fragment_search">Search</string>
     <string name="title_fragment_event">Events</string>
-    <string name="title_fragment_detail">Details</string>
     <string name="title_fragment_characters">Characters</string>
     <string name="title_fragment_teams_and_groups">Teams</string>
     <string name="title_fragment_tv_show">Tv Show</string>
     <string name="title_fragment_movies">Movies</string>
-    <string name="title_fragment_series">Series</string>
     <string name="title_fragment_games">Games</string>
     <string name="title_about">About</string>
 
@@ -61,7 +48,6 @@
 
 
     <!-- Button navigation-->
-    <string name="favorites">Favorites</string>
     <string name="feed">Feed</string>
     <string name="home">Home</string>
 

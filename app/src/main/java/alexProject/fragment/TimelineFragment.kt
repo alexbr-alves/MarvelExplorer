@@ -1,28 +1,23 @@
 package alexProject.fragment
 
-import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
 import alexProject.data.model.StoryModelData
-import alexProject.data.model.ThumbnailModel
 import alexProject.databinding.FragmentTimelineBinding
 import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
-import alexProject.util.setGone
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,30 +66,25 @@ class TimelineFragment :
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
-            observe(isLoading) {
+            getStory()
+            getComics()
+            observe(onLoading) {
                 binding.progressbarSearch.setVisible()
             }
             observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
+                (activity as MainActivity).showError(onError.message)
             }
             observe(listItems) { result ->
-                result.data?.data?.result?.let {
-                    timelineAdapter.timelineList = it.toList()
+                result?.apiResponse?.let {
+                    timelineAdapter.timelineList = it.entityList
                     binding.recycleStorys.setVisible()
                 }
             }
             observe(listStoryComics) { storyList ->
                 onClickStoryAdapter(storyList)
             }
-            storyList.collect { resource ->
-                when (resource) {
-                    is ResourceState.Success -> {
-                        resource.data?.let {
-                            storyAdapter.list = it.toList()
-                        }
-                    }
-                }
+            observe(storyList) {
+                storyAdapter.list = it.toList()
             }
         }
     }

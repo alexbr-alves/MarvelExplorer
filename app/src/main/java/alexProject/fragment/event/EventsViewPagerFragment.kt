@@ -27,16 +27,16 @@ import kotlinx.coroutines.launch
 class EventsViewPagerFragment(private val characterId: Int, private val origin: String) :
     BaseFragment<FragmentEventsViewPagerBinding, EventsViewPagerViewModel>() {
     private val eventDetailsAdapter by lazy { EventDetailsAdapter() }
-    override val viewModel : EventsViewPagerViewModel by viewModels()
-    private var totalItems : Int = 0
+    override val viewModel: EventsViewPagerViewModel by viewModels()
+    private var totalItems: Int = 0
 
     override fun getViewBinding(
-        inflater : LayoutInflater,
-        container : ViewGroup?
-    ) : FragmentEventsViewPagerBinding =
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentEventsViewPagerBinding =
         FragmentEventsViewPagerBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
         collectObserver()
@@ -68,17 +68,17 @@ class EventsViewPagerFragment(private val characterId: Int, private val origin: 
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
             fetchEvent(characterId, origin)
-            observe(onError) {onError ->
-                (activity as MainActivity).showError(onError)
+            observe(onError) { onError ->
+                (activity as MainActivity).showError(onError.message)
             }
-            observe(isLoading) {isLoading ->
-                binding.progressBarDetail.setVisible(isLoading)
+            observe(onLoading) { onLoading ->
+                binding.progressBarDetail.setVisible(onLoading)
             }
-            observe(eventList) {result ->
-                result.data?.data?.let { eventModelData ->
-                    if (eventModelData.result.isNotEmpty()) {
-                        eventDetailsAdapter.events = result.data.data.result.toList()
-                        totalItems = result.data.data.total
+            observe(eventList) { result ->
+                result?.let { eventModelData ->
+                    if (eventModelData.isNotEmpty()) {
+                        eventDetailsAdapter.events = result.toList()
+                        totalItems = result.count()
                     } else {
                         binding.textEmpty.setVisible()
                     }
@@ -92,7 +92,7 @@ class EventsViewPagerFragment(private val characterId: Int, private val origin: 
             adapter = eventDetailsAdapter
             layoutManager = GridLayoutManager(context, SPAN_COUNT)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView : RecyclerView, dx : Int, dy : Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -109,6 +109,7 @@ class EventsViewPagerFragment(private val characterId: Int, private val origin: 
             })
         }
     }
+
     companion object {
         const val SPAN_COUNT = 3
         const val MAX_SIZE = 30

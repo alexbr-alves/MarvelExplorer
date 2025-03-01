@@ -1,7 +1,5 @@
 package alexProject.data.model
 
-import alexProject.data.model.comic.ComicModel
-import android.provider.ContactsContract.Data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName

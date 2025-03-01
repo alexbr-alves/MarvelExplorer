@@ -1,6 +1,6 @@
 package alexProject.adapters.comic
 
-import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.ComicModel
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage

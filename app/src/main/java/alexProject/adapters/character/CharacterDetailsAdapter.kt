@@ -1,6 +1,6 @@
 package alexProject.adapters.character
 
-import alexProject.data.model.character.CharacterModel
+import alexProject.network.response.CharacterResponse
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -18,16 +18,16 @@ class CharacterDetailsAdapter :
     inner class CharacterViewHolder(val binding : LayoutMiniCardsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<CharacterModel>() {
+    private val differCallback = object : DiffUtil.ItemCallback<CharacterResponse>() {
 
-        override fun areItemsTheSame(oldItem : CharacterModel, newItem : CharacterModel) : Boolean {
+        override fun areItemsTheSame(oldItem : CharacterResponse, newItem : CharacterResponse) : Boolean {
             return true
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem : CharacterModel,
-            newItem : CharacterModel
+            oldItem : CharacterResponse,
+            newItem : CharacterResponse
         ) : Boolean {
             return oldItem.id == newItem.id &&
                     oldItem.name == newItem.name &&
@@ -40,7 +40,7 @@ class CharacterDetailsAdapter :
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var characters : List<CharacterModel>
+    var characters : List<CharacterResponse>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -74,9 +74,9 @@ class CharacterDetailsAdapter :
         }
     }
 
-    private var onItemClickListener : ((CharacterModel) -> Unit)? = null
+    private var onItemClickListener : ((CharacterResponse) -> Unit)? = null
 
-    fun setOnClickListener(listener : (CharacterModel) -> Unit) {
+    fun setOnClickListener(listener : (CharacterResponse) -> Unit) {
         onItemClickListener = listener
     }
 }

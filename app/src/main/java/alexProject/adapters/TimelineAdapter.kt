@@ -1,7 +1,7 @@
 
 package alexProject.adapters
 
-import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.ComicModel
 import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription

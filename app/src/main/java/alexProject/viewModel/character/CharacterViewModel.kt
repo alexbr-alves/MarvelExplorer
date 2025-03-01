@@ -1,65 +1,75 @@
 package alexProject.viewModel.character
 
-import alexProject.data.model.character.CharacterModelResponse
-import alexProject.repository.MarvelRepository
-import alexProject.state.ResourceState
+import alexProject.domain.useCase.character.GetCharacterComicsUseCase
+import alexProject.domain.useCase.character.GetCharacterEventsUseCase
+import alexProject.domain.useCase.character.GetCharactersUseCase
+import alexProject.network.response.CharacterResponse
+import alexProject.network.response.GenericResponse
+import alexProject.state.SingleLiveEvent
 import alexProject.util.Constants
-import alexProject.viewModel.BaseViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import alexProject.viewModel.MarvelViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    private val repository: MarvelRepository
-) : BaseViewModel() {
+    private val getCharactersUseCase: GetCharactersUseCase,
+    private val getCharacterEventsUseCase: GetCharacterEventsUseCase,
+    private val getCharacterComicsUseCase: GetCharacterComicsUseCase
+) : MarvelViewModel() {
 
-    val listItem = MutableLiveData<ResourceState<CharacterModelResponse>>()
-    var firshLoading = false
-
+    val characterList = SingleLiveEvent<GenericResponse<CharacterResponse>>()
     fun fetch(
         verify: String? = null,
         id: Int? = null,
         nameStartsWith: String? = null,
         limit: Int = 100,
         offset: Int
-    ) =
-        viewModelScope.launch {
-            safeFetch(verify, id, nameStartsWith, limit, offset)
-        }
-
-    private suspend fun safeFetch(
-        verify: String? = null,
-        id: Int? = null,
-        nameStartsWith: String? = null,
-        limit: Int = 100,
-        offset: Int
     ) {
-        isLoading.value = true
-        when (verify) {
+        when (
+            verify) {
             Constants.COMIC -> {
-                handleFetchResponse(
-                    repository.getCharacterComics(id ?: 0, limit, offset),
-                    listItem
-                )
+                getCharacterComic(id ?: 0, limit, offset)
             }
 
             Constants.EVENT -> {
-                handleFetchResponse(
-                    repository.getCharacterEvent(id ?: 0, limit, offset),
-                    listItem
-                )
+                getCharacterEvent(id ?: 0, limit, offset)
             }
 
             else -> {
-                handleFetchResponse(
-                    repository.characters(nameStartsWith, limit, offset),
-                    listItem
-                )
+                getCharacter(nameStartsWith, limit, offset)
             }
         }
+    }
+
+    private fun getCharacter(nameStartsWith: String?, limit: Int, offset: Int?) {
+        handleObservable(
+            observable = getCharactersUseCase(nameStartsWith, limit, offset),
+            successHandler = {response ->
+                val filteredList = response.apiResponse.entityList.filter { characterResponse ->
+                    characterResponse.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
+                }
+                characterList.value = response.copy(apiResponse = response.apiResponse.copy(entityList = filteredList))
+            }
+        )
+    }
+
+    private fun getCharacterEvent(characterId: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getCharacterEventsUseCase(characterId, limit = limit, offset),
+            successHandler = {
+                characterList.value = it
+            }
+        )
+    }
+
+    private fun getCharacterComic(characterId: Int, limit: Int, offset: Int) {
+        handleObservable(
+            observable = getCharacterComicsUseCase(characterId, limit = limit, offset),
+            successHandler = {
+                characterList.value = it
+            }
+        )
     }
 
 }

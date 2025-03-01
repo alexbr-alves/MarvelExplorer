@@ -47,11 +47,11 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
 
     private fun collectObserve() = lifecycleScope.launch {
         with(viewModel) {
-            fetch()
+            getGroups()
             observe(onError) { onError ->
-                (activity as GroupsActivity).showError(onError)
+                (activity as GroupsActivity).showError(onError.message)
             }
-            observe(isLoading) { isLoading ->
+            observe(onLoading) { isLoading ->
                 binding.progressbarSearch.setVisible(isLoading)
             }
             observe(listItems) { result ->
@@ -60,8 +60,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>() {
         }
     }
 
-    private fun handleList(result: ResourceState<GroupModelResponse>) {
-        result.data?.let { groupModelResponse ->
+    private fun handleList(result: GroupModelResponse) {
+        result.let { groupModelResponse ->
             if (groupModelResponse.groups.isNotEmpty()) {
                 groupAdapter.groups = groupModelResponse.groups.toList()
             }

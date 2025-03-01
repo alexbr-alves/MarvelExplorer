@@ -1,9 +1,21 @@
-package alexProject.data.model.comic
+package alexProject.network.response
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+
+data class ComicResponse(
+    @SerializedName("data")
+    val apiResponse : ComicModelData
+) : Serializable
+
+data class ComicModelData(
+    @SerializedName("total")
+    val total: Int,
+    @SerializedName("results")
+    val entityList : List<ComicModel>
+) : Serializable
 
 data class ComicModel(
     @SerializedName("id")

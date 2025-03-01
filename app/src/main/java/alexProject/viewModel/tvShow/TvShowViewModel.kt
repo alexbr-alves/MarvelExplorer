@@ -1,10 +1,10 @@
 package alexProject.viewModel.tvShow
 
 import alexProject.data.model.tv_show.TvShowModelResponse
-import alexProject.repository.GithubRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.useCase.GetTvShowUseCase
 import alexProject.state.ResourceState
-import alexProject.viewModel.BaseViewModel
+import alexProject.state.SingleLiveEvent
+import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,24 +13,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TvShowViewModel @Inject constructor(
-    private val repository: GithubRepository
-) : BaseViewModel() {
+    private val getTvShowUseCase: GetTvShowUseCase
+) : MarvelViewModel() {
 
-    val listItems = MutableLiveData<ResourceState<TvShowModelResponse>>()
+    val listItems = SingleLiveEvent<TvShowModelResponse>()
 
-    init {
-        fetch()
-    }
-
-    fun fetch() = viewModelScope.launch {
-        safeFetch()
-    }
-
-    private suspend fun safeFetch() = viewModelScope.launch {
-        isLoading.value = true
-        handleFetchResponse(
-            repository.getTvShow(),
-            listItems
+    fun getTvShow() {
+        handleObservable(
+            observable = getTvShowUseCase(),
+            successHandler = {
+                listItems.value = it
+            }
         )
     }
 }

@@ -8,32 +8,23 @@ import alexProject.fragment.BaseFragment
 import alexProject.viewModel.character.CharacterViewModel
 import alexProject.util.Constants
 import alexProject.util.observe
-import alexProject.util.setGone
 import alexProject.util.setVisible
-import alexProject.util.toast
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>(),
     MainActivity.SearchListener {
-    override val viewModel: CharacterViewModel by viewModels()
+    override val viewModel by viewModels<CharacterViewModel>()
     private val characterAdapter by lazy { CharacterAdapter() }
     private val args: CharacterFragmentArgs by navArgs()
     private var isSearchExpanded = false
@@ -67,26 +58,24 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
     }
 
-    private fun collectObserve() = lifecycleScope.launch {
-        with(viewModel) {
-            fetch(args.origem, args.id, offset = initialOffset)
-            observe(listItem) { result ->
-                result.data?.data?.let { character ->
-                    if (character.results.isNotEmpty()) {
-                        if (initialOffset == 0) {
-                            characterAdapter.clearItems()
-                        }
-                        characterAdapter.addItems(character.results)
-                        totalItems = character.total
+    private fun collectObserve() = with(viewModel) {
+        fetch(args.origem, args.id, offset = initialOffset)
+        observe(characterList) { result ->
+            result.apiResponse.let { character ->
+                if (character.entityList.isNotEmpty()) {
+                    if (initialOffset == 0) {
+                        characterAdapter.clearItems()
                     }
+                    characterAdapter.addItems(character.entityList)
+                    totalItems = character.total
                 }
             }
-            observe(onError) { onError ->
-                (activity as MainActivity).showError(onError)
-            }
-            observe(isLoading) { isLoading ->
-                binding.progressCircular.setVisible(isLoading)
-            }
+        }
+        observe(onError) { onError ->
+            (activity as MainActivity).showError(onError.message)
+        }
+        observe(onLoading) { isLoading ->
+            binding.progressCircular.setVisible(isLoading)
         }
     }
 

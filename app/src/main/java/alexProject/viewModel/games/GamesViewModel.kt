@@ -1,10 +1,10 @@
 package alexProject.viewModel.games
 
 import alexProject.data.model.games.GamesModelResponse
-import alexProject.repository.GithubRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.useCase.GetGamesUseCase
 import alexProject.state.ResourceState
-import alexProject.viewModel.BaseViewModel
+import alexProject.state.SingleLiveEvent
+import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,22 +13,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GamesViewModel @Inject constructor(
-    private val repository: GithubRepository
-) : BaseViewModel() {
+    private val getGamesUseCase: GetGamesUseCase
+) : MarvelViewModel() {
+    val listItems = SingleLiveEvent<GamesModelResponse>()
 
-    val listItems = MutableLiveData<ResourceState<GamesModelResponse>>()
-
-    init {
-        fetch()
+    fun getGames() {
+        handleObservable(
+            observable = getGamesUseCase(),
+            successHandler = {
+                listItems.value = it
+            }
+        )
     }
-
-    fun fetch() = viewModelScope.launch {
-        safeFetch()
-    }
-
-    private suspend fun safeFetch() = viewModelScope.launch {
-        isLoading.value = true
-        handleFetchResponse(repository.getGames(), listItems)
-    }
-
 }

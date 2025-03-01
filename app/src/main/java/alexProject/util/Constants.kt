@@ -2,8 +2,8 @@ package alexProject.util
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
-import alexProject.data.model.character.CharacterModel
-import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.ComicModel
+import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 
 object Constants {
@@ -12,6 +12,9 @@ object Constants {
     const val APIKEY = "apikey"
     const val HASH = "hash"
     const val TS = "ts"
+
+    const val GENERIC_TITLE_ERROR = "Algo de errado aconteceu!"
+    const val GENERIC_MESSAGE_ERROR = "Tente novamente mais tarde!"
 
     const val IMAGE_NOT_AVAILABLE =
         "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
@@ -40,7 +43,7 @@ object Constants {
         )
     )
 
-    val CHARACTER_INVALID = CharacterModel(
+    val CHARACTER_INVALID = CharacterResponse(
         id = 0,
         name = "",
         description = "",

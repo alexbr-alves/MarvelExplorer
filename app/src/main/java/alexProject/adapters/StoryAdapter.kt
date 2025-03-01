@@ -1,7 +1,6 @@
 package alexProject.adapters
 
 import alexProject.data.model.FavoriteModel
-import alexProject.data.model.comic.ComicModel
 import alexProject.databinding.ItemStoryCircleBinding
 import alexProject.util.Constants
 import alexProject.util.loadImage

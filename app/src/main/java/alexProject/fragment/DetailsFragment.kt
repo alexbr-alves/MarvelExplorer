@@ -2,10 +2,10 @@ package alexProject.fragment
 
 import alexProject.R
 import alexProject.activity.MainActivity
-import alexProject.data.model.character.CharacterModel
 import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
-import alexProject.data.model.comic.ComicModel
+import alexProject.network.response.ComicModel
+import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentDetailsBinding
 import alexProject.util.Constants.CHARACTER
@@ -17,6 +17,7 @@ import alexProject.util.Constants.EVENT_INVALID
 import alexProject.util.Converts
 import alexProject.viewModel.DetailsViewModel
 import alexProject.util.loadImage
+import alexProject.util.observe
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,7 @@ class DetailsFragment :
     BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
     override val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
-    private lateinit var characterModel: CharacterModel
+    private lateinit var characterResponse: CharacterResponse
     private lateinit var comicModel: ComicModel
     private lateinit var eventModel: EventModel
     private var viewPager2: ViewPager2? = null
@@ -47,7 +48,7 @@ class DetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        characterModel = args.character
+        characterResponse = args.character
         comicModel = args.comic
         eventModel = args.event
         favoriteModel = getFavorite()
@@ -66,20 +67,20 @@ class DetailsFragment :
     }
 
     private fun getFavorite(): FavoriteModel {
-        if (characterModel == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
+        if (characterResponse == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
             return converts.eventToFavorite(eventModel)
-        } else if (characterModel == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
+        } else if (characterResponse == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
             return converts.comicToFavorite(comicModel)
         } else {
-            return converts.characterToFavorite(characterModel)
+            return converts.characterToFavorite(characterResponse)
         }
     }
 
     private fun handleToolbar() {
         val toolbarTitle =
-            if (characterModel == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
+            if (characterResponse == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
                 getString(R.string.title_fragment_event)
-            } else if (characterModel == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
+            } else if (characterResponse == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
                 getString(R.string.title_fragment_comic)
             } else {
                 getString(R.string.title_fragment_characters)
@@ -117,8 +118,8 @@ class DetailsFragment :
                 badge,
                 getString(R.string.title_fragment_comic),
                 getString(R.string.title_fragment_event),
-                characterModel.comics.available,
-                characterModel.events.available
+                characterResponse.comics.available,
+                characterResponse.events.available
             )
         }
     }
@@ -182,9 +183,9 @@ class DetailsFragment :
             )
         } else {
             handleViewPager(
-                characterModel.id,
-                characterModel.name,
-                characterModel.description,
+                characterResponse.id,
+                characterResponse.name,
+                characterResponse.description,
                 CHARACTER
             )
         }
@@ -261,8 +262,8 @@ class DetailsFragment :
             )
         } else {
             loadModel(
-                characterModel.thumbnailModel.path,
-                characterModel.thumbnailModel.extension
+                characterResponse.thumbnailModel.path,
+                characterResponse.thumbnailModel.extension
             )
         }
     }
@@ -271,7 +272,7 @@ class DetailsFragment :
         imagePath: String,
         imageExtension: String,
     ) = with(binding) {
-        viewModel.searchCharacter.observe(viewLifecycleOwner) {
+        observe(viewModel.searchCharacter) {
             imageFavorite.isSelected = it
             handleTabLayout()
             loadImage(

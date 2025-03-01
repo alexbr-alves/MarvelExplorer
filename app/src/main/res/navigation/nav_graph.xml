@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="character"
-            app:argType="alexProject.data.model.character.CharacterModel" />
+            app:argType="alexProject.network.response.CharacterResponse" />
         <action
             android:id="@+id/action_detailsFragment_self"
             app:destination="@id/detailsFragment" />
         <argument
             android:name="comic"
-            app:argType="alexProject.data.model.comic.ComicModel" />
+            app:argType="alexProject.network.response.ComicModel" />
         <argument
             android:name="event"
             app:argType="alexProject.data.model.event.EventModel" />

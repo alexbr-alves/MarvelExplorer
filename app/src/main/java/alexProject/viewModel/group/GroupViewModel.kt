@@ -1,10 +1,10 @@
 package alexProject.viewModel.group
 
 import alexProject.data.model.group.GroupModelResponse
-import alexProject.repository.GithubRepository
-import alexProject.repository.MarvelRepository
+import alexProject.domain.useCase.GetGroupUseCase
 import alexProject.state.ResourceState
-import alexProject.viewModel.BaseViewModel
+import alexProject.state.SingleLiveEvent
+import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,23 +13,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(
-    private val repository: GithubRepository
-) : BaseViewModel() {
-    val listItems = MutableLiveData<ResourceState<GroupModelResponse>>()
+    private val getGroupUseCase: GetGroupUseCase
+) : MarvelViewModel() {
+    val listItems = SingleLiveEvent<GroupModelResponse>()
 
-    init {
-        fetch()
-    }
-
-    fun fetch() = viewModelScope.launch {
-        safeFetch()
-    }
-
-    private suspend fun safeFetch() = viewModelScope.launch {
-        isLoading.value = true
-        handleFetchResponse(
-            repository.getGroup(),
-            listItems
+    fun getGroups() {
+        handleObservable(
+            observable = getGroupUseCase(),
+            successHandler = {
+                listItems.value = it
+            }
         )
     }
 }
