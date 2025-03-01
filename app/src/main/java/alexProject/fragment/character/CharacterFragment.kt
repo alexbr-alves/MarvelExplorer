@@ -114,8 +114,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
 
 
 
-    private fun updateCharacterList(query: String? = null) {
-        viewModel.searchCharacter(query = query ?:"")
+    private fun updateCharacterList(query: String) {
+        viewModel.getCharactersByName(query = query)
     }
 
     override fun onSearchQueryChanged(query: String?) {

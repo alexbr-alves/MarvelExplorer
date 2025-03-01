@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -57,7 +58,7 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
-    fun searchCharacter(query: String) {
+    fun getCharactersByName(query: String) {
         handleObservable(
             observable = getCharactersUseCase(nameStartsWith = query, limit = DEFAULT_LIMIT, 0),
             successHandler = {
@@ -148,8 +149,6 @@ class CharacterViewModel @Inject constructor(
             }
         )
     }
-
-
 
     companion object {
         private const val DEFAULT_LIMIT = 100
