@@ -55,7 +55,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
         observe(closedSearchLiveData) { isClosed ->
             if (isClosed) {
-                updateCharacterList()
+                viewModel.fetch(args.origem, args.id, offset = initialOffset)
             }
         }
     }
@@ -118,7 +118,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
 
 
     private fun updateCharacterList(query: String? = null) {
-        viewModel.fetch(nameStartsWith = query, offset = initialOffset)
+        viewModel.searchCharacter(query = query ?:"")
     }
 
     override fun onSearchQueryChanged(query: String?) {

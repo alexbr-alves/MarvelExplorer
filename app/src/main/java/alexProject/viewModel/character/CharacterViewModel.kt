@@ -136,6 +136,16 @@ class CharacterViewModel @Inject constructor(
             }
         )
     }
+
+    fun searchCharacter(query: String) {
+        handleObservable(
+            observable = getCharactersUseCase(nameStartsWith = query, limit = DEFAULT_LIMIT, 0),
+            successHandler = {
+                _characterList.value = emptyList()
+                _characterList.value = it.apiResponse.entityList
+            }
+        )
+    }
     companion object {
         private const val DEFAULT_LIMIT = 100
         private const val MAX_DATABASE_SIZE = 500
