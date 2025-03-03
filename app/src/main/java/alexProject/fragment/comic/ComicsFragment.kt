@@ -52,7 +52,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(),
         }
         observe(closedSearchLiveData) { isClosed ->
             if (isClosed) {
-                updateComicList()
+                viewModel.getComics(args.origem, args.id, offset = initialOffset)
             }
         }
     }
@@ -117,8 +117,8 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(),
         }
     }
 
-    private fun updateComicList(query: String? = null) {
-        viewModel.getComics(titleStartsWith = query, offset = initialOffset)
+    private fun updateComicList(query: String) {
+        viewModel.getComicsByName(query)
     }
 
     override fun onSearchQueryChanged(query: String?) {

@@ -77,6 +77,16 @@ class ComicViewModel @Inject constructor(
         }
     }
 
+    fun getComicsByName(query: String) {
+        handleObservable(
+            observable = getComicsUseCase(nameStartsWith = query, limit = DEFAULT_LIMIT, 0),
+            successHandler = {
+                _comicList.value = emptyList()
+                _comicList.value = it.apiResponse.entityList
+            }
+        )
+    }
+
     private fun requestComic(nameStartsWith: String?, offset: Int) {
         viewModelScope.launch {
             handleObservable(
