@@ -72,3 +72,6 @@ lint/tmp/
 # App Specific cases 
 app/release/output.json
 .idea/codeStyles/
+# Ignorar arquivos da IDE
+.idea/
+*.iml
