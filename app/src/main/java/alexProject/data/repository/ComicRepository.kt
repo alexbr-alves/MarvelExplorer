@@ -1,5 +1,6 @@
 package alexProject.data.repository
 
+import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicResponse
 import alexProject.network.response.GenericResponse
 import io.reactivex.Observable
@@ -23,4 +24,8 @@ interface ComicRepository {
         limit: Int? = 100,
         offset: Int? = 0
     ): Observable<GenericResponse<ComicResponse>>
+
+    fun getComicDao(): List<ComicResponse>
+
+    fun insertComicDao(comic: List<ComicResponse>): Unit
 }
