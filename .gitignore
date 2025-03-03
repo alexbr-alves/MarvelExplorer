@@ -75,3 +75,4 @@ app/release/output.json
 # Ignorar arquivos da IDE
 .idea/
 *.iml
+/.idea/
