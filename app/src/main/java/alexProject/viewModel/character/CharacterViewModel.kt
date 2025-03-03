@@ -14,7 +14,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -71,7 +70,7 @@ class CharacterViewModel @Inject constructor(
     fun loadMoreCharacters() {
         if (isRequesting == false) {
             isRequesting = true
-            requestCharacters(null, sharedPreferences.getLastOffset())
+            requestCharacters(null, sharedPreferences.getLastOffsetCharacter())
         }
     }
 
@@ -86,12 +85,12 @@ class CharacterViewModel @Inject constructor(
                 if (localCharacters.isNotEmpty()) {
                     _characterList.value = filterAvailableThumbnails(localCharacters)
                     isRequesting = false
-                } else if ((sharedPreferences.getLastOffset() + DEFAULT_LIMIT) >= sharedPreferences.getTotalCharacter()) {
+                } else if ((sharedPreferences.getLastOffsetCharacter() + DEFAULT_LIMIT) >= sharedPreferences.getTotalCharacter()) {
                     characterLimit =
-                        sharedPreferences.getLastOffset() + (sharedPreferences.getTotalCharacter() - sharedPreferences.getLastOffset())
+                        sharedPreferences.getLastOffsetCharacter() + (sharedPreferences.getTotalCharacter() - sharedPreferences.getLastOffsetCharacter())
                     requestCharacters(nameStartsWith, offset = characterLimit)
                 } else {
-                    requestCharacters(nameStartsWith, sharedPreferences.getLastOffset())
+                    requestCharacters(nameStartsWith, sharedPreferences.getLastOffsetCharacter())
                 }
             }
         }
@@ -103,7 +102,7 @@ class CharacterViewModel @Inject constructor(
                 observable = getCharactersUseCase(
                     nameStartsWith,
                     DEFAULT_LIMIT,
-                    sharedPreferences.getLastOffset()
+                    sharedPreferences.getLastOffsetCharacter()
                 ),
                 successHandler = { response ->
 
@@ -115,7 +114,7 @@ class CharacterViewModel @Inject constructor(
                         if (localCharacters.count() + DEFAULT_LIMIT <= MAX_DATABASE_SIZE) {
                             InsertCharacterDaoUseCase(response.apiResponse.entityList)
                         }
-                        sharedPreferences.saveLastOffset(offset + DEFAULT_LIMIT)
+                        sharedPreferences.saveLastOffsetCharacter(offset + DEFAULT_LIMIT)
                     }
 
                     _characterList.value =

@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), MainActivity.SearchListener {
+class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(),
+    MainActivity.SearchListener {
     override val viewModel: ComicViewModel by viewModels()
     private val comicsAdapter by lazy { ComicsAdapter() }
     private val args: ComicsFragmentArgs by navArgs()
@@ -42,6 +43,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
         setupUI()
         mainActivityObserver()
     }
+
     private fun mainActivityObserver() = (activity as? MainActivity)?.run {
         observe(searchQueryLiveData) { query ->
             query?.let {
@@ -54,6 +56,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
             }
         }
     }
+
     private fun collectObserver() = lifecycleScope.launch {
         with(viewModel) {
             getComics(args.origem, args.id, offset = initialOffset)
@@ -64,13 +67,13 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
                 binding.progressBarDetail.setVisible(isLoading)
             }
             observe(comicList) { result ->
-                result?.apiResponse?.let { comicModelData ->
-                    if (comicModelData.entityList.isNotEmpty()) {
+                result.let { comicModelData ->
+                    if (comicModelData.isNotEmpty()) {
                         if (initialOffset == 0) {
                             comicsAdapter.clearItems()
                         }
-                        comicsAdapter.addItems(comicModelData.entityList)
-                        totalItems = comicModelData.total
+                        comicsAdapter.addItems(comicModelData)
+                        totalItems = comicModelData.count()
                     }
                 }
             }
@@ -92,10 +95,8 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount / 2) && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
-                        initialOffset += 100
-                        binding.progressBarDetail.setVisible(false)
-                        viewModel.getComics(args.origem, args.id, offset = initialOffset)
+                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount - 3) && firstVisibleItemPosition >= 0) {
+                        viewModel.loadMoreComics()
                     }
                 }
             })
@@ -119,6 +120,7 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(), Mai
     private fun updateComicList(query: String? = null) {
         viewModel.getComics(titleStartsWith = query, offset = initialOffset)
     }
+
     override fun onSearchQueryChanged(query: String?) {
         query?.let { performSearch(it) }
     }

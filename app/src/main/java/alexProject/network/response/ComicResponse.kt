@@ -6,6 +6,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 @Entity(tableName = "comicModel")
 data class ComicResponse(
@@ -15,7 +17,7 @@ data class ComicResponse(
     @SerializedName("title")
     val title : String,
     @SerializedName("description")
-    val description : String,
+    val description : String? = "",
     @SerializedName("thumbnail")
     val thumbnailModel : ThumbnailModel,
     @SerializedName("characters")

@@ -178,7 +178,7 @@ class DetailsFragment :
             handleViewPager(
                 comicResponse.id,
                 comicResponse.title,
-                comicResponse.description,
+                comicResponse.description ?: "",
                 COMIC
             )
         } else {
