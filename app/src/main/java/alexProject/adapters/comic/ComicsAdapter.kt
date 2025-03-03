@@ -1,7 +1,7 @@
 package alexProject.adapters.comic
 
 import alexProject.R
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.databinding.ItemCardNameBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -19,15 +19,15 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     inner class ComicsViewHolder(val binding : ItemCardNameBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
-        override fun areItemsTheSame(oldItem : ComicModel, newItem : ComicModel) : Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ComicResponse>() {
+        override fun areItemsTheSame(oldItem : ComicResponse, newItem : ComicResponse) : Boolean {
             return oldItem.id == newItem.id
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem : ComicModel,
-            newItem : ComicModel
+            oldItem : ComicResponse,
+            newItem : ComicResponse
         ) : Boolean {
             return oldItem == newItem
         }
@@ -35,9 +35,9 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     }
 
     private val differ = AsyncListDiffer(this, differCallback)
-    private val comicMutableList: MutableList<ComicModel> = mutableListOf()
+    private val comicMutableList: MutableList<ComicResponse> = mutableListOf()
 
-    var comicList: List<ComicModel>
+    var comicList: List<ComicResponse>
         get() = differ.currentList
         set(value) {
             comicMutableList.clear()
@@ -56,7 +56,7 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
             )
         )
     }
-    fun addItems(newItems: List<ComicModel>) {
+    fun addItems(newItems: List<ComicResponse>) {
         val startPosition = comicMutableList.size
         comicMutableList.addAll(newItems)
         differ.submitList(comicMutableList)
@@ -70,9 +70,9 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private var onItemClickListener : ((ComicModel) -> Unit)? = null
+    private var onItemClickListener : ((ComicResponse) -> Unit)? = null
 
-    fun setOnClickListener(listener: (ComicModel) -> Unit) {
+    fun setOnClickListener(listener: (ComicResponse) -> Unit) {
         onItemClickListener = listener
     }
 

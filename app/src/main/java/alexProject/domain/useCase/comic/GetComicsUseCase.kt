@@ -2,7 +2,7 @@ package alexProject.domain.useCase.comic
 
 import alexProject.data.repository.ComicRepository
 import alexProject.network.response.AsyncResult
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.GenericResponse
 import alexProject.util.toAsyncResult
 import io.reactivex.Observable
@@ -13,7 +13,7 @@ class GetComicsUseCase @Inject constructor(val repository: ComicRepository) {
         nameStartsWith: String?,
         limit: Int,
         offset: Int?
-    ): Observable<AsyncResult<GenericResponse<ComicModel>>> {
+    ): Observable<AsyncResult<GenericResponse<ComicResponse>>> {
         return repository.getComics(nameStartsWith, limit, offset).toAsyncResult()
     }
 }

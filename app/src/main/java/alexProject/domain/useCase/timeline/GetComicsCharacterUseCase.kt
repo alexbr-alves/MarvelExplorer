@@ -2,7 +2,7 @@ package alexProject.domain.useCase.timeline
 
 import alexProject.data.repository.TimelineRepository
 import alexProject.network.response.AsyncResult
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.GenericResponse
 import alexProject.util.toAsyncResult
 import io.reactivex.Observable
@@ -15,7 +15,7 @@ class GetComicsCharacterUseCase  @Inject constructor(
         id: Int,
         limit: Int,
         offset: Int? = 0
-    ): Observable<AsyncResult<GenericResponse<ComicModel>>> {
+    ): Observable<AsyncResult<GenericResponse<ComicResponse>>> {
         return repository.getComicsCharacter(id, limit, offset).toAsyncResult()
     }
 }

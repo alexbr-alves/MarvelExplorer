@@ -3,7 +3,7 @@ package alexProject.util
 import alexProject.data.model.FavoriteModel
 import alexProject.data.model.ThumbnailModel
 import alexProject.data.model.SizeItens
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 
@@ -43,8 +43,8 @@ class Converts {
         )
     }
 
-    fun favoriteToComic(favoriteModel : FavoriteModel) : ComicModel {
-        return ComicModel(
+    fun favoriteToComic(favoriteModel : FavoriteModel) : ComicResponse {
+        return ComicResponse(
             favoriteModel.id,
             favoriteModel.title,
             favoriteModel.description,
@@ -79,18 +79,18 @@ class Converts {
         )
     }
 
-    fun comicToFavorite(comicModel : ComicModel) : FavoriteModel {
+    fun comicToFavorite(comicResponse : ComicResponse) : FavoriteModel {
         return FavoriteModel(
-            comicModel.id,
-            comicModel.title,
-            comicModel.description ?: "",
+            comicResponse.id,
+            comicResponse.title,
+            comicResponse.description ?: "",
             Constants.COMIC,
             ThumbnailModel(
-                comicModel.thumbnailModel.path,
-                comicModel.thumbnailModel.extension
+                comicResponse.thumbnailModel.path,
+                comicResponse.thumbnailModel.extension
             ),
-            comicModel.characters.available ?: 0,
-            comicModel.events.available ?: 0
+            comicResponse.characters.available ?: 0,
+            comicResponse.events.available ?: 0
         )
     }
 

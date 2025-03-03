@@ -2,7 +2,7 @@ package alexProject.util
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 
@@ -27,7 +27,7 @@ object Constants {
     const val VERIFIED = "verified"
     const val NOT_VERIFIED = "not_verified"
 
-    val COMIC_INVALID = ComicModel(
+    val COMIC_INVALID = ComicResponse(
         id = 0,
         title = "",
         description = "",

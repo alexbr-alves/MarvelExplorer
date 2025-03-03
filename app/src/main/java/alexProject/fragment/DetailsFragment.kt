@@ -4,7 +4,7 @@ import alexProject.R
 import alexProject.activity.MainActivity
 import alexProject.adapters.character.DetailsCharacterAdapter
 import alexProject.data.model.FavoriteModel
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.CharacterResponse
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentDetailsBinding
@@ -35,7 +35,7 @@ class DetailsFragment :
     override val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
     private lateinit var characterResponse: CharacterResponse
-    private lateinit var comicModel: ComicModel
+    private lateinit var comicResponse: ComicResponse
     private lateinit var eventModel: EventModel
     private var viewPager2: ViewPager2? = null
     private lateinit var favoriteModel: FavoriteModel
@@ -49,7 +49,7 @@ class DetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         characterResponse = args.character
-        comicModel = args.comic
+        comicResponse = args.comic
         eventModel = args.event
         favoriteModel = getFavorite()
         viewModel.searchFavorite(favoriteModel.id)
@@ -67,10 +67,10 @@ class DetailsFragment :
     }
 
     private fun getFavorite(): FavoriteModel {
-        if (characterResponse == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
+        if (characterResponse == CHARACTER_INVALID && comicResponse == COMIC_INVALID) {
             return converts.eventToFavorite(eventModel)
         } else if (characterResponse == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
-            return converts.comicToFavorite(comicModel)
+            return converts.comicToFavorite(comicResponse)
         } else {
             return converts.characterToFavorite(characterResponse)
         }
@@ -78,7 +78,7 @@ class DetailsFragment :
 
     private fun handleToolbar() {
         val toolbarTitle =
-            if (characterResponse == CHARACTER_INVALID && comicModel == COMIC_INVALID) {
+            if (characterResponse == CHARACTER_INVALID && comicResponse == COMIC_INVALID) {
                 getString(R.string.title_fragment_event)
             } else if (characterResponse == CHARACTER_INVALID && eventModel == EVENT_INVALID) {
                 getString(R.string.title_fragment_comic)
@@ -103,14 +103,14 @@ class DetailsFragment :
                 eventModel.characters.available,
                 eventModel.comics.available
             )
-        } else if (comicModel != COMIC_INVALID) {
+        } else if (comicResponse != COMIC_INVALID) {
             handleBadge(
                 tab,
                 badge,
                 getString(R.string.title_fragment_characters),
                 getString(R.string.title_fragment_event),
-                comicModel.characters.available,
-                comicModel.events.available
+                comicResponse.characters.available,
+                comicResponse.events.available
             )
         } else {
             handleBadge(
@@ -174,11 +174,11 @@ class DetailsFragment :
                 eventModel.description,
                 EVENT
             )
-        } else if (comicModel != COMIC_INVALID) {
+        } else if (comicResponse != COMIC_INVALID) {
             handleViewPager(
-                comicModel.id,
-                comicModel.title,
-                comicModel.description,
+                comicResponse.id,
+                comicResponse.title,
+                comicResponse.description,
                 COMIC
             )
         } else {
@@ -255,10 +255,10 @@ class DetailsFragment :
                 eventModel.thumbnailModel.path,
                 eventModel.thumbnailModel.extension
             )
-        } else if (comicModel != COMIC_INVALID) {
+        } else if (comicResponse != COMIC_INVALID) {
             loadModel(
-                comicModel.thumbnailModel.path,
-                comicModel.thumbnailModel.extension
+                comicResponse.thumbnailModel.path,
+                comicResponse.thumbnailModel.extension
             )
         } else {
             loadModel(

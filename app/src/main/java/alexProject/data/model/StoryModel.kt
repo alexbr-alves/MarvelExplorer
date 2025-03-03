@@ -1,10 +1,10 @@
 package alexProject.data.model
 
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 
 data class StoryModel(
     val id: Int,
     val thumbnailModel: ThumbnailModel,
     val name: String,
-    val comics: List<ComicModel>,
+    val comics: List<ComicResponse>,
 )

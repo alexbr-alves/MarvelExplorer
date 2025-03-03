@@ -2,22 +2,14 @@ package alexProject.network.response
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "comicModel")
 data class ComicResponse(
-    @SerializedName("data")
-    val apiResponse : ComicModelData
-) : Serializable
-
-data class ComicModelData(
-    @SerializedName("total")
-    val total: Int,
-    @SerializedName("results")
-    val entityList : List<ComicModel>
-) : Serializable
-
-data class ComicModel(
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id : Int,
     @SerializedName("title")

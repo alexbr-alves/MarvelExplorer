@@ -3,7 +3,7 @@ package alexProject.viewModel.comics
 
 import alexProject.domain.useCase.comic.GetComicCharactersUseCase
 import alexProject.domain.useCase.comic.GetComicEventsUseCase
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
 import alexProject.util.Constants
@@ -17,7 +17,7 @@ class ComicsViewPagerViewModel @Inject constructor(
     private val getComicCharactersUseCase: GetComicCharactersUseCase
 ) : MarvelViewModel() {
 
-    val comicList = SingleLiveEvent<GenericResponse<ComicModel>>()
+    val comicList = SingleLiveEvent<GenericResponse<ComicResponse>>()
 
 
     fun getComics(characterId: Int, origin: String) {

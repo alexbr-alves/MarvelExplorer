@@ -1,6 +1,6 @@
 package alexProject.adapters.comic
 
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.databinding.LayoutMiniCardsBinding
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
@@ -17,16 +17,16 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
     inner class ComicViewHolder(val binding : LayoutMiniCardsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
+    private val differCallback = object : DiffUtil.ItemCallback<ComicResponse>() {
 
-        override fun areItemsTheSame(oldItem : ComicModel, newItem : ComicModel) : Boolean {
+        override fun areItemsTheSame(oldItem : ComicResponse, newItem : ComicResponse) : Boolean {
             return true
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem : ComicModel,
-            newItem : ComicModel
+            oldItem : ComicResponse,
+            newItem : ComicResponse
         ) : Boolean {
             return oldItem.id == newItem.id &&
                     oldItem.title == newItem.title &&
@@ -39,7 +39,7 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var comics : List<ComicModel>
+    var comics : List<ComicResponse>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -55,9 +55,9 @@ class ComicDetailsAdapter : RecyclerView.Adapter<ComicDetailsAdapter.ComicViewHo
         )
     }
 
-    private var onItemClickListener : ((ComicModel) -> Unit)? = null
+    private var onItemClickListener : ((ComicResponse) -> Unit)? = null
 
-    fun setOnClickListener(listener : (ComicModel) -> Unit) {
+    fun setOnClickListener(listener : (ComicResponse) -> Unit) {
         onItemClickListener = listener
     }
 

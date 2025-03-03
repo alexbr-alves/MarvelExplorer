@@ -7,7 +7,7 @@ import alexProject.data.model.ThumbnailModel
 import alexProject.domain.useCase.timeline.GetComicsCharacterUseCase
 import alexProject.domain.useCase.timeline.GetComicsUseCase
 import alexProject.domain.useCase.timeline.GetStoryUseCase
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
 import androidx.lifecycle.viewModelScope
@@ -23,8 +23,8 @@ class TimelineViewModel @Inject constructor(
     private val getStoryUseCase: GetStoryUseCase
 ) : MarvelViewModel() {
 
-    val listItems = SingleLiveEvent<GenericResponse<ComicModel>>()
-    val listComics = SingleLiveEvent<List<ComicModel>>()
+    val listItems = SingleLiveEvent<GenericResponse<ComicResponse>>()
+    val listComics = SingleLiveEvent<List<ComicResponse>>()
     val listStoryComics = SingleLiveEvent<StoryModelData>()
 
     val storyList = SingleLiveEvent<List<FavoriteModel>>()
