@@ -1,5 +1,7 @@
 package alexProject.data.model
 
+import alexProject.network.response.CharacterResponse
+import alexProject.network.response.ComicResponse
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -23,5 +25,7 @@ data class FavoriteModel(
     @SerializedName("item2")
     val item2 : Int,
     @SerializedName("insertionTime")
-    val insertionTime: Long? = System.currentTimeMillis()
+    val insertionTime: Long? = System.currentTimeMillis(),
+    @SerializedName("list")
+    var list : List<ComicResponse>? = emptyList()
 ) : Serializable

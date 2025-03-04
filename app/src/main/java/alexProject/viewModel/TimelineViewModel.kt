@@ -30,15 +30,21 @@ class TimelineViewModel @Inject constructor(
     val storyList = SingleLiveEvent<List<FavoriteModel>>()
 
     fun getStory() = viewModelScope.launch {
+        val storyComics: MutableList<StoryModel> = mutableListOf()
         getStoryUseCase().collectLatest { characters ->
-            val idToThumbnailMap: MutableMap<Int, Pair<ThumbnailModel, String>> = mutableMapOf()
             if (characters.isNotEmpty()) {
                 storyList.value = characters
-                characters.forEach { result ->
-                    idToThumbnailMap[result.id] = Pair(result.thumbnailModel, result.title)
+                characters.forEach {
+                        val storyModel = StoryModel(
+                            id = it.id,
+                            thumbnailModel = it.thumbnailModel,
+                            name = it.title,
+                            comics = it.list ?: emptyList()
+                        )
+                        storyComics.add(storyModel)
                 }
-                fetchComicsForIds(idToThumbnailMap)
             }
+            listStoryComics.value = StoryModelData(storyComics)
         }
     }
 

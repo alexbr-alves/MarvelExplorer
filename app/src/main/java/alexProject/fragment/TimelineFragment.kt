@@ -105,4 +105,11 @@ class TimelineFragment :
         container: ViewGroup?
     ): FragmentTimelineBinding =
         FragmentTimelineBinding.inflate(inflater, container, false)
+
+    override fun onResume() {
+        super.onResume()
+        if (storyAdapter.itemCount != 0) {
+            binding.recycleStorys.setVisible()
+        }
+    }
 }
