@@ -29,4 +29,11 @@ class TimelineRepositoryImpl @Inject constructor(
     override fun getStory(): Flow<List<FavoriteModel>> {
         return dao.getStory()
     }
+
+    override fun getComicTimelineDao(): List<ComicResponse> =
+        dao.getComicTimeline()
+
+    override fun insertComicTimelineDao(comic: List<ComicResponse>) =
+        dao.insertComicTimeline(comic)
+
 }
