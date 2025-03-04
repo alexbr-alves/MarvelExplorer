@@ -110,7 +110,7 @@ interface ServiceApi {
     @GET("comics")
     fun getComicTimeline(
         @Query("orderBy") orderBy: String = "-modified",
-        @Query("limit") limit: Int = 60,
+        @Query("limit") limit: Int,
         @Query("offset") offset: Int = 0,
     ): Observable<GenericResponse<ComicResponse>>
 

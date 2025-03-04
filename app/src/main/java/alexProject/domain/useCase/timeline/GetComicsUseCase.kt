@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetComicsUseCase @Inject constructor(
     private val repository: TimelineRepository
 ) {
-    operator fun invoke() = repository.getComics().toAsyncResult()
+    operator fun invoke(limit: Int) = repository.getComics(limit).toAsyncResult()
 }

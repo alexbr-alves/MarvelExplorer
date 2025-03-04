@@ -21,5 +21,7 @@ data class ComicTimelineResponse(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("events")
-    val events : SizeItens
+    val events : SizeItens,
+    @SerializedName("modified")
+    val modified : String? = ""
 ) : Serializable

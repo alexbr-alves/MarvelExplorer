@@ -11,6 +11,7 @@ import alexProject.domain.useCase.timeline.GetStoryUseCase
 import alexProject.domain.useCase.timeline.InsertComicTimelineDaoUseCase
 import alexProject.network.response.ComicResponse
 import alexProject.state.SingleLiveEvent
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -56,11 +57,38 @@ class TimelineViewModel @Inject constructor(
         val localComic = withContext(Dispatchers.IO) {
             getComicTimelineDaoUseCase()
         }
+        Log.d("AlexBrito", "localComic : ${localComic}")
         if (localComic.isNotEmpty()) {
-            listComics.value = localComic
+            viewModelScope.launch {
+                handleObservable(
+                    observable = getComicsUseCase(limit = 1),
+                    successHandler = {
+                        Log.d("AlexBrito", "data : ${localComic[0].id}")
+                        Log.d("AlexBrito", "api : ${it.apiResponse.entityList[0].id}")
+                        if (localComic[0].id == it.apiResponse.entityList[0].id) {
+                            viewModelScope.launch {
+                                listComics.value = localComic
+                            }
+                        } else {
+                            handleObservable(
+                                observable = getComicsUseCase(60),
+                                successHandler = { response ->
+                                    viewModelScope.launch {
+                                        withContext(Dispatchers.IO) {
+                                            insertComicTimelineDaoUseCase(response.apiResponse.entityList)
+                                        }
+                                    }
+                                    listComics.value = response.apiResponse.entityList
+                                }
+                            )
+                        }
+                    }
+                )
+            }
+
         } else {
             handleObservable(
-                observable = getComicsUseCase(),
+                observable = getComicsUseCase(60),
                 successHandler = { response ->
                     viewModelScope.launch {
                         withContext(Dispatchers.IO) {

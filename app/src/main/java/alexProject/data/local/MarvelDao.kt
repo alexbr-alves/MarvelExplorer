@@ -44,7 +44,7 @@ interface MarvelDao {
     fun insertComic(comic: List<ComicResponse>)
 
     //Comic Timeline
-    @Query("SELECT * FROM comicTimeline")
+    @Query("SELECT * FROM comicTimeline ORDER BY modified DESC")
     fun getComicTimeline(): List<ComicResponse>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

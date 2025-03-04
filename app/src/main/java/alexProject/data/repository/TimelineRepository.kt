@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 
 interface TimelineRepository {
-    fun getComics() : Observable<GenericResponse<ComicResponse>>
+    fun getComics(limit: Int) : Observable<GenericResponse<ComicResponse>>
     fun getComicsCharacter(id: Int, limit: Int, offset: Int?) : Observable<GenericResponse<ComicResponse>>
     fun getStory() : Flow<List<FavoriteModel>>
     fun getComicTimelineDao(): List<ComicResponse>

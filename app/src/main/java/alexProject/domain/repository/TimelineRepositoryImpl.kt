@@ -15,8 +15,8 @@ class TimelineRepositoryImpl @Inject constructor(
     private val api: ServiceApi,
     private val dao: MarvelDao
 ) : TimelineRepository {
-    override fun getComics(): Observable<GenericResponse<ComicResponse>> {
-        return api.getComicTimeline()
+    override fun getComics(limit: Int): Observable<GenericResponse<ComicResponse>> {
+        return api.getComicTimeline(limit = limit)
     }
 
     override fun getComicsCharacter(
@@ -46,7 +46,8 @@ class TimelineRepositoryImpl @Inject constructor(
                 description = response.description,
                 thumbnailModel = response.thumbnailModel,
                 characters = response.characters,
-                events = response.events
+                events = response.events,
+                modified = response.modified
             )
         }
     }

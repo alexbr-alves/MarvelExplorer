@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+
 @Entity(tableName = "comicModel")
 data class ComicResponse(
     @PrimaryKey(autoGenerate = true)
@@ -20,5 +21,7 @@ data class ComicResponse(
     @SerializedName("characters")
     val characters : SizeItens,
     @SerializedName("events")
-    val events : SizeItens
+    val events : SizeItens,
+    @SerializedName("modified")
+    val modified : String? = ""
 ) : Serializable
