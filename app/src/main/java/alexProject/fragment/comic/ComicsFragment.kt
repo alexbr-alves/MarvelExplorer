@@ -69,9 +69,6 @@ class ComicsFragment : BaseFragment<FragmentComicBinding, ComicViewModel>(),
             observe(comicList) { result ->
                 result.let { comicModelData ->
                     if (comicModelData.isNotEmpty()) {
-                        if (initialOffset == 0) {
-                            comicsAdapter.clearItems()
-                        }
                         comicsAdapter.addItems(comicModelData)
                         totalItems = comicModelData.count()
                     }

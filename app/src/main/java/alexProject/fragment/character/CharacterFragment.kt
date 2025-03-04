@@ -62,9 +62,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         observe(characterList) { result ->
             result.let { character ->
                 if (character.isNotEmpty()) {
-                    if (initialOffset == 0) {
-                        characterAdapter.clearItems()
-                    }
                     characterAdapter.addItems(character)
                     totalItems = character.count()
                 }
