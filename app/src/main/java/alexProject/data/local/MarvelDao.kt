@@ -3,6 +3,7 @@ package alexProject.data.local
 import alexProject.data.model.FavoriteModel
 import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicResponse
+import alexProject.network.response.ComicTimelineResponse
 import alexProject.network.response.GenericResponse
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -45,9 +46,9 @@ interface MarvelDao {
     fun insertComic(comic: List<ComicResponse>)
 
     //Comic Timeline
-    @Query("SELECT * FROM comicTimeline ORDER BY title")
+    @Query("SELECT * FROM comicTimeline")
     fun getComicTimeline(): List<ComicResponse>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComicTimeline(comic: List<ComicResponse>)
+    fun insertComicTimeline(comic: List<ComicTimelineResponse>)
 }

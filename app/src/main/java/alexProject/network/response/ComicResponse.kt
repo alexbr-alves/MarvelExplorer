@@ -10,7 +10,7 @@ import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
 @Entity(tableName = "comicModel")
-open class ComicResponse(
+data class ComicResponse(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id : Int,
@@ -25,13 +25,3 @@ open class ComicResponse(
     @SerializedName("events")
     val events : SizeItens
 ) : Serializable
-
-@Entity(tableName = "comicTimeline")
-class ComicTimelineResponse(
-    id: Int,
-    title: String,
-    description: String?,
-    thumbnailModel: ThumbnailModel,
-    characters: SizeItens,
-    events: SizeItens
-) : ComicResponse(id, title, description, thumbnailModel, characters, events)

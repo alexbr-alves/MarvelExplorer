@@ -74,9 +74,9 @@ class TimelineFragment :
             observe(onError) { onError ->
                 (activity as MainActivity).showError(onError.message)
             }
-            observe(listItems) { result ->
-                result?.apiResponse?.let {
-                    timelineAdapter.timelineList = it.entityList
+            observe(listComics) { result ->
+                result?.let {
+                    timelineAdapter.timelineList = it
                     binding.recycleStorys.setVisible()
                 }
             }
