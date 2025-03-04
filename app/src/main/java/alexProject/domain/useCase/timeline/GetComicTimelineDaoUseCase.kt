@@ -1,7 +1,5 @@
 package alexProject.domain.useCase.timeline
 
-import alexProject.data.repository.CharacterRepository
-import alexProject.data.repository.ComicRepository
 import alexProject.data.repository.TimelineRepository
 import javax.inject.Inject
 

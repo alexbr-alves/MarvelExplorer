@@ -1,6 +1,5 @@
 package alexProject.data.model
 
-import alexProject.network.response.CharacterResponse
 import alexProject.network.response.ComicResponse
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -7,7 +7,6 @@ import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.data.model.tv_show.TvShowResponseData
 import alexProject.databinding.FragmentTvShowBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.tvShow.TvShowViewModel

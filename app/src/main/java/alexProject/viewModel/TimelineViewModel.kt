@@ -10,7 +10,6 @@ import alexProject.domain.useCase.timeline.GetComicsUseCase
 import alexProject.domain.useCase.timeline.GetStoryUseCase
 import alexProject.domain.useCase.timeline.InsertComicTimelineDaoUseCase
 import alexProject.network.response.ComicResponse
-import alexProject.network.response.GenericResponse
 import alexProject.state.SingleLiveEvent
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

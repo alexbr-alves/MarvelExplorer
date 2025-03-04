@@ -1,7 +1,6 @@
 package alexProject.fragment
 
 import alexProject.activity.MainActivity
-import alexProject.data.model.MenuHomeModel
 import alexProject.databinding.FragmentHomeBinding
 import alexProject.util.Constants
 import alexProject.viewModel.HomeViewModel

@@ -11,19 +11,12 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 
 fun Fragment.toast(message : String, duration : Int = Toast.LENGTH_LONG) {
     Toast.makeText(

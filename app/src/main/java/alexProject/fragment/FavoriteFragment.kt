@@ -2,26 +2,22 @@ package alexProject.fragment
 
 import alexProject.adapters.FavoriteAdapter
 import alexProject.databinding.FragmentFavoriteBinding
-import alexProject.viewModel.FavoriteViewModel
-import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
 import alexProject.util.setInvisible
 import alexProject.util.setVisible
+import alexProject.viewModel.FavoriteViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteFragment :

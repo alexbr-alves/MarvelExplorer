@@ -5,14 +5,12 @@ import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
 import alexProject.data.model.StoryModelData
 import alexProject.databinding.FragmentTimelineBinding
-import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

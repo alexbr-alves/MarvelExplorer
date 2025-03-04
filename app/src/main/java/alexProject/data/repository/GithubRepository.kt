@@ -5,7 +5,6 @@ import alexProject.data.model.group.GroupModelResponse
 import alexProject.data.model.movies.MoviesModelResponse
 import alexProject.data.model.tv_show.TvShowModelResponse
 import io.reactivex.Observable
-import retrofit2.Response
 
 interface GithubRepository {
     fun getGames(): Observable<GamesModelResponse>

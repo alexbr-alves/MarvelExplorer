@@ -7,7 +7,6 @@ import alexProject.data.model.tv_show.TvShowModelResponse
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.GithubRepository
 import io.reactivex.Observable
-import retrofit2.Response
 import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(

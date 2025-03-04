@@ -2,13 +2,9 @@ package alexProject.viewModel.group
 
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.domain.useCase.GetGroupUseCase
-import alexProject.state.ResourceState
 import alexProject.state.SingleLiveEvent
 import alexProject.viewModel.MarvelViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
