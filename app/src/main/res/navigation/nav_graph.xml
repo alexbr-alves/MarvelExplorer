@@ -18,7 +18,7 @@
             app:destination="@id/detailsFragment" />
         <argument
             android:name="comic"
-            app:argType="alexProject.network.response.ComicModel" />
+            app:argType="alexProject.network.response.ComicResponse" />
         <argument
             android:name="event"
             app:argType="alexProject.data.model.event.EventModel" />

@@ -5,7 +5,6 @@ import alexProject.adapters.event.EventAdapter
 import alexProject.data.model.event.EventModel
 import alexProject.databinding.FragmentEventBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.observe
 import alexProject.util.setGone
@@ -13,8 +12,6 @@ import alexProject.util.setVisible
 import alexProject.viewModel.event.EventViewModel
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

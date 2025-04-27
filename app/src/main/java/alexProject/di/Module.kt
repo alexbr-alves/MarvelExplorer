@@ -1,5 +1,6 @@
 package alexProject.di
 
+import alexProject.data.SharedPreferences
 import alexProject.data.local.MarvelDatabase
 import alexProject.data.remote.ServiceApi
 import alexProject.util.Constants.APIKEY
@@ -31,6 +32,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object Module {
+
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return SharedPreferences(context)
+    }
 
     @Singleton
     @Provides

@@ -1,7 +1,7 @@
 
 package alexProject.adapters
 
-import alexProject.network.response.ComicModel
+import alexProject.network.response.ComicResponse
 import alexProject.databinding.LayoutTimelineBinding
 import alexProject.util.Constants
 import alexProject.util.limitDescription
@@ -20,15 +20,15 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
     inner class TimelineViewHolder(val binding: LayoutTimelineBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<ComicModel>() {
-        override fun areItemsTheSame(oldItem: ComicModel, newItem: ComicModel): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ComicResponse>() {
+        override fun areItemsTheSame(oldItem: ComicResponse, newItem: ComicResponse): Boolean {
             return true
         }
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem: ComicModel,
-            newItem: ComicModel
+            oldItem: ComicResponse,
+            newItem: ComicResponse
         ): Boolean {
             return (oldItem.id == newItem.id) &&
                     (oldItem.description == newItem.description) &&
@@ -40,7 +40,7 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var timelineList: List<ComicModel>
+    var timelineList: List<ComicResponse>
         get() = differ.currentList
         set(value) = differ.submitList(value.filter {
             it.thumbnailModel.path != Constants.IMAGE_NOT_AVAILABLE
@@ -83,9 +83,9 @@ class TimelineAdapter : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>
         }
     }
 
-    private var onItemClickListener: ((ComicModel) -> Unit)? = null
+    private var onItemClickListener: ((ComicResponse) -> Unit)? = null
 
-    fun setOnClickListener(listener: (ComicModel) -> Unit) {
+    fun setOnClickListener(listener: (ComicResponse) -> Unit) {
         onItemClickListener = listener
     }
 }

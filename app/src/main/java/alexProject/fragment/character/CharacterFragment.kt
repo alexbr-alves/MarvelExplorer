@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,21 +52,18 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
         }
         observe(closedSearchLiveData) { isClosed ->
             if (isClosed) {
-                updateCharacterList()
+                viewModel.getCharacter(args.origem, args.id, offset = initialOffset)
             }
         }
     }
 
     private fun collectObserve() = with(viewModel) {
-        fetch(args.origem, args.id, offset = initialOffset)
+        getCharacter(args.origem, args.id, offset = initialOffset)
         observe(characterList) { result ->
-            result.apiResponse.let { character ->
-                if (character.entityList.isNotEmpty()) {
-                    if (initialOffset == 0) {
-                        characterAdapter.clearItems()
-                    }
-                    characterAdapter.addItems(character.entityList)
-                    totalItems = character.total
+            result.let { character ->
+                if (character.isNotEmpty()) {
+                    characterAdapter.addItems(character)
+                    totalItems = character.count()
                 }
             }
         }
@@ -93,29 +89,30 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding, CharacterViewMo
 
     private fun setupRecycleView() = with(binding) {
         rvCharacterList.apply {
-            adapter = characterAdapter
-            layoutManager = LinearLayoutManager(requireContext())
             layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = characterAdapter
+
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val layoutManager = recyclerView.layoutManager as GridLayoutManager
                     val visibleItemCount = layoutManager.childCount
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount / 2) && firstVisibleItemPosition >= 0 && totalItems > initialOffset + 100) {
-                        initialOffset += 100
-                        viewModel.fetch(args.origem, args.id, offset = initialOffset)
+                    if ((visibleItemCount + firstVisibleItemPosition) >= (totalItemCount - 3) && firstVisibleItemPosition >= 0) {
+                        viewModel.loadMoreCharacters()
                     }
                 }
             })
         }
     }
 
-    private fun updateCharacterList(query: String? = null) {
-        viewModel.fetch(nameStartsWith = query, offset = initialOffset)
+
+
+    private fun updateCharacterList(query: String) {
+        viewModel.getCharactersByName(query = query)
     }
 
     override fun onSearchQueryChanged(query: String?) {

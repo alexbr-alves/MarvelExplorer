@@ -4,16 +4,11 @@ package alexProject.adapters.character
 import alexProject.R
 import alexProject.network.response.CharacterResponse
 import alexProject.databinding.ItemCardNameBinding
-import alexProject.util.Constants.IMAGE_NOT_AVAILABLE
 import alexProject.util.limitDescription
 import alexProject.util.loadImage
 import alexProject.util.removeParenthesesOnTitle
-import alexProject.util.setGone
-import alexProject.util.setVisible
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil

@@ -11,8 +11,19 @@ interface CharacterRepository {
         offset: Int? = 0
     ): Observable<GenericResponse<CharacterResponse>>
 
-    fun getCharacterEvent(eventId: Int, limit: Int = 100, offset: Int? = 0) : Observable<GenericResponse<CharacterResponse>>
+    fun getCharacterEvent(
+        eventId: Int,
+        limit: Int = 100,
+        offset: Int? = 0
+    ): Observable<GenericResponse<CharacterResponse>>
 
-    fun getCharacterComics(comicId: Int, limit: Int = 100, offset: Int? = 0) : Observable<GenericResponse<CharacterResponse>>
+    fun getCharacterComics(
+        comicId: Int,
+        limit: Int = 100,
+        offset: Int? = 0
+    ): Observable<GenericResponse<CharacterResponse>>
 
+    fun getCharacterDao(): List<CharacterResponse>
+
+    fun insertCharacterDao(character: List<CharacterResponse>): Unit
 }

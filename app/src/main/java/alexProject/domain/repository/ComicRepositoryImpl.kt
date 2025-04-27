@@ -1,11 +1,14 @@
 package alexProject.domain.repository
 
+import alexProject.data.local.MarvelDao
 import alexProject.data.remote.ServiceApi
 import alexProject.data.repository.ComicRepository
+import alexProject.network.response.ComicResponse
 import javax.inject.Inject
 
 class ComicRepositoryImpl @Inject constructor(
-    private val api: ServiceApi
+    private val api: ServiceApi,
+    private val dao: MarvelDao
 ) : ComicRepository {
     override fun getComics(
         titleStartsWith: String?,
@@ -20,4 +23,9 @@ class ComicRepositoryImpl @Inject constructor(
     override fun getComicsCharacter(characterId: Int, limit: Int?, offset: Int?) =
         api.getComicsCharacter(characterId, limit, offset)
 
+    override fun getComicDao(): List<ComicResponse> =
+        dao.getComic()
+
+    override fun insertComicDao(comic: List<ComicResponse>) =
+        dao.insertComic(comic)
 }

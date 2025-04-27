@@ -1,1 +1,5 @@
 /build
+.gradle
+# Ignorar arquivos da IDE
+.idea/
+*.iml

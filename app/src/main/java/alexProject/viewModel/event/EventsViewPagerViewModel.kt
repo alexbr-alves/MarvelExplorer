@@ -4,7 +4,6 @@ import alexProject.data.model.event.EventModel
 import alexProject.domain.useCase.events.GetEventsCharacterUseCase
 import alexProject.domain.useCase.events.GetEventsComicsUseCase
 import alexProject.domain.useCase.events.GetEventsUseCase
-import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.viewModel.MarvelViewModel
 import androidx.lifecycle.MutableLiveData

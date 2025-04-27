@@ -5,14 +5,12 @@ import alexProject.adapters.StoryAdapter
 import alexProject.adapters.TimelineAdapter
 import alexProject.data.model.StoryModelData
 import alexProject.databinding.FragmentTimelineBinding
-import alexProject.state.ResourceState
 import alexProject.util.Constants
 import alexProject.util.Converts
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.TimelineViewModel
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -74,9 +71,9 @@ class TimelineFragment :
             observe(onError) { onError ->
                 (activity as MainActivity).showError(onError.message)
             }
-            observe(listItems) { result ->
-                result?.apiResponse?.let {
-                    timelineAdapter.timelineList = it.entityList
+            observe(listComics) { result ->
+                result?.let {
+                    timelineAdapter.timelineList = it
                     binding.recycleStorys.setVisible()
                 }
             }
@@ -105,4 +102,11 @@ class TimelineFragment :
         container: ViewGroup?
     ): FragmentTimelineBinding =
         FragmentTimelineBinding.inflate(inflater, container, false)
+
+    override fun onResume() {
+        super.onResume()
+        if (storyAdapter.itemCount != 0) {
+            binding.recycleStorys.setVisible()
+        }
+    }
 }

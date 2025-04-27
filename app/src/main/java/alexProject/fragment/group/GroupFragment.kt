@@ -5,7 +5,6 @@ import alexProject.adapters.group.GroupAdapter
 import alexProject.data.model.group.GroupModelResponse
 import alexProject.databinding.FragmentGroupBinding
 import alexProject.fragment.BaseFragment
-import alexProject.state.ResourceState
 import alexProject.util.observe
 import alexProject.util.setVisible
 import alexProject.viewModel.group.GroupViewModel

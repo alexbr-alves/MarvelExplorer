@@ -3,13 +3,9 @@ package alexProject.viewModel
 import alexProject.data.model.FavoriteModel
 import alexProject.domain.useCase.favorite.DeleteFavoriteUseCase
 import alexProject.domain.useCase.favorite.GetAllFatoritesUseCase
-import alexProject.state.ResourceState
 import alexProject.state.SingleLiveEvent
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject

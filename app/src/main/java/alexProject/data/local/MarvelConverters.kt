@@ -2,9 +2,12 @@ package alexProject.data.local
 
 import alexProject.data.model.SizeItens
 import alexProject.data.model.ThumbnailModel
+import alexProject.network.response.ComicResponse
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.Date
+
 
 class MarvelConverters {
 
@@ -35,4 +38,14 @@ class MarvelConverters {
         return Gson().fromJson(sizeItensString, SizeItens::class.java)
     }
 
+    @TypeConverter
+    fun fromString(value: String?): List<ComicResponse>? {
+        val listType = object : TypeToken<List<ComicResponse>>() {}.type
+        return value?.let { Gson().fromJson(it, listType) }
+    }
+
+    @TypeConverter
+    fun fromList(list: List<ComicResponse>?): String? {
+        return list?.let { Gson().toJson(it) }
+    }
 }

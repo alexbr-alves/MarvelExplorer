@@ -1,12 +1,11 @@
 package alexProject.activity
 
 import alexProject.R
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import alexProject.databinding.ActivitySplashBinding
 import alexProject.util.setFullScreenMode
 import android.content.Intent
-import android.widget.RelativeLayout
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
 class SplashActivity : AppCompatActivity() {
